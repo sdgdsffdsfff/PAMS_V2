@@ -1,6 +1,10 @@
 package com.skynet.pams.app.party.partydue.research.action;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +28,6 @@ import com.skynet.framework.services.db.dybeans.DynamicObject;
 import com.skynet.pams.app.party.service.PartyDueUseSuggestDetailService;
 import com.skynet.pams.app.party.service.PartyDueUseSuggestService;
 import com.skynet.pams.app.plan.service.PlanService;
-import com.skynet.pams.base.pojo.PartyDue;
 import com.skynet.pams.base.pojo.PartyDueUseSuggest;
 import com.skynet.pams.base.pojo.Plan;
 
@@ -54,6 +57,12 @@ public class PartyDueUseSuggestAction extends BaseAction {
 	@Ok("redirect:locate.action?runactkey=${obj.runactkey}")
 	public Map startplan(String planid, String flowdefid) throws Exception
 	{
+		HttpSession session = Mvcs.getHttpSession(true);
+		DynamicObject token = (DynamicObject)session.getAttribute(com.skynet.framework.spec.GlobalConstants.sys_login_token);
+		String loginname = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_user);
+		String userid = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_userid);
+		String username = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_username);
+		
 		Plan plan = planService.get(planid);
 		
 		Timestamp nowtime = new Timestamp(System.currentTimeMillis());
@@ -61,12 +70,9 @@ public class PartyDueUseSuggestAction extends BaseAction {
 		usesuggest.setId(UUIDGenerator.getInstance().getNextValue());
 		usesuggest.setCname(plan.getCname());
 		usesuggest.setCreatetime(nowtime);
-
-		HttpSession session = Mvcs.getHttpSession(true);
-		DynamicObject token = (DynamicObject)session.getAttribute(com.skynet.framework.spec.GlobalConstants.sys_login_token);
-		String loginname = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_user);
-		String userid = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_userid);
-		String username = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_username);
+		usesuggest.setCreater(loginname);
+		usesuggest.setCreatercname(username);
+		usesuggest.setCyear((new GregorianCalendar()).get(Calendar.YEAR));
 		
 		DynamicObject swapFlow = new DynamicObject();
 		swapFlow.setAttr(GlobalConstants.swap_coperatorid, userid);
@@ -216,14 +222,27 @@ public class PartyDueUseSuggestAction extends BaseAction {
 	{
 		HttpSession session = Mvcs.getHttpSession(true);
 		DynamicObject token = (DynamicObject)session.getAttribute(com.skynet.framework.spec.GlobalConstants.sys_login_token);
+		String loginname = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_user);
+		String username = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_username);		
 		String deptid = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_dept);
+		String deptname = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_deptname);
+		
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		DynamicObject ract = partydueusesuggestService.getWorkFlowEngine().getActManager()
 				.getRactService().locate(runactkey);
 		String id = ract.getFormatAttr("dataid");
 		String tableid = ract.getFormatAttr("tableid");
 		DynamicObject usesuggest = partydueusesuggestService.locate(id);
-		DynamicObject usesuggestdetail = partydueusesuggestdetailService.locateBy(Cnd.where("suggestid", "=", id).and("deptid", "=", deptid));		
+		DynamicObject usesuggestdetail = partydueusesuggestdetailService.locateBy(Cnd.where("suggestid", "=", id).and("deptid", "=", deptid));	
+		
+		usesuggestdetail.setAttr("deptid", deptid);
+		usesuggestdetail.setAttr("deptname", deptname);
+		usesuggestdetail.setAttr("suggester", loginname);
+		usesuggestdetail.setAttr("suggestercname", username);
+		usesuggestdetail.setAttr("suggesttime", sf.format(new Date()));
+		
+		
 		List<DynamicObject> usesuggestdetails = partydueusesuggestdetailService.findByCond(Cnd.where("suggestid", "=", id)); // 汇总意见
 		// 权限设置
 		set_author();
@@ -236,7 +255,8 @@ public class PartyDueUseSuggestAction extends BaseAction {
 		ro.put("runactkey", runactkey);
 		ro.put("usesuggest", usesuggest);
 		ro.put("usesuggestdetail", usesuggestdetail);
-		ro.put("usesuggestdetails", usesuggestdetails);		
+		ro.put("usesuggestdetails", usesuggestdetails);	
+		ro.put("ract", ract);
 		ro.put("routes", routes);
 	}
 	

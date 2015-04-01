@@ -171,7 +171,7 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 
 		// 创建流程数据
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		String workname = "[" + StringToolKit.formatText(entity.getCno()) + "]　" + StringToolKit.formatText(entity.getCname());
+		String workname = "[" + StringToolKit.formatText(entity.getCno()) + "]" + StringToolKit.formatText(entity.getCname());
 		
 		VCreate vo = new VCreate();
 		vo.flowdefid = swapFlow.getFormatAttr(GlobalConstants.swap_flowdefid);
@@ -181,6 +181,7 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 		vo.loginname = swapFlow.getFormatAttr(GlobalConstants.swap_coperatorloginname);
 		vo.username = swapFlow.getFormatAttr(GlobalConstants.swap_coperatorcname);
 		vo.workname = workname;
+		vo.cno = entity.getCno();
 		vo.planid = plan.getId();
 		
 		String runactkey = workFlowEngine.getFlowManager().create(vo);
@@ -191,14 +192,17 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 		Timestamp createtime = ract.getCreatetime();
 		
 		plan.setRunflowkey(runflowkey);
-		plan.setActualstartdate(createtime);
+		plan.setActualstartdate(createtime);	
 		plan.setState("执行");
+
 		sdao().update(plan);
 		
 		Plan subplan = sdao().fetch(Plan.class, Cnd.where("parentid","=",plan.getId()).and("flowdefid","=",flowdefid).and("actdefid","=",actdefid));
 		subplan.setRunflowkey(runflowkey);
 		subplan.setRunactkey(runactkey);
 		subplan.setActualstartdate(createtime);
+		subplan.setActualheader(vo.loginname);
+		subplan.setActualheadercname(vo.username);
 		sdao().update(subplan);
 
 		return runactkey;

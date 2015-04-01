@@ -1185,12 +1185,15 @@ public class ActManager {
         sql.append("   order by ordernum, cname ").append("\n");        
         sql.append("   ) ").append("\n");
         
-        sql.append("select temp.ownerctx, temp.cname, temp.ctype, temp.ordernum, gu.groupid organid, gu.groupname organname, gu.grouptype organtype  ");
-        sql.append("  from temp ");
-        sql.append("  left join t_sys_wfgroupuser gu ");
-        sql.append("    on temp.ownerctx = gu.loginname ");
-        sql.append(" where 1 = 1 ");
-        sql.append("   and gu.grouptype = 'DEPT' ");
+        sql.append("select gu.groupid organid, gu.groupname organname, org.internal orginternal, gu.grouptype organtype, temp.ownerctx, temp.cname, temp.ctype, temp.ordernum ").append("\n");
+        sql.append("  from temp ").append("\n");
+        sql.append("  left join t_sys_wfgroupuser gu ").append("\n");
+        sql.append("    on temp.ownerctx = gu.loginname ").append("\n");
+        sql.append("  left join t_sys_organ org ").append("\n");
+        sql.append("    on gu.groupid = org.id ").append("\n");
+        
+        sql.append(" where 1 = 1 ").append("\n");
+        sql.append("   and gu.grouptype = 'DEPT' ").append("\n");
         sql.append("  order by ordernum, cname ").append("\n");
 
         
@@ -1206,23 +1209,23 @@ public class ActManager {
         {
     		// 查询部门角色类型所有者
     		sql = new StringBuffer();
-            sql.append("select v.loginname ownerctx, v.name cname, v.ordernum, 'PERSON' ctype, org.id organid, org.cname organname, org.ctype organtype").append("\n");
+            sql.append("select org.id organid, org.cname organname, org.internal orginternal, org.ctype organtype, v.loginname ownerctx, v.name cname, v.ordernum, 'PERSON' ctype ").append("\n");
             sql.append("  from t_sys_organ org ").append("\n");          
-            sql.append("  left join ");
-            sql.append(" ( ");
-            sql.append(" select p.loginname, p.name, p.ordernum, gu.groupid, gu.groupname ");
+            sql.append("  left join ").append("\n");
+            sql.append(" ( ").append("\n");
+            sql.append(" select p.loginname, p.name, p.ordernum, gu.groupid, gu.groupname ").append("\n");
             sql.append("  from t_sys_wfperson p, t_sys_wfgroupuser gu, t_sys_wfgroupuser gr ").append("\n");
             sql.append(" where 1 = 1 ").append("\n");
             sql.append("   and p.loginname = gu.loginname ").append("\n");
             sql.append("   and p.loginname = gr.loginname ").append("\n");
             sql.append("   and gu.grouptype = 'DEPT'").append("\n");
             sql.append("   and gr.grouptype = 'ROLE'").append("\n");            
-            sql.append("   and gr.groupid = ").append(SQLParser.charValue(deptroles.get(i).getFormatAttr("ownerctx")));
+            sql.append("   and gr.groupid = ").append(SQLParser.charValue(deptroles.get(i).getFormatAttr("ownerctx"))).append("\n");
             sql.append(" ) v ").append("\n");        
-            sql.append("  on org.id = v.groupid ");
-            sql.append(" where 1 = 1 ");
-            sql.append("   and org.ctype = 'DEPT'");
-            
+            sql.append("  on org.id = v.groupid ").append("\n");
+            sql.append(" where 1 = 1 ").append("\n");
+            sql.append("   and org.ctype = 'DEPT'").append("\n");
+            sql.append(" order by org.internal, v.ordernum ").append("\n");
             List<DynamicObject> owners_deptrole = ractService.sdao().queryForList(sql.toString());
             if(owners_deptrole.size()>0)
             {
@@ -1264,26 +1267,27 @@ public class ActManager {
 			}
 		}
 
-		Map<String, DynamicObject> map = new HashMap(20);
+//		Map<String, DynamicObject> map = new HashMap(20);
+//
+//		for (int i = 0; i < owners.size(); i++)
+//		{
+//			DynamicObject c_owner = (DynamicObject) owners.get(i);
+//			String key = c_owner.getFormatAttr("ownerctx");
+//			map.put(key, c_owner);
+//		}
+//
+//		List<DynamicObject> n_owners = new ArrayList();
+//
+//		Iterator<String> iter = map.keySet().iterator();
+//
+//		while (iter.hasNext())
+//		{
+//			String key = (String) iter.next();
+//			n_owners.add(map.get(key));
+//		}
 
-		for (int i = 0; i < owners.size(); i++)
-		{
-			DynamicObject c_owner = (DynamicObject) owners.get(i);
-			String key = c_owner.getFormatAttr("ownerctx");
-			map.put(key, c_owner);
-		}
-
-		List<DynamicObject> n_owners = new ArrayList();
-
-		Iterator<String> iter = map.keySet().iterator();
-
-		while (iter.hasNext())
-		{
-			String key = (String) iter.next();
-			n_owners.add(map.get(key));
-		}
-
-		return n_owners;
+//		return n_owners;
+		return owners;
 	}
 	
 	// 签收

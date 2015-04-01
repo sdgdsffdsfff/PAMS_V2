@@ -41,30 +41,30 @@ public class BActService extends SkynetNameEntityService<BAct> {
 //	}
 	
 	
-	public String create(String runflowkey, String createtime, String flowdefid, String actdefid, String state, String priority, String dataid, String formid, String tableid, String handletype) throws Exception
-	{
-		String runactkey = UUIDGenerator.getInstance().getNextValue(); //String.valueOf(System.nanoTime()); ;
-
-		StringBuffer sql = new StringBuffer();
-		sql.append("insert into t_sys_wfract (runflowkey,runactkey,createtime,ccreatetime,flowdefid,actdefid,state,priority,dataid,formid,tableid,handletype) \n");
-		sql.append(" values(");
-		sql.append(SQLParser.charValueEnd(runflowkey));
-		sql.append(SQLParser.charValueEnd(runactkey));
-		sql.append(" sysdate, ");
-		sql.append(SQLParser.charValueEnd(createtime));
-		sql.append(SQLParser.charValueEnd(flowdefid));
-		sql.append(SQLParser.charValueEnd(actdefid));
-		sql.append(SQLParser.charValueEnd(state));
-		sql.append(" null, ");
-		sql.append(SQLParser.charValueEnd(dataid));
-		sql.append(SQLParser.charValueEnd(formid));
-		sql.append(SQLParser.charValueEnd(tableid));
-		sql.append(SQLParser.charValue(handletype));
-		sql.append(")");
-
-		dao().execute(Sqls.create(sql.toString()));
-		return runactkey;
-	}
+//	public String create(String runflowkey, String createtime, String flowdefid, String actdefid, String state, String priority, String dataid, String formid, String tableid, String handletype) throws Exception
+//	{
+//		String runactkey = UUIDGenerator.getInstance().getNextValue(); //String.valueOf(System.nanoTime()); ;
+//
+//		StringBuffer sql = new StringBuffer();
+//		sql.append("insert into t_sys_wfract (runflowkey,runactkey,createtime,ccreatetime,flowdefid,actdefid,state,priority,dataid,formid,tableid,handletype) \n");
+//		sql.append(" values(");
+//		sql.append(SQLParser.charValueEnd(runflowkey));
+//		sql.append(SQLParser.charValueEnd(runactkey));
+//		sql.append(" sysdate, ");
+//		sql.append(SQLParser.charValueEnd(createtime));
+//		sql.append(SQLParser.charValueEnd(flowdefid));
+//		sql.append(SQLParser.charValueEnd(actdefid));
+//		sql.append(SQLParser.charValueEnd(state));
+//		sql.append(" null, ");
+//		sql.append(SQLParser.charValueEnd(dataid));
+//		sql.append(SQLParser.charValueEnd(formid));
+//		sql.append(SQLParser.charValueEnd(tableid));
+//		sql.append(SQLParser.charValue(handletype));
+//		sql.append(")");
+//
+//		dao().execute(Sqls.create(sql.toString()));
+//		return runactkey;
+//	}
 
 	public DynamicObject select_bact_begin(String flowdefid) throws Exception {
 		String sql = " select a.id from t_sys_wfbact a \n" + "  where 1 = 1 \n"

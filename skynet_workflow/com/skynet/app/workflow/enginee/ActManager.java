@@ -140,6 +140,8 @@ public class ActManager {
 			update_new_ract_plan(acts_forward.get(i).getFormatAttr("runactkey"));
 		}
 		
+		update_rflow_plan(vo.runflowkey);
+		
 		for(int i=0;i<acts_forward.size();i++)
 		{
 			String runactkey_route = acts_forward.get(i).getFormatAttr("runactkey");
@@ -285,7 +287,7 @@ public class ActManager {
 		
 		// 检查当前并行活动子实例是否全部完成
 		// 全部完成则转发主活动实例
-		forward_sync_depts_sup(vo);
+		racts_forward.addAll(forward_sync_depts_sup(vo));
 		
 		return racts_forward;
 	}
@@ -325,13 +327,30 @@ public class ActManager {
 		RAct ract = ractService.get(runactkey);
 		String runflowkey = ract.getRunflowkey();
 		String actdefid = ract.getActdefid();
+		String handletype = ract.getHandletype();
 		// 查找流程对应的活动上级计划
 		DynamicObject plan = getRactService().sdao().queryForMap("select * from t_app_plan where 1 = 1 and runflowkey = " + SQLParser.charValue(runflowkey));
 		String planid = plan.getFormatAttr("id");
 		
 		// 更新新节点时间
-		int updates = getRactService().sdao().update("t_app_plan", Chain.make("actualenddate", ract.getCompletetime()), Cnd.where("parentid","=",planid).and("actdefid","=",actdefid));
-		System.out.println("update " + updates + " rows.");
+		// 普通节点，更新对应计划结束时间
+		// 多部门并行节点，最后一个人转发，方可更新对应计划结束时间。
+		if("多部门并行".equals(handletype))
+		{
+			String suprunactkey = ractService.locate(runactkey).getFormatAttr("suprunactkey");
+			int num_complete = ractService.sdao().count(RAct.class, Cnd.where("suprunactkey","=",suprunactkey).and("state", "=", DBFieldConstants.RACT_STATE_COMPLETED));
+			int num_subs = ractService.sdao().count(RAct.class, Cnd.where("suprunactkey","=",suprunactkey));
+			if(num_complete>=num_subs)
+			{
+				int updates = getRactService().sdao().update("t_app_plan", Chain.make("actualenddate", ract.getCompletetime()), Cnd.where("parentid","=",planid).and("actdefid","=",actdefid));
+				System.out.println("update " + updates + " rows.");			
+			}
+		}
+		else
+		{
+			int updates = getRactService().sdao().update("t_app_plan", Chain.make("actualenddate", ract.getCompletetime()), Cnd.where("parentid","=",planid).and("actdefid","=",actdefid));
+			System.out.println("update " + updates + " rows.");
+		}
 	}
 	
 	public void update_new_ract_plan(String runactkey) throws Exception
@@ -343,6 +362,7 @@ public class ActManager {
 		RFlow rflow = rflowService.get(runflowkey);
 		String planid = rflow.getPlanid();
 		String actdefid = ract.getActdefid();
+		String handletype = ract.getHandletype();
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select * from t_app_plan where 1 = 1 ");
@@ -350,14 +370,47 @@ public class ActManager {
 		sql.append(" and actdefid = ").append(SQLParser.charValue(actdefid));
 		DynamicObject subplan = ractService.sdao().queryForMap(sql.toString());
 		String subplanid = subplan.getFormatAttr("id");
+		
+		sql = new StringBuffer();
+		sql.append(" select * from t_sys_wfractowner where 1 = 1 ");
+		sql.append(" and runactkey = ").append(SQLParser.charValue(runactkey));
+
+		DynamicObject actowner = ractService.sdao().queryForMap(sql.toString());
+		String actualheader = actowner.getFormatAttr("ownerctx");
+		String actualheadercname = actowner.getFormatAttr("cname");
 
 		int updates = 0;
 		
 		updates = getRactService().sdao().update("t_sys_wfract", Chain.make("planid", subplanid), Cnd.where("runactkey", "=", runactkey));
 		System.out.println("update " + updates + " rows.");
 		
-		updates = getRactService().sdao().update("t_app_plan", Chain.make("runflowkey", runflowkey).add("runactkey", runactkey).add("actualstartdate", ract.getCreatetime()), Cnd.where("parentid","=",planid).and("actdefid","=",actdefid));
+		updates = getRactService().sdao().update("t_app_plan", Chain.make("runflowkey", runflowkey).add("runactkey", runactkey), Cnd.where("parentid","=",planid).and("actdefid","=",actdefid));
 		System.out.println("update " + updates + " rows.");
+		
+		if("多部门并行".equals(handletype))
+		{
+			
+		}
+		else
+		{
+			updates = getRactService().sdao().update("t_app_plan", Chain.make("actualheader", actualheader).add("actualheadercname",actualheadercname), Cnd.where("parentid","=",planid).and("actdefid","=",actdefid));
+			System.out.println("update " + updates + " rows.");
+		}
+	}
+	
+	// 更新流程计划信息
+	public void update_rflow_plan(String runflowkey) throws Exception
+	{
+		// 流程结束则更新上级计划的实际完成时间
+		RFlow rflow = rflowService.get(runflowkey);
+		String planid = rflow.getPlanid();
+		String state = rflow.getState();
+		if(DBFieldConstants.RFlOW_STATE_COMPLETED.equals(state))
+		{
+			int updates = 0;
+			updates = getRactService().sdao().update("t_app_plan", Chain.make("actualenddate", new Timestamp(System.currentTimeMillis())), Cnd.where("id","=",planid));
+			System.out.println("update " + updates + " rows.");
+		}
 	}
 	
 	// 检查流程是否已经结束
@@ -504,8 +557,7 @@ public class ActManager {
 		
 		// .将当前活动实例状态改为完成
 		// 添加日志事件
-		String sql = SQL_FORWARD_NORMAL_UPDATEACTSTATE_TABLE(runactkey, tableid);
-		ractService.dao().execute(Sqls.create(sql));
+		ractService.update(Chain.make("state", DBFieldConstants.RACT_STATE_COMPLETED).add("completetime", new Timestamp(System.currentTimeMillis())), Cnd.where("runactkey","=",runactkey));
 		
 		String c_id_event = leventService.create(TimeGenerator.getTimeStr(), DBFieldConstants.LEVENT_EVENTTYPE_ACT, runflowkey);
 
@@ -1270,7 +1322,9 @@ public class ActManager {
 		String actdefid = vo.actdefid;
 		
 		// 记录签收时间
-		ractService.set_apply_time(runactkey, tableid);
+//		ractService.set_apply_time(runactkey, tableid);
+		
+		ractService.update(Chain.make("applytime", new Timestamp(System.currentTimeMillis())), Cnd.where("runactkey","=",runactkey));
 		
 		String sql = new String();
 		
@@ -1281,6 +1335,7 @@ public class ActManager {
 		if(runhandletype.equals("普通"))
 		{
 			apply_normal(vo, ract);
+			update_apply_ract_plan(runactkey); // 更新对应计划实际开始时间
 			return;
 		}
 		
@@ -1292,6 +1347,7 @@ public class ActManager {
 		if(runhandletype.equals("多部门并行"))
 		{
 			apply_normal(vo, ract);
+			update_apply_ract_plan(runactkey); // 更新对应计划实际开始时间
 			// 后期扩充
 		}
 		
@@ -1366,6 +1422,29 @@ public class ActManager {
 			String id_event = leventService.create(TimeGenerator.getTimeStr(), DBFieldConstants.LEVENT_EVENTTYPE_ACT, runflowkey);
 			leventactService.create(id_event, loginname, username, deptid, deptname, DBFieldConstants.RACT_STATE_INACTIVE, DBFieldConstants.RACT_STATE_ACTIVE, actdefid, runactkey, flowdefid, runflowkey, DBFieldConstants.LEVENTACT_EVENTTYPE_APPLY);
 		}
+	}
+	
+	public void update_apply_ract_plan(String runactkey) throws Exception
+	{
+		//此种代码方式是为了不再引用计划的项目包。
+		// 查找流程对应的活动上级计划
+		RAct ract = ractService.get(runactkey);
+		String runflowkey = ract.getRunflowkey();
+		RFlow rflow = rflowService.get(runflowkey);
+		String planid = rflow.getPlanid();
+		String actdefid = ract.getActdefid();
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select * from t_app_plan where 1 = 1 ");
+		sql.append(" and parentid = ").append(SQLParser.charValue(planid));
+		sql.append(" and actdefid = ").append(SQLParser.charValue(actdefid));
+		DynamicObject subplan = ractService.sdao().queryForMap(sql.toString());
+		String subplanid = subplan.getFormatAttr("id");
+
+		int updates = 0;
+		
+		updates = getRactService().sdao().update("t_app_plan", Chain.make("actualstartdate", new Timestamp(System.currentTimeMillis())), Cnd.where("parentid","=",planid).and("actdefid","=",actdefid));
+		System.out.println("update " + updates + " rows.");
 	}
 	
 	public void checks_before_backward(VBackward vo) throws Exception
@@ -1498,8 +1577,10 @@ public class ActManager {
 		String runflowkey = obj.getAttr("runflowkey");
 		String runactkey = obj.getAttr("runactkey");
 		// 更新当前活动状态
-		sql = SQL_FORWARD_NORMAL_UPDATEACTSTATE_TABLE(runactkey, tableid);
-		ractService.sdao().execute(Sqls.create(sql.toString()));
+//		sql = SQL_FORWARD_NORMAL_UPDATEACTSTATE_TABLE(runactkey, tableid);
+//		ractService.sdao().execute(Sqls.create(sql.toString()));
+		
+		ractService.update(Chain.make("state", DBFieldConstants.RACT_STATE_COMPLETED).add("completetime", new Timestamp(System.currentTimeMillis())), Cnd.where("runactkey","=",runactkey));
 		
 		// 查询当前活动对应流程的流程定义编号
 		sql = SQL_FORWARD_FINDBYRUNACTKEY(runactkey, tableid);
@@ -1516,7 +1597,6 @@ public class ActManager {
 		String backactdefid = obj_backact.getFormatAttr("id");		
 		String formid = obj_backact.getFormatAttr("formid");
 		String handletype = obj_backact.getAttr("handletype");
-		
 		
 		RAct ract = new RAct();
 		ract.setRunflowkey(runflowkey);
@@ -2250,19 +2330,6 @@ public class ActManager {
 		sql.append("   and a.dataid = " + SQLParser.charValueRT(dataid));
 		sql.append("   and a.actdefid = " + SQLParser.charValueRT(actdefid));
 		sql.append("   and a.isuse = 'Y' ").append("\n");
-		return sql.toString();
-	}
-	
-	public static String SQL_FORWARD_NORMAL_UPDATEACTSTATE_TABLE(String runactkey, String tableid)
-	{
-		StringBuffer sql = new StringBuffer(); 
-
-		sql.append(" update t_sys_wfract ");
-		sql.append(" set state = " + SQLParser.charValueEnd(DBFieldConstants.RACT_STATE_COMPLETED));
-		sql.append(" completetime = sysdate ");
-		sql.append(" where 1 = 1 \n");
-		sql.append("   and runactkey = " + SQLParser.charValueRT(runactkey));
-		
 		return sql.toString();
 	}
 	

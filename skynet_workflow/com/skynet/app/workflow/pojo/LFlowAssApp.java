@@ -11,6 +11,7 @@ import com.skynet.framework.pojo.IdEntity;
 
 @Table("T_SYS_WFLFLOWASSAPP")
 public class LFlowAssApp extends IdEntity {
+	
 	@Column
 	private String runflowkey;
 
@@ -31,11 +32,32 @@ public class LFlowAssApp extends IdEntity {
 
     @Column
     @ColDefine(type=ColType.DATETIME)
-	private Timestamp createtime;
+	private Timestamp createtime; // 创建时间
+    
+	@Column
+	private String creater; // 创建者用户账号名   
+    
+	@Column
+	private String creatername; // 创建者姓名
+	
+	@Column
+	private String deptid; // 创建者部门标识
+	
+	@Column
+	private String deptname; // 创建者部门名称
+	
+	@Column
+	private String orgid; // 创建者机构标识
+	
+	@Column
+	private String orgname; // 创建者机构名称
+	
+	@Column
+	private String cno; // 业务数据单据号
 
 	@Column
 	private String planid; // 扩展与计划关联
-	
+
 	public String getRunflowkey() {
 		return runflowkey;
 	}
@@ -68,14 +90,6 @@ public class LFlowAssApp extends IdEntity {
 		this.tableid = tableid;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getWorkname() {
 		return workname;
 	}
@@ -100,12 +114,68 @@ public class LFlowAssApp extends IdEntity {
 		this.createtime = createtime;
 	}
 
+	public String getCreater() {
+		return creater;
+	}
+
+	public void setCreater(String creater) {
+		this.creater = creater;
+	}
+
+	public String getCreatername() {
+		return creatername;
+	}
+
+	public void setCreatername(String creatername) {
+		this.creatername = creatername;
+	}
+
+	public String getDeptid() {
+		return deptid;
+	}
+
+	public void setDeptid(String deptid) {
+		this.deptid = deptid;
+	}
+
+	public String getDeptname() {
+		return deptname;
+	}
+
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
+	}
+
+	public String getOrgid() {
+		return orgid;
+	}
+
+	public void setOrgid(String orgid) {
+		this.orgid = orgid;
+	}
+
+	public String getOrgname() {
+		return orgname;
+	}
+
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
+	}
+
 	public String getPlanid() {
 		return planid;
 	}
 
 	public void setPlanid(String planid) {
 		this.planid = planid;
+	}
+
+	public String getCno() {
+		return cno;
+	}
+
+	public void setCno(String cno) {
+		this.cno = cno;
 	}
 
 }

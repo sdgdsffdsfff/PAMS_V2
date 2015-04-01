@@ -1,16 +1,18 @@
 package com.skynet.app.workflow.service;
 
+import java.sql.Timestamp;
+
+import org.nutz.dao.Chain;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
-import org.nutz.dao.Sqls;
 import org.nutz.ioc.annotation.InjectName;
 import org.nutz.ioc.loader.annotation.IocBean;
 
-import com.skynet.framework.common.generator.TimeGenerator;
+import com.skynet.app.workflow.pojo.RFlow;
 import com.skynet.framework.common.generator.UUIDGenerator;
+import com.skynet.framework.service.SkynetNameEntityService;
 import com.skynet.framework.services.db.SQLParser;
 import com.skynet.framework.services.function.Types;
-import com.skynet.app.workflow.pojo.RFlow;
-import com.skynet.framework.service.SkynetNameEntityService;
 
 @InjectName("rflowService")
 @IocBean(args = { "refer:dao" })
@@ -30,14 +32,16 @@ public class RFlowService extends SkynetNameEntityService<RFlow>
 	
 	public void set_complete_time(String runflowkey, String tableid) throws Exception
 	{
-		StringBuffer sql = new StringBuffer();
-
-		sql.append(" update t_sys_wfrflow ");
-		sql.append(" set completetime = sysdate ");
-		sql.append(" where 1 = 1 ");
-		sql.append(" and runflowkey = " + SQLParser.charValue(runflowkey));
+		dao().update(RFlow.class, Chain.make("completetime", new Timestamp(System.currentTimeMillis())), Cnd.where("runflowkey", "=", "runflowkey"));
 		
-		dao().execute(Sqls.create(sql.toString()));
+//		StringBuffer sql = new StringBuffer();
+//
+//		sql.append(" update t_sys_wfrflow ");
+//		sql.append(" set completetime = sysdate ");
+//		sql.append(" where 1 = 1 ");
+//		sql.append(" and runflowkey = " + SQLParser.charValue(runflowkey));
+//		
+//		dao().execute(Sqls.create(sql.toString()));
 	}
 	
 	public String create(RFlow rflow) throws Exception

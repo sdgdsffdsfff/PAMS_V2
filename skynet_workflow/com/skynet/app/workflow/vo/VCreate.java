@@ -10,6 +10,7 @@ public class VCreate {
 	public String userid;
 	public String loginname;
 	public String username;
+	public String cno;
 	
 	public String suprunactkey;
 	public String suprunflowkey;

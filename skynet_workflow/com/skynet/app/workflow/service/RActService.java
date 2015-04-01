@@ -1,10 +1,13 @@
 package com.skynet.app.workflow.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
+import org.nutz.dao.Chain;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.ioc.annotation.InjectName;
@@ -43,124 +46,33 @@ public class RActService extends SkynetNameEntityService<RAct> {
 		return ract.getRunactkey();
 	}
 
-	// public String create(String runflowkey, String createtime, String
-	// flowdefid, String actdefid, String state, String priority, String dataid,
-	// String formid, String tableid, String handletype) throws Exception
-	// {
-	// String runactkey = UUIDGenerator.getInstance().getNextValue();
-	// //String.valueOf(System.nanoTime()); ;
-	//
-	// StringBuffer sql = new StringBuffer();
-	// sql.append(" insert into t_sys_wfract (runflowkey,runactkey,createtime,ccreatetime,flowdefid,actdefid,state,priority,dataid,formid,tableid,handletype,isuse) \n");
-	// sql.append(" values(");
-	// sql.append(SQLParser.charValueEnd(runflowkey));
-	// sql.append(SQLParser.charValueEnd(runactkey));
-	// sql.append(" sysdate, ");
-	// sql.append(SQLParser.charValueEnd(createtime));
-	// sql.append(SQLParser.charValueEnd(flowdefid));
-	// sql.append(SQLParser.charValueEnd(actdefid));
-	// sql.append(SQLParser.charValueEnd(state));
-	// sql.append(" null, ");
-	// sql.append(SQLParser.charValueEnd(dataid));
-	// sql.append(SQLParser.charValueEnd(formid));
-	// sql.append(SQLParser.charValueEnd(tableid));
-	// sql.append(SQLParser.charValueEnd(handletype));
-	// sql.append(SQLParser.charValue("Y"));
-	// sql.append(")");
-	//
-	// dao().execute(Sqls.create(sql.toString()));
-	// return runactkey;
-	// }
-	//
-	// public String create(String runflowkey, String createtime, String
-	// flowdefid, String actdefid, String state, String priority, String dataid,
-	// String formid, String tableid, String handletype, int ordernum) throws
-	// Exception
-	// {
-	// String runactkey = UUIDGenerator.getInstance().getNextValue();
-	// //String.valueOf(System.nanoTime()); ;
-	//
-	// StringBuffer sql = new StringBuffer();
-	// sql.append(" insert into t_sys_wfract (runflowkey,runactkey,createtime,ccreatetime,flowdefid,actdefid,state,priority,dataid,formid,tableid,handletype,isuse,ordernum) \n");
-	// sql.append(" values(");
-	// sql.append(SQLParser.charValueEnd(runflowkey));
-	// sql.append(SQLParser.charValueEnd(runactkey));
-	// sql.append(" sysdate, ");
-	// sql.append(SQLParser.charValueEnd(createtime));
-	// sql.append(SQLParser.charValueEnd(flowdefid));
-	// sql.append(SQLParser.charValueEnd(actdefid));
-	// sql.append(SQLParser.charValueEnd(state));
-	// sql.append(" null, ");
-	// sql.append(SQLParser.charValueEnd(dataid));
-	// sql.append(SQLParser.charValueEnd(formid));
-	// sql.append(SQLParser.charValueEnd(tableid));
-	// sql.append(SQLParser.charValueEnd(handletype));
-	// sql.append(SQLParser.charValueEnd("Y"));
-	// sql.append(SQLParser.numberValue(ordernum));
-	// sql.append(")");
-	//
-	// dao().execute(Sqls.create(sql.toString()));
-	// return runactkey;
-	// }
-	//
-	// public String create(String runflowkey, String createtime, String
-	// flowdefid, String actdefid, String state, String priority, String dataid,
-	// String formid, String tableid, String handletype, int ordernum, String
-	// suprunflowkey, String suprunactkey) throws Exception
-	// {
-	// String runactkey = UUIDGenerator.getInstance().getNextValue();
-	// //String.valueOf(System.nanoTime()); ;
-	//
-	// StringBuffer sql = new StringBuffer();
-	// sql.append(" insert into t_sys_wfract (runflowkey,runactkey,createtime,ccreatetime,flowdefid,actdefid,state,priority,dataid,formid,tableid,handletype,isuse,ordernum,suprunflowkey,suprunactkey) \n");
-	// sql.append(" values(");
-	// sql.append(SQLParser.charValueEnd(runflowkey));
-	// sql.append(SQLParser.charValueEnd(runactkey));
-	// sql.append(" sysdate, ");
-	// sql.append(SQLParser.charValueEnd(createtime));
-	// sql.append(SQLParser.charValueEnd(flowdefid));
-	// sql.append(SQLParser.charValueEnd(actdefid));
-	// sql.append(SQLParser.charValueEnd(state));
-	// sql.append(" null, ");
-	// sql.append(SQLParser.charValueEnd(dataid));
-	// sql.append(SQLParser.charValueEnd(formid));
-	// sql.append(SQLParser.charValueEnd(tableid));
-	// sql.append(SQLParser.charValueEnd(handletype));
-	// sql.append(SQLParser.charValueEnd("Y"));
-	// sql.append(SQLParser.numberValueEnd(ordernum));
-	// sql.append(SQLParser.charValueEnd(suprunflowkey));
-	// sql.append(SQLParser.charValue(suprunactkey));
-	//
-	// sql.append(")");
-	//
-	// dao().execute(Sqls.create(sql.toString()));
-	// return runactkey;
-	// }
-
-	public void set_apply_time(String runactkey, String tableid)
-			throws Exception {
-		StringBuffer sql = new StringBuffer();
-
-		sql.append(" update t_sys_wfract ");
-		sql.append(" set applytime = sysdate ");
-		sql.append(" where 1 = 1 ");
-		sql.append(" and runactkey = " + SQLParser.charValue(runactkey));
-
-		dao().execute(Sqls.create(sql.toString()));
-	}
+//	public void set_apply_time(String runactkey, String tableid)
+//			throws Exception {
+//		StringBuffer sql = new StringBuffer();
+//
+//		sql.append(" update t_sys_wfract ");
+//		sql.append(" set applytime = sysdate ");
+//		sql.append(" where 1 = 1 ");
+//		sql.append(" and runactkey = " + SQLParser.charValue(runactkey));
+//
+//		dao().execute(Sqls.create(sql.toString()));
+//	}
 
 	public void set_complete_time(String runactkey, String tableid,
 			String completetype) throws Exception {
-		StringBuffer sql = new StringBuffer();
-
-		sql.append(" update "
-				+ SplitTableConstants.getSplitTable("t_sys_wfract", tableid));
-		sql.append(" set completetime = sysdate, ");
-		sql.append(" isuse = 'N', ");
-		sql.append(" completetype = " + SQLParser.charValue(completetype));
-		sql.append(" where 1 = 1 ");
-		sql.append(" and runactkey = " + SQLParser.charValue(runactkey));
-		dao().execute(Sqls.create(sql.toString()));
+		
+		sdao().update(RAct.class, Chain.make("completetime", new Timestamp(System.currentTimeMillis())).add("isuse", "N").add("completetype", completetype), Cnd.where("runactkey","=", runactkey));
+		
+//		StringBuffer sql = new StringBuffer();
+//
+//		sql.append(" update "
+//				+ SplitTableConstants.getSplitTable("t_sys_wfract", tableid));
+//		sql.append(" set completetime = sysdate, ");
+//		sql.append(" isuse = 'N', ");
+//		sql.append(" completetype = " + SQLParser.charValue(completetype));
+//		sql.append(" where 1 = 1 ");
+//		sql.append(" and runactkey = " + SQLParser.charValue(runactkey));
+//		dao().execute(Sqls.create(sql.toString()));
 	}
 
 	public boolean enable_forward(String runactkey, String ownerctx,

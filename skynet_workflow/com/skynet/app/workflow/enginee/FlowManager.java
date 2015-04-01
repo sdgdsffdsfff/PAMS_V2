@@ -4,11 +4,14 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nutz.dao.Chain;
+import org.nutz.dao.Cnd;
 import org.nutz.ioc.annotation.InjectName;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 
 import com.skynet.app.workflow.common.WFTimeDebug;
+import com.skynet.app.workflow.pojo.LFlowAssApp;
 import com.skynet.app.workflow.pojo.RAct;
 import com.skynet.app.workflow.pojo.RFlow;
 import com.skynet.app.workflow.service.BActService;
@@ -112,6 +115,8 @@ public class FlowManager {
 		String creatercname = vo.username;
 		String suprunflowkey = vo.suprunflowkey;
 		String suprunactkey = vo.suprunactkey;
+		
+		String cno = vo.cno;
 		String planid = vo.planid;
 		
 		String formid = bformService.select_fk_bflow(flowdefid).getAttr("id");
@@ -180,7 +185,8 @@ public class FlowManager {
 		// 增加设置最新可用标识功能 蒲剑 2014/08/06
 		
 		// 第一个活动的签收时间同创建时间;
-		ractService.set_apply_time(runactkey_first, tableid);
+		// ractService.set_apply_time(runactkey_first, tableid);
+		ractService.sdao().update(RAct.class, Chain.make("applytime", new Timestamp(System.currentTimeMillis())), Cnd.where("runactkey", "=", runactkey_first));
 		
 		// .新增第一个活动的指定所有者
 		// RActOwnerService dao_ractowner = new RActOwnerService();
@@ -209,7 +215,18 @@ public class FlowManager {
 		// .新增应用数据实例与流程实例的关联
 		// [仅增加关联，流程读者和作者在流程完成后再写入关联表读者和作者中]
 		// LFlowAssAppService dao_lflowassapp = new LFlowAssAppService();
-		lflowassappService.create(runflowkey, formid, dataid, tableid, workname, flowdefid);
+		LFlowAssApp lflowassapp = new LFlowAssApp();
+		lflowassapp.setRunflowkey(runflowkey);
+		lflowassapp.setFormid(formid);
+		lflowassapp.setDataid(dataid);
+		lflowassapp.setTableid(tableid);
+		lflowassapp.setCno(cno);
+		lflowassapp.setWorkname(workname);
+		lflowassapp.setFlowdefid(flowdefid);
+		lflowassapp.setCreater(creater);
+		lflowassapp.setCreatername(creatercname);
+		
+		lflowassappService.create(lflowassapp);
 
 		// .新增待办
 		String ownerorg = swapFlow.getFormatAttr(GlobalConstants.swap_coperatororgid);
@@ -440,7 +457,7 @@ public class FlowManager {
 		StringBuffer sql = new StringBuffer();
 		List<DynamicObject> subplans = new ArrayList<DynamicObject>();
 		
-		sql.append(" select ract.runactkey id, ractowner.organname cname, ract.actdefid, ract.createtime actualstartdate, ract.completetime actualenddate, ractowner.cname actualheadercname ").append("\n");
+		sql.append(" select ract.runactkey id, ractowner.organname cname, ract.actdefid, ract.applytime actualstartdate, ract.completetime actualenddate, ractowner.cname actualheadercname ").append("\n");
 		sql.append("   from t_sys_wfract ract, t_sys_wfbact bact, t_sys_wfractowner ractowner ").append("\n");
 		sql.append("  where 1 = 1").append("\n");
 		sql.append("    and bact.id = ract.actdefid ").append("\n");

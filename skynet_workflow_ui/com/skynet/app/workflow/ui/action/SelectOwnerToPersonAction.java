@@ -38,14 +38,6 @@ public class SelectOwnerToPersonAction extends BaseAction {
 		actManager.setSwapFlow(swapFlow);
 		List owners = actManager.getActionOwnerToPerson(actdefid);
 		
-//		DynamicObject user = new DynamicObject();
-//		user.setAttr("ownerctx", "P0001");
-//		user.setAttr("cname", "张瑜");
-//		user.setAttr("ordernum", "0001");
-//		user.setAttr("ctype", "PERSON");
-//		
-//		owners.add(user);
-
 		List agents = new ArrayList();
 
 		// 查询对应的代理人

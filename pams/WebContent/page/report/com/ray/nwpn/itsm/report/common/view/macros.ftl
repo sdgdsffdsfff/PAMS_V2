@@ -5,6 +5,7 @@ jQuery(function($)
 {
 	$('#site-nav ul li').click(function()
 	{
+		console.log("hello");
 		if($(this).hasClass('changetype'))
 		{
 			$(this).parent().find('li').removeClass('current');

@@ -57,9 +57,9 @@ tbody.morethan10 {display:none;}
 a.top10More {display:inline-block;*display:inline;*zoom:1;}
 table.repgGrid tbody.totalTr tr td {border-top :solid 3px #eee;border-bottom:0;}
 table.repgGrid tbody.totalTr tr.more td {border:0;}
+/*
 tr.after10 {display:none;}  
-    
-/*js auto find top10 tr*/
 tr.morethan10 {display:none;}
+*/
 
 

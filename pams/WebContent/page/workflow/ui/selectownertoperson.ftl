@@ -29,9 +29,16 @@
 </thead>
 <tbody>
 	<#list obj.owners as p>
-	<tr name="pindex" ownerctx="${p.ownerctx}" cname="${p.cname}" ctype="${p.ctype}" organid="${p.organid}" organname="${p.organname}" organtype="${p.organtype}" value="0">
+	<#assign ptext="">
+	<#if p.orginternal??>
+		<#list 0..(p.orginternal?length/4) as a>
+			<#assign ptext = ptext + "">
+		</#list>
+	</#if>
+	
+	<tr name="pindex" ownerctx="${p.ownerctx}" cname="${p.cname}" ctype="${p.ctype}" organid="${p.organid}" organname="${p.organname}" orginternal="${p.orginternal}" organtype="${p.organtype}" value="0">
 	<td class="check"></td>
-	<td>${p.organname}</td>
+	<td>${ptext}${p.organname}</td>
 	<td>${p.cname}</td>
 	<td></td>
 	<td></td>

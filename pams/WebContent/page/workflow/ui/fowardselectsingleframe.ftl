@@ -511,7 +511,7 @@ function page_load_actowner(actdefid)
 	page_clear();
 	
 	$.ajax({
-		url:'/pams/workflow/ui/selectownertoperson.action',
+		url:'/pams/workflow/ui/selectownertoperson/json.action',
 		type:'POST',
 		data: {actdefid:actdefid},
 		dataType: "json", 

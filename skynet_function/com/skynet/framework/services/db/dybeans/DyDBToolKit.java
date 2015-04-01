@@ -1,9 +1,15 @@
 package com.skynet.framework.services.db.dybeans;
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.nutz.castor.castor.Timestamp2String;
 
 import com.skynet.framework.services.db.DBToolKit;
 import com.skynet.framework.services.function.StringToolKit;
@@ -21,9 +27,44 @@ public class DyDBToolKit extends DBToolKit
 			while (rs.next())
 			{
 				DynamicObject row = new DynamicObject();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				for (int i = 0; i < columns; i++)
 				{
-					row.setAttr(meta.getColumnName(i + 1).toLowerCase(), StringToolKit.formatText(rs.getString(i + 1)));
+
+					int ctype = meta.getColumnType(i + 1);
+					switch(ctype)
+					{
+						case Types.DATE:
+						{
+							
+						}
+						case Types.TIME:
+						{
+							
+						}
+						case Types.TIMESTAMP:
+						{
+							Timestamp ctime = rs.getTimestamp(i+1);
+							if(ctime!=null)
+							{
+								String ctimestr = sf.format(ctime);
+								row.setAttr(meta.getColumnName(i + 1).toLowerCase(), StringToolKit.formatText(ctimestr));
+							}
+							else
+							{
+								row.setAttr(meta.getColumnName(i + 1).toLowerCase(), new String());
+							}
+							break;
+						}
+						default:
+						{
+							row.setAttr(meta.getColumnName(i + 1).toLowerCase(), StringToolKit.formatText(rs.getString(i + 1)));
+						}
+					}
+					
+					
+					
+					
 				}
 				data.add(row);
 			}

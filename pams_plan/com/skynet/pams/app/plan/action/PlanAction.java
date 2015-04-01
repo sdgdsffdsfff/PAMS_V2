@@ -1,7 +1,9 @@
 package com.skynet.pams.app.plan.action;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +70,8 @@ public class PlanAction extends BaseAction {
 
 		List<DynamicObject> subplans = planService.findByCond(Cnd.where(
 				"sequencekey", "like", sequencekey + "%").and("id", "<>", id)); // 所有子节点
+		
+		List<DynamicObject> newsubplans = subplans;
 		int nums = subplans.size();
 		// 查询所有的流程子结点
 		String runflowkey = "";
@@ -107,15 +111,15 @@ public class PlanAction extends BaseAction {
 						subplan.getFormatAttr("baseplanworkload"));
 
 				subracts.get(j).setAttr("phaseorstep", "1");
-
-				if (subracts.size() > 0) {
-					subplans.addAll(subracts);
-				}
+			}
+			
+			if (subracts.size() > 0) {
+				newsubplans.addAll(subracts);
 			}
 		}
 
 		data.put("plan", plan);
-		data.put("subplans", subplans);
+		data.put("subplans", newsubplans);
 
 		return data;
 	}
@@ -303,9 +307,13 @@ public class PlanAction extends BaseAction {
 	public void init_plandata_dfgl() throws Exception {
 		long s = 1000 * 60 * 60 * 24;
 		// planService.dao().create(Plan.class, true);
+		
+		Date cdate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
 		Plan plan = new Plan();
 		plan.setId(UUID.randomUUID().toString());
-		plan.setCname("党费管理子专业2015年度工作计划");
+		plan.setCname("党费管理子专业2015年度工作计划[" + sf.format(cdate)+"]");
 		plan.setSequencekey("0001");
 		plan.setPlanworkload(100);
 		plan.setBaseplanworkload(100);

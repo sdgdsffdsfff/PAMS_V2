@@ -31,8 +31,11 @@
 	<#list obj.owners as p>
 	<#assign ptext="">
 	<#if p.orginternal??>
-		<#list 0..(p.orginternal?length/4) as a>
-			<#assign ptext = ptext + "">
+		<#list 0..(p.orginternal?length/4)-2 as a>
+		<#if a==0>
+		<#else>
+			<#assign ptext = ptext + "　　">
+		</#if>
 		</#list>
 	</#if>
 	

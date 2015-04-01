@@ -26,8 +26,7 @@ public class ZXQKHelper {
 		sql.append("   from ").append("\n");
 		sql.append(" ( ").append("\n");
 
-		sql.append(
-				" select info.deptid, info.creater, info.cno, ract.actdefid, ")
+		sql.append(" select info.deptid, info.creater, info.cno, ract.actdefid, ")
 				.append("\n");
 		if ("Y".equals(ispublish)) {
 			sql.append(
@@ -48,11 +47,12 @@ public class ZXQKHelper {
 		}
 
 		sql.append(
-				"   from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_infoshare info ")
+				"   from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_pdusesuggest info ")
 				.append("\n");
 		sql.append("  where 1 = 1 ").append("\n");
-		sql.append("    and rflow.dataid = info.id ").append("\n");
-		sql.append("    and rflow.tableid = 'InfoShare' ").append("\n");
+		sql.append("    and rflow.runflowkey = info.runflowkey ").append("\n");
+		sql.append("    and rflow.tableid = 'PartyDueUseSuggest' ")
+				.append("\n");
 		sql.append("    and rflow.runflowkey = ract.runflowkey ").append("\n");
 		sql.append("    and bact.id = ract.actdefid ").append("\n");
 		sql.append("    and bact.ctype <> 'BEGIN' ").append("\n");
@@ -70,13 +70,8 @@ public class ZXQKHelper {
 
 		if ("Y".equals(ispublish)) {
 			sql.append("    and rflow.state = '结束' ").append("\n");
-			sql.append("    and info.publishtime is not null ").append("\n");
-			if (!StringToolKit.isBlank(enddate)) {
-				sql.append(RepHelper.date_end("info.publishtime", enddate))
-						.append("\n");
-			}
 		} else if ("N".equals(ispublish)) {
-			sql.append("    and info.publishtime is null ").append("\n");
+
 		}
 
 		if (!StringToolKit.isBlank(creater)) {
@@ -84,8 +79,7 @@ public class ZXQKHelper {
 					.append("\n");
 		}
 
-		sql.append(
-				"  group by info.deptid, info.creater, info.cno, ract.actdefid ")
+		sql.append("  group by info.deptid, info.creater, info.cno, ract.actdefid ")
 				.append("\n");
 
 		if ("Y".equals(isnodeovertime)) {
@@ -96,51 +90,6 @@ public class ZXQKHelper {
 		} else if ("N".equals(isnodeovertime)) {
 			sql.append(
 					" having sum(UF_Calculate_Duration(ract.completetime, ract.createtime)) < 1 ")
-					.append("\n");
-		}
-
-		sql.append("   union  ").append("\n");
-		sql.append(
-				"   select info.deptid, info.creater, info.cno, 'XXHQ' actdefid, ")
-				.append("\n");
-		sql.append(
-				"   case when UF_Calculate_Duration(info.createtime, info.obtaintime) > 1 then 1 else 0 end cs ")
-				.append("\n");
-		sql.append("     from t_app_infoshare info ").append("\n");
-		sql.append("    where 1 = 1 ").append("\n");
-
-		if (!StringToolKit.isBlank(begindate)) {
-			sql.append(RepHelper.date_begin_eq("info.createtime", begindate))
-					.append("\n");
-		}
-
-		if (!StringToolKit.isBlank(enddate)) {
-			sql.append(RepHelper.date_end("info.createtime", enddate)).append(
-					"\n");
-		}
-
-		if ("Y".equals(ispublish)) {
-			sql.append("    and info.publishtime is not null ").append("\n");
-			if (!StringToolKit.isBlank(enddate)) {
-				sql.append(RepHelper.date_end("info.publishtime", enddate))
-						.append("\n");
-			}
-		} else if ("N".equals(ispublish)) {
-			sql.append("     and info.publishtime is null ").append("\n");
-		}
-
-		if (!StringToolKit.isBlank(creater)) {
-			sql.append("    and info.creater = " + SQLParser.charValue(creater))
-					.append("\n");
-		}
-
-		if ("Y".equals(isnodeovertime)) {
-			sql.append(
-					" and (UF_Calculate_Duration(info.createtime, info.obtaintime)) > 1 ")
-					.append("\n");
-		} else if ("N".equals(isnodeovertime)) {
-			sql.append(
-					" and (UF_Calculate_Duration(info.createtime, info.obtaintime)) < 1 ")
 					.append("\n");
 		}
 
@@ -181,36 +130,30 @@ public class ZXQKHelper {
 				"     else UF_Calculate_Duration(ract.completetime, ract.createtime) end) zxsc ")
 				.append("\n");
 		sql.append(
-				" from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_infoshare info, ")
+				" from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_pdusesuggest info, ")
 				.append("\n");
 		sql.append(" ( ").append("\n");
 		sql.append(ZXQKHelper.sql_xxgx_zxqk(obj));
 		sql.append(" ) v   ").append("\n");
 		sql.append("  where 1 = 1 ").append("\n");
 		sql.append("    and v.cno = info.cno ").append("\n");
-		sql.append("    and rflow.dataid = info.id ").append("\n");
-		sql.append("    and rflow.tableid = 'InfoShare' ").append("\n");
+		sql.append("    and rflow.runflowkey = info.runflowkey ").append("\n");
+		sql.append("    and rflow.tableid = 'PartyDueUseSuggest' ")
+				.append("\n");
 		sql.append("    and rflow.runflowkey = ract.runflowkey ").append("\n");
 		sql.append("    and bact.id = ract.actdefid ").append("\n");
 		sql.append("    and bact.ctype <> 'BEGIN' ").append("\n");
 		sql.append("    and bact.ctype <> 'END' ").append("\n");
 		sql.append(
-				"  group by info.creater, info.creatername, rflow.runflowkey, v.cno, ract.actdefid, bact.cname ")
+				"  group by info.creater, info.creatername, info.cno, rflow.runflowkey, v.cno, ract.actdefid, bact.cname ")
 				.append("\n");
-		sql.append(" union ").append("\n");
-		sql.append(
-				" select info.creater, info.creatername, rflow.runflowkey, v.cno, 'XXHQ' actdefid, '信息获取' actcname, (UF_Calculate_Duration(info.createtime, info.obtaintime)) zxsc ")
-				.append("\n");
-		sql.append(
-				" from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_infoshare info, ")
-				.append("\n");
-		sql.append(" ( ").append("\n");
-		sql.append(ZXQKHelper.sql_xxgx_zxqk(obj));
+
 		sql.append(" ) v   ").append("\n");
 		sql.append("  where 1 = 1 ").append("\n");
 		sql.append("    and v.cno = info.cno ").append("\n");
-		sql.append("    and rflow.dataid = info.id ").append("\n");
-		sql.append("    and rflow.tableid = 'InfoShare' ").append("\n");
+		sql.append("    and rflow.runflowkey = info.runflowkey ").append("\n");
+		sql.append("    and rflow.tableid = 'PartyDueUseSuggest' ")
+				.append("\n");
 		sql.append("    and rflow.runflowkey = ract.runflowkey ").append("\n");
 		sql.append("    and bact.id = ract.actdefid ").append("\n");
 		sql.append("    and bact.ctype <> 'BEGIN' ").append("\n");
@@ -233,8 +176,7 @@ public class ZXQKHelper {
 
 		System.out.println("sql_xxgx_kpi_zxsc.");
 		StringBuffer sql = new StringBuffer();
-		sql.append(
-				" select info.deptid, info.creater, info.cno, ract.actdefid, ")
+		sql.append(" select info.deptid, info.creater, ract.actdefid, ")
 				.append("\n");
 		if ("Y".equals(ispublish)) {
 			sql.append(
@@ -255,11 +197,12 @@ public class ZXQKHelper {
 		}
 
 		sql.append(
-				"   from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_infoshare info ")
+				"   from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_pdusesuggest info ")
 				.append("\n");
 		sql.append("  where 1 = 1 ").append("\n");
-		sql.append("    and rflow.dataid = info.id ").append("\n");
-		sql.append("    and rflow.tableid = 'InfoShare' ").append("\n");
+		sql.append("    and rflow.runflowkey = info.runflowkey ").append("\n");
+		sql.append("    and rflow.tableid = 'PartyDueUseSuggest' ")
+				.append("\n");
 		sql.append("    and rflow.runflowkey = ract.runflowkey ").append("\n");
 		sql.append("    and bact.id = ract.actdefid ").append("\n");
 		sql.append("    and bact.ctype <> 'BEGIN' ").append("\n");
@@ -277,13 +220,7 @@ public class ZXQKHelper {
 
 		if ("Y".equals(ispublish)) {
 			sql.append("    and rflow.state = '结束' ").append("\n");
-			sql.append("    and info.publishtime is not null ").append("\n");
-			if (!StringToolKit.isBlank(enddate)) {
-				sql.append(RepHelper.date_end("info.publishtime", enddate))
-						.append("\n");
-			}
 		} else if ("N".equals(ispublish)) {
-			sql.append("    and info.publishtime is null ").append("\n");
 		}
 
 		if (!StringToolKit.isBlank(creater)) {
@@ -291,8 +228,7 @@ public class ZXQKHelper {
 					.append("\n");
 		}
 
-		sql.append(
-				"  group by info.deptid, info.creater, info.cno, ract.actdefid ")
+		sql.append("  group by info.deptid, info.creater, ract.actdefid ")
 				.append("\n");
 
 		if ("Y".equals(isnodeovertime)) {
@@ -305,50 +241,6 @@ public class ZXQKHelper {
 					.append("\n");
 		}
 
-		sql.append("   union  ").append("\n");
-		sql.append(
-				"   select info.deptid, info.creater, info.cno, 'XXHQ' actdefid, UF_Calculate_Duration(info.createtime, info.obtaintime) cs ")
-				.append("\n");
-		sql.append("     from t_app_infoshare info ").append("\n");
-		sql.append("    where 1 = 1 ").append("\n");
-
-		if (!StringToolKit.isBlank(begindate)) {
-			sql.append(RepHelper.date_begin_eq("info.createtime", begindate))
-					.append("\n");
-		}
-
-		if (!StringToolKit.isBlank(enddate)) {
-			sql.append(RepHelper.date_end("info.createtime", enddate)).append(
-					"\n");
-		}
-
-		if ("Y".equals(ispublish)) {
-			sql.append("    and info.publishtime is not null ").append("\n");
-			if (!StringToolKit.isBlank(enddate)) {
-				sql.append(RepHelper.date_end("info.publishtime", enddate))
-						.append("\n");
-			}
-		} else if ("N".equals(ispublish)) {
-			sql.append("     and info.publishtime is null ").append("\n");
-		}
-
-		if (!StringToolKit.isBlank(creater)) {
-			sql.append("    and info.creater = " + SQLParser.charValue(creater))
-					.append("\n");
-		}
-
-		if ("Y".equals(isnodeovertime)) {
-			sql.append(
-					" and (UF_Calculate_Duration(info.createtime, info.obtaintime)) > 1 ")
-					.append("\n");
-		} else if ("N".equals(isnodeovertime)) {
-			sql.append(
-					" and (UF_Calculate_Duration(info.createtime, info.obtaintime)) < 1 ")
-					.append("\n");
-		}
-
-		// sql.append("  order by deptid, creater, cno, actdefid  ").append("\n");
-
 		return sql.toString();
 	}
 
@@ -356,7 +248,7 @@ public class ZXQKHelper {
 		String begindate = obj.getFormatAttr("begindate"); // 结束日期
 		String enddate = obj.getFormatAttr("enddate"); // 起始日期
 		String sql_cdate = obj.getFormatAttr("sql_cdate"); // 系统与查询比较时间
-		String report_type = obj.getFormatAttr("reptype");//报表类型
+		String report_type = obj.getFormatAttr("reptype");// 报表类型
 
 		String ispublish = obj.getFormatAttr("ispublish"); // 发布状态开关
 		String isovertime = obj.getFormatAttr("isovertime"); // 超时状态开关
@@ -372,8 +264,7 @@ public class ZXQKHelper {
 		sql.append("   from ").append("\n");
 		sql.append(" ( ").append("\n");
 
-		sql.append(
-				" select info.deptid, info.creater, info.cno, ract.actdefid, ")
+		sql.append(" select info.deptid, info.creater, info.cno, ract.actdefid, ")
 				.append("\n");
 		if ("Y".equals(ispublish)) {
 			sql.append(
@@ -394,16 +285,17 @@ public class ZXQKHelper {
 		}
 
 		sql.append(
-				"   from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_pubinfo info ")
+				"   from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_sys_wflflowassapp info ")
 				.append("\n");
 		sql.append("  where 1 = 1 ").append("\n");
-		sql.append("    and rflow.dataid = info.id ").append("\n");
-		sql.append("    and rflow.tableid = 'InfoShare' ").append("\n");
+		sql.append("    and rflow.runflowkey = info.runflowkey ").append("\n");
+		sql.append("    and rflow.tableid = 'PartyDueUseSuggest' ")
+				.append("\n");
 		sql.append("    and rflow.runflowkey = ract.runflowkey ").append("\n");
 		sql.append("    and bact.id = ract.actdefid ").append("\n");
 		sql.append("    and bact.ctype <> 'BEGIN' ").append("\n");
 		sql.append("    and bact.ctype <> 'END' ").append("\n");
-		sql.append("    and info.reptype='" + report_type + "' ").append("\n");
+		sql.append("    and info.tableid='" + report_type + "' ").append("\n");
 		if (!StringToolKit.isBlank(begindate)) {
 			sql.append(RepHelper.date_begin_eq("info.createtime", begindate))
 					.append("\n");
@@ -416,13 +308,7 @@ public class ZXQKHelper {
 
 		if ("Y".equals(ispublish)) {
 			sql.append("    and rflow.state = '结束' ").append("\n");
-			sql.append("    and info.publishtime is not null ").append("\n");
-			if (!StringToolKit.isBlank(enddate)) {
-				sql.append(RepHelper.date_end("info.publishtime", enddate))
-						.append("\n");
-			}
 		} else if ("N".equals(ispublish)) {
-			sql.append("    and info.publishtime is null ").append("\n");
 		}
 
 		if (!StringToolKit.isBlank(creater)) {
@@ -430,8 +316,7 @@ public class ZXQKHelper {
 					.append("\n");
 		}
 
-		sql.append(
-				"  group by info.deptid, info.creater, info.cno, ract.actdefid ")
+		sql.append("  group by info.deptid, info.creater, info.cno, ract.actdefid ")
 				.append("\n");
 
 		if ("Y".equals(isnodeovertime)) {
@@ -444,52 +329,7 @@ public class ZXQKHelper {
 					" having sum(UF_Calculate_Duration(ract.completetime, ract.createtime)) < 1 ")
 					.append("\n");
 		}
-
-		sql.append("   union  ").append("\n");
-		sql.append(
-				"   select info.deptid, info.creater, info.cno, 'XXHQ' actdefid, ")
-				.append("\n");
-		sql.append(
-				"   case when UF_Calculate_Duration(info.createtime, info.obtaintime) > 1 then 1 else 0 end cs ")
-				.append("\n");
-		sql.append("     from t_app_pubinfo info ").append("\n");
-		sql.append("    where 1 = 1 ").append("\n");
-
-		if (!StringToolKit.isBlank(begindate)) {
-			sql.append(RepHelper.date_begin_eq("info.createtime", begindate))
-					.append("\n");
-		}
-
-		if (!StringToolKit.isBlank(enddate)) {
-			sql.append(RepHelper.date_end("info.createtime", enddate)).append(
-					"\n");
-		}
-
-		if ("Y".equals(ispublish)) {
-			sql.append("    and info.publishtime is not null ").append("\n");
-			if (!StringToolKit.isBlank(enddate)) {
-				sql.append(RepHelper.date_end("info.publishtime", enddate))
-						.append("\n");
-			}
-		} else if ("N".equals(ispublish)) {
-			sql.append("     and info.publishtime is null ").append("\n");
-		}
-
-		if (!StringToolKit.isBlank(creater)) {
-			sql.append("    and info.creater = " + SQLParser.charValue(creater))
-					.append("\n");
-		}
-
-		if ("Y".equals(isnodeovertime)) {
-			sql.append(
-					" and (UF_Calculate_Duration(info.createtime, info.obtaintime)) > 1 ")
-					.append("\n");
-		} else if ("N".equals(isnodeovertime)) {
-			sql.append(
-					" and (UF_Calculate_Duration(info.createtime, info.obtaintime)) < 1 ")
-					.append("\n");
-		}
-
+		
 		sql.append(" ) v ").append("\n");
 		sql.append(" group by deptid, creater, cno").append("\n");
 
@@ -504,11 +344,12 @@ public class ZXQKHelper {
 		return sql.toString();
 	}
 
-	public static String sql_xxgx_zxqk_zxsc1(DynamicObject obj) throws Exception {
+	public static String sql_xxgx_zxqk_zxsc1(DynamicObject obj)
+			throws Exception {
 		String begindate = obj.getFormatAttr("begindate"); // 结束日期
 		String enddate = obj.getFormatAttr("enddate"); // 起始日期
 		String sql_cdate = obj.getFormatAttr("sql_cdate"); // 系统与查询比较时间
-		String report_type = obj.getFormatAttr("reptype");//报表类型
+		String report_type = obj.getFormatAttr("reptype");// 报表类型
 
 		String ispublish = obj.getFormatAttr("ispublish"); // 发布状态开关
 		String isovertime = obj.getFormatAttr("isovertime"); // 超时状态开关
@@ -528,44 +369,25 @@ public class ZXQKHelper {
 				"     else UF_Calculate_Duration(ract.completetime, ract.createtime) end) zxsc ")
 				.append("\n");
 		sql.append(
-				" from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_pubinfo info, ")
+				" from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_sys_wflflowassapp info, ")
 				.append("\n");
 		sql.append(" ( ").append("\n");
 		sql.append(ZXQKHelper.sql_xxgx_zxqk1(obj));
 		sql.append(" ) v   ").append("\n");
 		sql.append("  where 1 = 1 ").append("\n");
 		sql.append("    and v.cno = info.cno ").append("\n");
-		sql.append("    and rflow.dataid = info.id ").append("\n");
-		sql.append("    and rflow.tableid = 'InfoShare' ").append("\n");
+		sql.append("    and rflow.runflowkey = info.runflowkey ").append("\n");
+		sql.append("    and rflow.tableid = 'PartyDueUseSuggest' ")
+				.append("\n");
 		sql.append("    and rflow.runflowkey = ract.runflowkey ").append("\n");
 		sql.append("    and bact.id = ract.actdefid ").append("\n");
 		sql.append("    and bact.ctype <> 'BEGIN' ").append("\n");
 		sql.append("    and bact.ctype <> 'END' ").append("\n");
-		sql.append("    and info.reptype='" + report_type + "' ").append("\n");
-		
+		sql.append("    and info.tableid='" + report_type + "' ").append("\n");
+
 		sql.append(
-				"  group by info.creater, info.creatername, rflow.runflowkey, v.cno, ract.actdefid, bact.cname ")
+				"  group by info.creater, info.creatername, info.cno, rflow.runflowkey, v.cno, ract.actdefid, bact.cname ")
 				.append("\n");
-		sql.append(" union ").append("\n");
-		sql.append(
-				" select info.creater, info.creatername, rflow.runflowkey, v.cno, 'XXHQ' actdefid, '信息获取' actcname, (UF_Calculate_Duration(info.createtime, info.obtaintime)) zxsc ")
-				.append("\n");
-		sql.append(
-				" from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_pubinfo info, ")
-				.append("\n");
-		sql.append(" ( ").append("\n");
-		sql.append(ZXQKHelper.sql_xxgx_zxqk1(obj));
-		sql.append(" ) v   ").append("\n");
-		sql.append("  where 1 = 1 ").append("\n");
-		sql.append("    and v.cno = info.cno ").append("\n");
-		sql.append("    and rflow.dataid = info.id ").append("\n");
-		sql.append("    and rflow.tableid = 'InfoShare' ").append("\n");
-		sql.append("    and rflow.runflowkey = ract.runflowkey ").append("\n");
-		sql.append("    and bact.id = ract.actdefid ").append("\n");
-		sql.append("    and bact.ctype <> 'BEGIN' ").append("\n");
-		sql.append("    and bact.ctype <> 'END' ").append("\n");
-		sql.append("    and info.reptype='" + report_type + "' ").append("\n");
-		sql.append("  order by cno desc ").append("\n");
 
 		return sql.toString();
 	}
@@ -574,7 +396,7 @@ public class ZXQKHelper {
 		String begindate = obj.getFormatAttr("begindate"); // 结束日期
 		String enddate = obj.getFormatAttr("enddate"); // 起始日期
 		String sql_cdate = obj.getFormatAttr("sql_cdate"); // 系统与查询比较时间
-		String report_type = obj.getFormatAttr("reptype");//报表类型
+		String report_type = obj.getFormatAttr("reptype");// 报表类型
 
 		String ispublish = obj.getFormatAttr("ispublish"); // 发布状态开关
 		String isovertime = obj.getFormatAttr("isovertime"); // 超时状态开关
@@ -605,11 +427,12 @@ public class ZXQKHelper {
 		}
 
 		sql.append(
-				"   from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_app_pubinfo info ")
+				"   from t_sys_wfbact bact, t_sys_wfrflow rflow, t_sys_wfract ract, t_sys_wflflowassapp info ")
 				.append("\n");
 		sql.append("  where 1 = 1 ").append("\n");
-		sql.append("    and rflow.dataid = info.id ").append("\n");
-		sql.append("    and rflow.tableid = 'InfoShare' ").append("\n");
+		sql.append("    and rflow.runflowkey = info.runflowkey ").append("\n");
+		sql.append("    and rflow.tableid = 'PartyDueUseSuggest' ")
+				.append("\n");
 		sql.append("    and rflow.runflowkey = ract.runflowkey ").append("\n");
 		sql.append("    and bact.id = ract.actdefid ").append("\n");
 		sql.append("    and bact.ctype <> 'BEGIN' ").append("\n");
@@ -627,13 +450,7 @@ public class ZXQKHelper {
 
 		if ("Y".equals(ispublish)) {
 			sql.append("    and rflow.state = '结束' ").append("\n");
-			sql.append("    and info.publishtime is not null ").append("\n");
-			if (!StringToolKit.isBlank(enddate)) {
-				sql.append(RepHelper.date_end("info.publishtime", enddate))
-						.append("\n");
-			}
 		} else if ("N".equals(ispublish)) {
-			sql.append("    and info.publishtime is null ").append("\n");
 		}
 
 		if (!StringToolKit.isBlank(creater)) {
@@ -655,52 +472,9 @@ public class ZXQKHelper {
 					.append("\n");
 		}
 
-		sql.append("   union  ").append("\n");
-		sql.append(
-				"   select info.deptid, info.creater, info.cno, 'XXHQ' actdefid, UF_Calculate_Duration(info.createtime, info.obtaintime) cs ")
-				.append("\n");
-		sql.append("     from t_app_pubinfo info ").append("\n");
-		sql.append("    where 1 = 1 ").append("\n");
-
-		if (!StringToolKit.isBlank(begindate)) {
-			sql.append(RepHelper.date_begin_eq("info.createtime", begindate))
-					.append("\n");
-		}
-
-		if (!StringToolKit.isBlank(enddate)) {
-			sql.append(RepHelper.date_end("info.createtime", enddate)).append(
-					"\n");
-		}
-
-		if ("Y".equals(ispublish)) {
-			sql.append("    and info.publishtime is not null ").append("\n");
-			if (!StringToolKit.isBlank(enddate)) {
-				sql.append(RepHelper.date_end("info.publishtime", enddate))
-						.append("\n");
-			}
-		} else if ("N".equals(ispublish)) {
-			sql.append("     and info.publishtime is null ").append("\n");
-		}
-
-		if (!StringToolKit.isBlank(creater)) {
-			sql.append("    and info.creater = " + SQLParser.charValue(creater))
-					.append("\n");
-		}
-
-		if ("Y".equals(isnodeovertime)) {
-			sql.append(
-					" and (UF_Calculate_Duration(info.createtime, info.obtaintime)) > 1 ")
-					.append("\n");
-		} else if ("N".equals(isnodeovertime)) {
-			sql.append(
-					" and (UF_Calculate_Duration(info.createtime, info.obtaintime)) < 1 ")
-					.append("\n");
-		}
-
 		// sql.append("  order by deptid, creater, cno, actdefid  ").append("\n");
 
 		return sql.toString();
 	}
-
 
 }

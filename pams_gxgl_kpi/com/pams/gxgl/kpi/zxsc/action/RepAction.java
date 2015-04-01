@@ -20,7 +20,7 @@ import com.skynet.framework.services.function.StringToolKit;
 import com.skynet.framework.spec.GlobalConstants;
 
 @IocBean
-@InjectName("repAction_ZXSC")
+@InjectName("rep_gxgl_kpi_zxsc")
 @At("/module/pams/gxgl/kpi/zxsc/rep")
 public class RepAction extends BaseAction
 {
@@ -81,11 +81,11 @@ public class RepAction extends BaseAction
 	@Ok("->:/page/report/com/pams/gxgl/kpi/zxsc/view/tab_zxsc_gs.ftl")
 	public Map tab_zxsc_gs() throws Exception
 	{
+		DynamicObject token = (DynamicObject) Mvcs.getReq().getSession()
+				.getAttribute(GlobalConstants.sys_login_token);
 		String begindate = StringToolKit.formatText(Mvcs.getReq().getParameter("begindate"));
 		String enddate = StringToolKit.formatText(Mvcs.getReq().getParameter("enddate"));
-		String internal = ((DynamicObject) Mvcs.getReq().getSession()
-				.getAttribute(GlobalConstants.sys_login_token))
-				.getFormatAttr(GlobalConstants.sys_login_org_internal);
+		String internal = (token.getFormatAttr(GlobalConstants.sys_login_org_internal));
 		String reptype = StringToolKit.formatText(Mvcs.getReq().getParameter("reptype"));
 		
 		DynamicObject obj = new DynamicObject();

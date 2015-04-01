@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.nutz.dao.Dao;
+import org.nutz.ioc.annotation.InjectName;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.Mvcs;
@@ -19,6 +20,7 @@ import com.skynet.framework.services.function.StringToolKit;
 import com.skynet.framework.spec.GlobalConstants;
 
 @IocBean
+@InjectName("rep_gxgl_kpi_jsl")
 @At("/module/pams/gxgl/kpi/jsl/rep")
 public class RepAction extends BaseAction {
 	private String _searchname;

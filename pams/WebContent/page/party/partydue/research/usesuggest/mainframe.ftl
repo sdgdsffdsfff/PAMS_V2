@@ -27,9 +27,9 @@
         <li> 
         <div class="t"><i class="fa fa-paper-plane-o"></i> 计划任务</div>
         <ul class="sub">
-        <li><a href="${base}/party/partydue/research/usesuggest/browseplan.action">待执行任务</a></li>
-        <li><a href="javascript:void(0);">已执行任务</a></li>
-        <li><a href="javascript:void(0);">已完成任务</a></li>
+        <li><a href="${base}/party/partydue/research/usesuggest/browseplan.action">待执行计划</a></li>
+        <li><a href="about:blank">已执行计划</a></li>
+        <li><a href="about:blank">已完成计划</a></li>
         </ul>
         </li>
         
@@ -39,14 +39,14 @@
 
               <li class="active"> <a href="${base}/party/partydue/research/usesuggest/browsewait.action">个人待办业务</a></li>
               <li><a href="${base}/party/partydue/research/usesuggest/browsehandle.action">个人已办业务</a></li>
-              <li><a href="${base}/party/partydue/research/usesuggest/browseall.action">个人全部业务</a></li>
+              <li><a href="about:blank">个人全部业务</a></li>
             </ul>
           </li>
           <li> 
             <div class="t"><i class="fa fa-file-text-o"></i> 报告与文档</div>
             <ul class="sub">
-              <li><a href="javascript:void(0);">我的文档</a></li>
-              <li><a href="javascript:void(0);">全部文档</a></li>
+              <li><a href="about:blank">我的文档</a></li>
+              <li><a href="about:blank">全部文档</a></li>
             </ul>
           </li>
         </ul>

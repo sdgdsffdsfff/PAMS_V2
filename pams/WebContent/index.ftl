@@ -38,12 +38,12 @@
               <div title="费用管理" class="t"><i class="fa fa-list-alt"></i> 党费管理</div>
               <ul class="sub">
                 <li><a href="${base}/party/partydue/research/usesuggest/mainframe.action">意见征求</a></li>
-                <li><a href="${base}/party/partydue/research/base/mainframe.action">基数核准</a></li>
-                <li><a href="">计划编制</a></li>
-                <li><a href="">党费收取</a></li>
-                <li><a href="">党费使用</a></li>
-                <li><a href="">工作总结</a></li>
-                <li><a href="">归档共享</a></li>
+                <li><a href="about:blank">基数核准</a></li>
+                <li><a href="about:blank">计划编制</a></li>
+                <li><a href="about:blank">党费收取</a></li>
+                <li><a href="about:blank">党费使用</a></li>
+                <li><a href="about:blank">工作总结</a></li>
+                <li><a href="about:blank">归档共享</a></li>
 
               </ul>
             </li>

@@ -319,7 +319,9 @@ public class PlanAction extends BaseAction {
 		plan.setBaseplanworkload(100);
 		plan.setState("计划");
 
-		long time = System.currentTimeMillis();
+		SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+
+		long time = sf1.parse(sf1.format(cdate)).getTime();
 		plan.setPlanstartdate(new Timestamp(time - s * 60));
 		plan.setPlanenddate(new Timestamp(time + s * 40));
 		planService.dao().insert(plan);

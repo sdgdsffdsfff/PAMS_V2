@@ -1,0 +1,90 @@
+<html><head>
+<meta charset="utf-8">
+<title></title>    
+<script type="text/javascript" src="/pams/lib/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/pams/js/report.js"></script>
+<link rel="stylesheet" href="/pams/css/report.css"><script type="text/javascript">
+jQuery(function($){
+/////////////////////////////////////
+
+
+
+/////////////////////////////////////
+})
+</script>
+<style type="text/css">
+.sec1 {width:90%;float:left;margin-right:10px;}
+</style>
+</head>
+<body><div id="gContainer">
+
+
+<script>
+jQuery(function($)
+{
+	$('#site-nav ul li').click(function()
+	{
+		console.log("hello");
+		if($(this).hasClass('changetype'))
+		{
+			$(this).parent().find('li').removeClass('current');
+			$(this).addClass('current');
+		}
+	})
+});	
+</script>
+
+<h2 class="noBorder">党费使用统计报表</h2>
+
+
+
+
+<br>
+<div class="section sec1">
+<h2><span class="title tab_zxsc">部门统计报表</span><span class="more"></span></h2>
+<div class="p8" id="tab_zxsc"><table class="repgGrid">
+<tbody><tr>
+<th width="40">序号</th>
+<th width="350">部门</th>
+<th>收缴费用</th>
+</tr>
+<tr>
+<td>1</td>
+<td><a href="/pams/page/report/party/partydue/use/tab_ry.html">党委办公室</a></td>
+<td>10040.00</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="/pams/page/report/party/partydue/use/tab_ry.html">党委组织部</a></td>
+<td>8500.00</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="/pams/page/report/party/partydue/use/tab_ry.html">党委宣传部</a></td>
+<td>7600.00</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="/pams/page/report/party/partydue/use/tab_ry.html">部室党总支</a></td>
+<td>102000.00</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="/pams/page/report/party/partydue/use/tab_ry.html">信息化党总支</a></td>
+<td>11200.00</td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td>47540.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</body>
+</html>

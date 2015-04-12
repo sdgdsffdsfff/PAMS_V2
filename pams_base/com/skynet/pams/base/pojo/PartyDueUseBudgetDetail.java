@@ -2,8 +2,6 @@ package com.skynet.pams.base.pojo;
 
 import java.sql.Timestamp;
 
-import org.nutz.dao.entity.annotation.ColDefine;
-import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
@@ -15,100 +13,275 @@ public class PartyDueUseBudgetDetail {
 	private String id; // 标识
 
 	@Column
-	private String cno; // 单号
+	private String usebudgetid; // 预算表标识
+	
+	@Column
+	private String cname; // 项目名称
+	
+	@Column
+	private Timestamp plantime; // 立项时间
+	
+	@Column
+	private Timestamp starttime; // 开始时间
 
 	@Column
-	private String cname; // 费用名
-
+	private Timestamp endtime; // 结束时间	
+	
 	@Column
-	private int due; // 费用名
-
+	private float cost; // 主管部门标识
+	
 	@Column
-	private String planid; // 计划标识
-
+	private float costsource1; // 资金来源1
+	
 	@Column
-	private String flowdefid; // 流程定义标识
-
+	private float costsource2; // 资金来源2
+	
 	@Column
-	@ColDefine(type = ColType.DATETIME)
-	private Timestamp createtime; // 创建时间
-
+	private String context; // 项目内容	
+	
 	@Column
-	private String creater; // 创建人用户名
-
+	private String charger; // 项目负责人
+	
 	@Column
-	private String creatercname; // 创建人姓名
+	private String chargername; // 项目负责人姓名
+	
+	@Column
+	private String leader; // 主管领导
+	
+	@Column
+	private String leadername; // 主管领导姓名
+	
+	@Column
+	private String chargedeptid; // 主管部门标识
+	
+	@Column
+	private String chargedeptname; // 主管部门名称
+	
+	@Column
+	private String masterdeptid; // 主办部门标识
+	
+	@Column
+	private String masterdeptname; // 主管部门名称
+	
+	@Column
+	private String salvedeptid; // 协办部门标识
+	
+	@Column
+	private String slavedeptname; // 协办部门名称
+	
+	@Column
+	private String memo; // 备注
 
-	public String getId() {
+	public String getId()
+	{
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(String id)
+	{
 		this.id = id;
 	}
 
-	public String getCno() {
-		return cno;
+	public String getUsebudgetid()
+	{
+		return usebudgetid;
 	}
 
-	public void setCno(String cno) {
-		this.cno = cno;
+	public void setUsebudgetid(String usebudgetid)
+	{
+		this.usebudgetid = usebudgetid;
 	}
 
-	public String getCname() {
+	public String getCname()
+	{
 		return cname;
 	}
 
-	public void setCname(String cname) {
+	public void setCname(String cname)
+	{
 		this.cname = cname;
 	}
 
-	public int getDue() {
-		return due;
+	public Timestamp getPlantime()
+	{
+		return plantime;
 	}
 
-	public void setDue(int due) {
-		this.due = due;
+	public void setPlantime(Timestamp plantime)
+	{
+		this.plantime = plantime;
 	}
 
-	public String getPlanid() {
-		return planid;
+	public Timestamp getStarttime()
+	{
+		return starttime;
 	}
 
-	public void setPlanid(String planid) {
-		this.planid = planid;
+	public void setStarttime(Timestamp starttime)
+	{
+		this.starttime = starttime;
 	}
 
-	public String getFlowdefid() {
-		return flowdefid;
+	public Timestamp getEndtime()
+	{
+		return endtime;
 	}
 
-	public void setFlowdefid(String flowdefid) {
-		this.flowdefid = flowdefid;
+	public void setEndtime(Timestamp endtime)
+	{
+		this.endtime = endtime;
 	}
 
-	public Timestamp getCreatetime() {
-		return createtime;
+	public float getCost()
+	{
+		return cost;
 	}
 
-	public void setCreatetime(Timestamp createtime) {
-		this.createtime = createtime;
+	public void setCost(float cost)
+	{
+		this.cost = cost;
 	}
 
-	public String getCreater() {
-		return creater;
+	public float getCostsource1()
+	{
+		return costsource1;
 	}
 
-	public void setCreater(String creater) {
-		this.creater = creater;
+	public void setCostsource1(float costsource1)
+	{
+		this.costsource1 = costsource1;
 	}
 
-	public String getCreatercname() {
-		return creatercname;
+	public float getCostsource2()
+	{
+		return costsource2;
 	}
 
-	public void setCreatercname(String creatercname) {
-		this.creatercname = creatercname;
+	public void setCostsource2(float costsource2)
+	{
+		this.costsource2 = costsource2;
 	}
 
+	public String getContext()
+	{
+		return context;
+	}
+
+	public void setContext(String context)
+	{
+		this.context = context;
+	}
+
+	public String getCharger()
+	{
+		return charger;
+	}
+
+	public void setCharger(String charger)
+	{
+		this.charger = charger;
+	}
+
+	public String getChargername()
+	{
+		return chargername;
+	}
+
+	public void setChargername(String chargername)
+	{
+		this.chargername = chargername;
+	}
+
+	public String getLeader()
+	{
+		return leader;
+	}
+
+	public void setLeader(String leader)
+	{
+		this.leader = leader;
+	}
+
+	public String getLeadername()
+	{
+		return leadername;
+	}
+
+	public void setLeadername(String leadername)
+	{
+		this.leadername = leadername;
+	}
+
+	public String getChargedeptid()
+	{
+		return chargedeptid;
+	}
+
+	public void setChargedeptid(String chargedeptid)
+	{
+		this.chargedeptid = chargedeptid;
+	}
+
+	public String getChargedeptname()
+	{
+		return chargedeptname;
+	}
+
+	public void setChargedeptname(String chargedeptname)
+	{
+		this.chargedeptname = chargedeptname;
+	}
+
+	public String getMasterdeptid()
+	{
+		return masterdeptid;
+	}
+
+	public void setMasterdeptid(String masterdeptid)
+	{
+		this.masterdeptid = masterdeptid;
+	}
+
+	public String getMasterdeptname()
+	{
+		return masterdeptname;
+	}
+
+	public void setMasterdeptname(String masterdeptname)
+	{
+		this.masterdeptname = masterdeptname;
+	}
+
+	public String getSalvedeptid()
+	{
+		return salvedeptid;
+	}
+
+	public void setSalvedeptid(String salvedeptid)
+	{
+		this.salvedeptid = salvedeptid;
+	}
+
+	public String getSlavedeptname()
+	{
+		return slavedeptname;
+	}
+
+	public void setSlavedeptname(String slavedeptname)
+	{
+		this.slavedeptname = slavedeptname;
+	}
+
+	public String getMemo()
+	{
+		return memo;
+	}
+
+	public void setMemo(String memo)
+	{
+		this.memo = memo;
+	}
+	
+	
+	
 }

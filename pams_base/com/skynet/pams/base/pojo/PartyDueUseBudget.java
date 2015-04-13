@@ -16,12 +16,12 @@ public class PartyDueUseBudget {
 
 	@Column
 	private String cno; // 单号
-
+	
 	@Column
-	private String cname; // 费用名
-
+	private String cname; // 计划名称	
+	
 	@Column
-	private int due; // 费用名
+	private int cyear; // 计划年度
 
 	@Column
 	private String planid; // 计划标识
@@ -39,75 +39,93 @@ public class PartyDueUseBudget {
 	@Column
 	private String creatercname; // 创建人姓名
 
-	public String getId() {
+	public String getId()
+	{
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(String id)
+	{
 		this.id = id;
 	}
 
-	public String getCno() {
+	public String getCno()
+	{
 		return cno;
 	}
 
-	public void setCno(String cno) {
+	public void setCno(String cno)
+	{
 		this.cno = cno;
 	}
 
-	public String getCname() {
+	public String getCname()
+	{
 		return cname;
 	}
 
-	public void setCname(String cname) {
+	public void setCname(String cname)
+	{
 		this.cname = cname;
 	}
 
-	public int getDue() {
-		return due;
+	public int getCyear()
+	{
+		return cyear;
 	}
 
-	public void setDue(int due) {
-		this.due = due;
+	public void setCyear(int cyear)
+	{
+		this.cyear = cyear;
 	}
 
-	public String getPlanid() {
+	public String getPlanid()
+	{
 		return planid;
 	}
 
-	public void setPlanid(String planid) {
+	public void setPlanid(String planid)
+	{
 		this.planid = planid;
 	}
 
-	public String getFlowdefid() {
+	public String getFlowdefid()
+	{
 		return flowdefid;
 	}
 
-	public void setFlowdefid(String flowdefid) {
+	public void setFlowdefid(String flowdefid)
+	{
 		this.flowdefid = flowdefid;
 	}
 
-	public Timestamp getCreatetime() {
+	public Timestamp getCreatetime()
+	{
 		return createtime;
 	}
 
-	public void setCreatetime(Timestamp createtime) {
+	public void setCreatetime(Timestamp createtime)
+	{
 		this.createtime = createtime;
 	}
 
-	public String getCreater() {
+	public String getCreater()
+	{
 		return creater;
 	}
 
-	public void setCreater(String creater) {
+	public void setCreater(String creater)
+	{
 		this.creater = creater;
 	}
 
-	public String getCreatercname() {
+	public String getCreatercname()
+	{
 		return creatercname;
 	}
 
-	public void setCreatercname(String creatercname) {
+	public void setCreatercname(String creatercname)
+	{
 		this.creatercname = creatercname;
 	}
 

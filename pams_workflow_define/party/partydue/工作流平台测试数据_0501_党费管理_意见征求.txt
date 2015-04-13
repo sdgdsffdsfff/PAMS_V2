@@ -1,0 +1,69 @@
+﻿insert into t_sys_wfbform (id, url, classid, cname) values('DFGL','','DFGL','党费管理');
+insert into t_sys_wfbflowclass (id, appid, cname, cclass) values('DFGL', 'DFGL', '党费管理', 'DFGL');
+
+insert into t_sys_wfbflow(id, cname, formid, classid, verson, state, sno) values('DFGL_YJZQ','党费管理意见征求流程','DFGL','DFGL','1','激活','DFGL_YJZQ');
+
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_YJZQ_000','开始','BEGIN','DFGL_YJZQ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_YJZQ_ZQYJTZ','征求意见通知','NORMAL','DFGL_YJZQ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
+
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_YJZQ_TZZF','通知转发','NORMAL','DFGL_YJZQ','DFGL','多部门并行','OR','OR','N',null,'单人','N',null);
+
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_YJZQ_DZZYJHZ','党总支意见汇总','NORMAL','DFGL_YJZQ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_YJZQ_SH','审核','NORMAL','DFGL_YJZQ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_YJZQ_DWYJHZ','党委意见汇总','NORMAL','DFGL_YJZQ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_YJZQ_SY','审阅','NORMAL','DFGL_YJZQ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_YJZQ_999','结束','END','DFGL_YJZQ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_YJZQ_ZQYJTZ_001','DFGL_YJZQ_ZQYJTZ',null,'ROLE','USER','普通用户',null);
+
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_YJZQ_TZZF_001','DFGL_YJZQ_TZZF',null,'DEPTROLE','DJZZ','党建专职',null);
+
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_YJZQ_DZZYJHZ_001','DFGL_YJZQ_DZZYJHZ',null,'DEPT','000000000004','部室党总支',null);
+
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_YJZQ_SH_001','DFGL_YJZQ_SH',null,'ROLE','USER','普通用户',null);
+
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_YJZQ_DWYJHZ_001','DFGL_YJZQ_DWYJHZ',null,'ROLE','USER','普通用户',null);
+
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_YJZQ_SY_001','DFGL_YJZQ_SY',null,'ROLE','USER','普通用户',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_YJZQ_000_ZQYJTZ','转征求意见通知',null,null,'DFGL_YJZQ_000','DFGL_YJZQ_ZQYJTZ','DFGL_YJZQ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_YJZQ_ZQYJTZ_TZZF','转通知转发',null,null,'DFGL_YJZQ_ZQYJTZ','DFGL_YJZQ_TZZF','DFGL_YJZQ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_YJZQ_TZZF_DZZYJHZ','转党总支意见汇总',null,null,'DFGL_YJZQ_TZZF','DFGL_YJZQ_DZZYJHZ','DFGL_YJZQ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_YJZQ_DZZYJHZ_SH','转审核',null,null,'DFGL_YJZQ_DZZYJHZ','DFGL_YJZQ_SH','DFGL_YJZQ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_YJZQ_SH_DWYJHZ','转党委意见汇总',null,null,'DFGL_YJZQ_SH','DFGL_YJZQ_DWYJHZ','DFGL_YJZQ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_YJZQ_DWYJHZ_SY','转审阅',null,null,'DFGL_YJZQ_DWYJHZ','DFGL_YJZQ_SY','DFGL_YJZQ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_YJZQ_SY_999','转结束',null,null,'DFGL_YJZQ_SY','DFGL_YJZQ_999','DFGL_YJZQ',null);
+
+

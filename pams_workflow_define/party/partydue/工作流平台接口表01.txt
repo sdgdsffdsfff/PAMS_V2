@@ -1,0 +1,12 @@
+﻿create or replace view t_sys_wfperson as  
+select a.cname as name, a.id as personid, a.loginname as loginname, a.isusing as isusing, a.ordernum as ordernum from t_sys_user a;
+
+create or replace view t_sys_wfrole as  
+select a.cname as name, a.id as roleid, a.cno as pname from t_sys_role a;
+
+create or replace view t_sys_wfdepartment as  
+select a.id as deptid, a.cname as name, a.allname as allname, a.shortname as shortname, a.parentorganid as parentdeptid, a.internal as internal, a.internal as ordernum, case when a.ctype = 'ORGAN' then 'ORG' else a.ctype end as ctype, 0 as workgroupflag from t_sys_organ a;
+
+create or replace view t_sys_wfgroupuser as
+select a.groupid, a.groupname, a.grouptype, a.userid, a.loginname, a.username
+from t_sys_groupuser a; 

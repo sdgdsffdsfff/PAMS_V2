@@ -1,0 +1,99 @@
+﻿-- 组织机构
+
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000','党委','党委','党委','ORG','G000','R0');
+
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('000000000001','党委办公室','党委办公室','营销部/党委','DEPT','G000D001','00000000');
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('000000000002','党委组织部','党委组织部','党委组织部/党委','DEPT','G000D002','00000000');
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('000000000003','党委宣传部','党委宣传部','党委宣传部/党委','DEPT','G000D003','00000000');
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('000000000004','部室党总支','部室党总支','部室党总支/党委','DEPT','G000D004','00000000');
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('000000000005','信息化党总支','信息化党总支','信息化党总支/党委','DEPT','G000D005','00000000');
+
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('0000000000040001','部室第一党支部','部室第一党支部','部室第一党支部/部室党总支/党委','DEPT','G000D004D001','000000000004');
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('0000000000040002','部室第二党支部','部室第二党支部','部室第二党支部/部室党总支/党委','DEPT','G000D004D002','000000000004');
+
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('0000000000050001','信息化第一党支部','信息化第一党支部','信息化第一党支部/部室党总支/党委','DEPT','G000D005D001','000000000005');
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('0000000000050002','信息化第二党支部','信息化第二党支部','信息化第二党支部/部室党总支/党委','DEPT','G000D005D002','000000000005');
+
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000400010001','第一党小组','第一党小组','第一党小组/部室第一党支部/部室党总支/党委','DEPT','G000D004D001D001','0000000000040001');
+
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000400010002','第二党小组','第二党小组','第二党小组/部室第一党支部/部室党总支/党委','DEPT','G000D004D001D002','0000000000040001');
+
+-- 人员
+
+insert into T_SYS_USER(id,loginname,cname) values('liuys','liuys','刘予胜');
+insert into T_SYS_USER(id,loginname,cname) values('licg','licg','李春光');
+insert into T_SYS_USER(id,loginname,cname) values('liujp','liujp','刘建平');
+insert into T_SYS_USER(id,loginname,cname) values('wudf','wudf','武登峰');
+insert into T_SYS_USER(id,loginname,cname) values('xinzq','xingzq','邢兆群');
+
+insert into T_SYS_USER(id,loginname,cname) values('yangpg','yangpg','杨培功');
+insert into T_SYS_USER(id,loginname,cname) values('wangwb','wangwb','王文斌');
+insert into T_SYS_USER(id,loginname,cname) values('zhangk','zhangk','张凯');
+insert into T_SYS_USER(id,loginname,cname) values('zhangyx','zhangyx','张月仙');
+insert into T_SYS_USER(id,loginname,cname) values('guolx','guolx','郭丽霞');
+
+insert into T_SYS_USER(id,loginname,cname) values('zhangpy','zhangpy','张鹏宇');
+insert into T_SYS_USER(id,loginname,cname) values('wangj','wangj','王晶');
+insert into T_SYS_USER(id,loginname,cname) values('changsq','changsq','常士琴');
+insert into T_SYS_USER(id,loginname,cname) values('shicl','shicl','施昌玲');
+insert into T_SYS_USER(id,loginname,cname) values('mil','mil','米蕾');
+
+insert into T_SYS_USER(id,loginname,cname) values('wangjh','wangjh','王晋华');
+insert into T_SYS_USER(id,loginname,cname) values('duph','duph','杜普华');
+insert into T_SYS_USER(id,loginname,cname) values('zhangb','zhangb','张博');
+insert into T_SYS_USER(id,loginname,cname) values('renyl','renyl','任宇路');
+insert into T_SYS_USER(id,loginname,cname) values('xionglj','xionglj','熊莉娟');
+
+insert into T_SYS_USER(id,loginname,cname) values('cuic','cuic','崔超');
+insert into T_SYS_USER(id,loginname,cname) values('huangsr','huangsr','黄苏荣');
+insert into T_SYS_USER(id,loginname,cname) values('liuyz','liuyz','刘永正');
+insert into T_SYS_USER(id,loginname,cname) values('wut','wut','武韬');
+
+insert into T_SYS_USER(id,loginname,cname) values('tiang','tiang','田格');
+insert into T_SYS_USER(id,loginname,cname) values('wangyl','wangyl','王云龙');
+insert into T_SYS_USER(id,loginname,cname) values('liyq','liyq','李亚青');
+insert into T_SYS_USER(id,loginname,cname) values('liyz','liyz','李煜柱');
+insert into T_SYS_USER(id,loginname,cname) values('zhangyuxing','zhangyuxing','张宇星');
+
+insert into T_SYS_USER(id,loginname,cname) values('huxc','huxc','胡兴春');
+insert into T_SYS_USER(id,loginname,cname) values('fengxy','fengxy','冯晓艳');
+insert into T_SYS_USER(id,loginname,cname) values('shangjj','shangjj','尚建军');
+insert into T_SYS_USER(id,loginname,cname) values('huy','huy','候宇');
+insert into T_SYS_USER(id,loginname,cname) values('fangjq','fangjq','方剑秋');
+
+-- update t_sys_user set password = 'b59c67bf196a4758191e42f76670ceba';
+update t_sys_user set password = '1111';
+
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
+select sys_guid(),'普通用户','USER','ROLE', cname, loginname, id
+  from t_sys_user;
+
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
+select sys_guid(),'党员','DY','ROLE', cname, loginname, id
+  from t_sys_user;  
+
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
+select sys_guid(),'党建专职','DJZZ','ROLE', cname, loginname, id
+  from t_sys_user
+ where loginname in ('rongj','zhangyx','duph','wangj','zhangb');   
+
+
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
+select sys_guid(), '党委办公室','000000000001','DEPT', cname, loginname, id
+  from t_sys_user
+ where loginname in ('wangwb','zhangk','rongj'); 
+
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
+select sys_guid(), '党委组织部','000000000002','DEPT', cname, loginname, id
+  from t_sys_user
+ where loginname in ('wangwb','zhangyx'); 
+
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
+select sys_guid(), '党委宣传部','000000000003','DEPT', cname, loginname, id
+  from t_sys_user
+ where loginname in ('guolx','zhangpy','wangj'); 
+
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
+select sys_guid(), '部室党总支','000000000004','DEPT', cname, loginname, id
+  from t_sys_user
+ where loginname in ('wangwb','changsq','shicl','wangjh','duph');  

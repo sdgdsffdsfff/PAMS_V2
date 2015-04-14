@@ -28,7 +28,7 @@ import com.skynet.framework.services.db.dybeans.DynamicObject;
 import com.skynet.pams.app.party.service.PartyDueUseBudgetDetailService;
 import com.skynet.pams.app.party.service.PartyDueUseBudgetService;
 import com.skynet.pams.app.plan.service.PlanService;
-import com.skynet.pams.base.pojo.PartyDueUseSuggest;
+import com.skynet.pams.base.pojo.PartyDueUseBudget;
 import com.skynet.pams.base.pojo.Plan;
 
 @IocBean
@@ -36,18 +36,18 @@ import com.skynet.pams.base.pojo.Plan;
 public class PartyDueUseBudgetAction extends BaseAction {
 
 	@Inject
-	private PartyDueUseBudgetService partydueusesuggestService;
+	private PartyDueUseBudgetService partyDueUseBudgetService;
 	
 	@Inject
-	private PartyDueUseBudgetDetailService partydueusesuggestdetailService;
+	private PartyDueUseBudgetDetailService partyDueUseBudgetDetailService;
 	
 	@Inject
 	private PlanService planService;
 	
-	public static String tableid = "PartyDueUseSuggest";
+	public static String tableid = "PartyDueUseBudget";
 	
 	@At("/mainframe")
-	@Ok("->:/page/party/partydue/research/usesuggest/mainframe.ftl")
+	@Ok("->:/page/party/partydue/usebudget/mainframe.ftl")
 	public Map mainframe() throws Exception
 	{
 		return ro;
@@ -66,13 +66,13 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		Plan plan = planService.get(planid);
 		
 		Timestamp nowtime = new Timestamp(System.currentTimeMillis());
-		PartyDueUseSuggest usesuggest = new PartyDueUseSuggest();
-		usesuggest.setId(UUIDGenerator.getInstance().getNextValue());
-		usesuggest.setCname(plan.getCname());
-		usesuggest.setCreatetime(nowtime);
-		usesuggest.setCreater(loginname);
-		usesuggest.setCreatercname(username);
-		usesuggest.setCyear((new GregorianCalendar()).get(Calendar.YEAR));
+		PartyDueUseBudget useBudget = new PartyDueUseBudget();
+		useBudget.setId(UUIDGenerator.getInstance().getNextValue());
+		useBudget.setCname(plan.getCname());
+		useBudget.setCreatetime(nowtime);
+		useBudget.setCreater(loginname);
+		useBudget.setCreatercname(username);
+		useBudget.setCyear((new GregorianCalendar()).get(Calendar.YEAR));
 		
 		DynamicObject swapFlow = new DynamicObject();
 		swapFlow.setAttr(GlobalConstants.swap_coperatorid, userid);
@@ -88,7 +88,7 @@ public class PartyDueUseBudgetAction extends BaseAction {
 	}
 	
 	@At("/browseplan")
-	@Ok("->:/page/party/partydue/research/usesuggest/browseplan.ftl")
+	@Ok("->:/page/party/partydue/usebudget/browsewait.ftl")
 	public Map browseplan() {
 		return ro;
 	}
@@ -108,14 +108,14 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		amap.put(GlobalConstants.swap_coperatorid, userid);
 		amap.put(GlobalConstants.swap_coperatorloginname, loginname);
 
-		List datas = partydueusesuggestService.sdao().queryForList(
-				partydueusesuggestService.get_browseplan_sql(amap));
+		List datas = partyDueUseBudgetService.sdao().queryForList(
+				partyDueUseBudgetService.get_browseplan_sql(amap));
 
 		return datas; // 后期改为翻页对象
 	}
 
 	@At("/browsewait")
-	@Ok("->:/page/party/partydue/research/usesuggest/browsewait.ftl")
+	@Ok("->:/page/party/partydue/usebudget/browsewait.ftl")
 	public Map browsewait() {
 		return ro;
 	}
@@ -138,14 +138,14 @@ public class PartyDueUseBudgetAction extends BaseAction {
 
 		amap.put("flowcclass", flowcclass);
 
-		List datas = partydueusesuggestService.sdao().queryForList(
-				partydueusesuggestService.get_browsewait_sql(amap));
+		List datas = partyDueUseBudgetService.sdao().queryForList(
+				partyDueUseBudgetService.get_browsewait_sql(amap));
 
 		return datas; // 后期改为翻页对象
 	}
 	
 	@At("/browsehandle")
-	@Ok("->:/page/party/partydue/research/usesuggest/browsehandle.ftl")
+	@Ok("->:/page/party/partydue/useusebudget/browsehandle.ftl")
 	public Map browsehandle() {
 		return ro;
 	}
@@ -168,14 +168,14 @@ public class PartyDueUseBudgetAction extends BaseAction {
 
 		amap.put("flowcclass", flowcclass);
 
-		List datas = partydueusesuggestService.sdao().queryForList(
-				partydueusesuggestService.get_browsehandle_sql(amap));
+		List datas = partyDueUseBudgetService.sdao().queryForList(
+				partyDueUseBudgetService.get_browsehandle_sql(amap));
 
 		return datas; // 后期改为翻页对象
 	}
 	
 	@At("/browseall")
-	@Ok("->:/page/party/partydue/research/usesuggest/browseall.ftl")
+	@Ok("->:/page/party/partydue/usebudget/browseall.ftl")
 	public Map browseall() {
 		return ro;
 	}
@@ -198,21 +198,21 @@ public class PartyDueUseBudgetAction extends BaseAction {
 
 		amap.put("flowcclass", flowcclass);
 
-		List datas = partydueusesuggestService.sdao().queryForList(
-				partydueusesuggestService.get_browseall_sql(amap));
+		List datas = partyDueUseBudgetService.sdao().queryForList(
+				partyDueUseBudgetService.get_browseall_sql(amap));
 
 		return datas; // 后期改为翻页对象
 	}
 	
 	@At("/readpage")
-	@Ok("->:/page/party/partydue/research/usesuggest/readpage.ftl")
+	@Ok("->:/page/party/partydue/usebudget/readpage.ftl")
 	public Map readpage(String runactkey) throws Exception {
 		loc(runactkey);
 		return ro;
 	}
 
 	@At("/locate")
-	@Ok("->:/page/party/partydue/research/usesuggest/locate.ftl")
+	@Ok("->:/page/party/partydue/usebudget/locate.ftl")
 	public Map locate(String runactkey) throws Exception {
 		loc(runactkey);
 		return ro;
@@ -229,32 +229,32 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		DynamicObject ract = partydueusesuggestService.getWorkFlowEngine().getActManager()
+		DynamicObject ract = partyDueUseBudgetService.getWorkFlowEngine().getActManager()
 				.getRactService().locate(runactkey);
 		String id = ract.getFormatAttr("dataid");
 		String tableid = ract.getFormatAttr("tableid");
-		DynamicObject usesuggest = partydueusesuggestService.locate(id);
-		DynamicObject usesuggestdetail = partydueusesuggestdetailService.locateBy(Cnd.where("suggestid", "=", id).and("deptid", "=", deptid));	
+		DynamicObject useBudget = partyDueUseBudgetService.locate(id);
+		DynamicObject useBudgetDetail = partyDueUseBudgetDetailService.locateBy(Cnd.where("suggestid", "=", id).and("deptid", "=", deptid));	
 		
-		usesuggestdetail.setAttr("deptid", deptid);
-		usesuggestdetail.setAttr("deptname", deptname);
-		usesuggestdetail.setAttr("suggester", loginname);
-		usesuggestdetail.setAttr("suggestercname", username);
-		usesuggestdetail.setAttr("suggesttime", sf.format(new Date()));
+		useBudgetDetail.setAttr("deptid", deptid);
+		useBudgetDetail.setAttr("deptname", deptname);
+		useBudgetDetail.setAttr("suggester", loginname);
+		useBudgetDetail.setAttr("suggestercname", username);
+		useBudgetDetail.setAttr("suggesttime", sf.format(new Date()));
 		
 		
-		List<DynamicObject> usesuggestdetails = partydueusesuggestdetailService.findByCond(Cnd.where("suggestid", "=", id)); // 汇总意见
+		List<DynamicObject> usesuggestdetails = partyDueUseBudgetDetailService.findByCond(Cnd.where("suggestid", "=", id)); // 汇总意见
 		// 权限设置
 		set_author();
 		
 		// 查询可选路由
 		String actdefid = ract.getFormatAttr("actdefid");
-		List<DynamicObject> routes = partydueusesuggestService.getWorkFlowEngine().getFlowManager().getBrouteService().getRoutes(actdefid);
+		List<DynamicObject> routes = partyDueUseBudgetService.getWorkFlowEngine().getFlowManager().getBrouteService().getRoutes(actdefid);
 
 		ro.put("tableid", tableid);
 		ro.put("runactkey", runactkey);
-		ro.put("usesuggest", usesuggest);
-		ro.put("usesuggestdetail", usesuggestdetail);
+		ro.put("useBudget", useBudget);
+		ro.put("useBudgetDetail", useBudgetDetail);
 		ro.put("usesuggestdetails", usesuggestdetails);	
 		ro.put("ract", ract);
 		ro.put("routes", routes);
@@ -268,7 +268,7 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		DynamicObject swapFlow = get_author_common();
 		
 		String loginname = swapFlow.getFormatAttr(GlobalConstants.swap_coperatorloginname);
-		boolean sign = partydueusesuggestService.getWorkFlowEngine().getActManager().enableApplyNew(runactkey, loginname, DBFieldConstants.PUB_PARTICIPATOR_PERSON);
+		boolean sign = partyDueUseBudgetService.getWorkFlowEngine().getActManager().enableApplyNew(runactkey, loginname, DBFieldConstants.PUB_PARTICIPATOR_PERSON);
 
 		if (!sign)
 		{
@@ -282,7 +282,7 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		vo.usertype = DBFieldConstants.PUB_PARTICIPATOR_PERSON;
 		vo.runactkey = runactkey;
 
-		partydueusesuggestService.getWorkFlowEngine().getActManager().vapply(vo);
+		partyDueUseBudgetService.getWorkFlowEngine().getActManager().vapply(vo);
 
 		ro.put("runactkey", runactkey);
 
@@ -296,16 +296,16 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		DynamicObject flowobj = get_author_common();
 
 		// 以下为常用权限；
-		boolean isread = partydueusesuggestService.isread(flowobj); // 是否只读页面
-		boolean isedit = partydueusesuggestService.isedit(flowobj); // 是否修改页面
+		boolean isread = partyDueUseBudgetService.isread(flowobj); // 是否只读页面
+		boolean isedit = partyDueUseBudgetService.isedit(flowobj); // 是否修改页面
 
-		boolean isapply = partydueusesuggestService.isapply(flowobj); // 可否签收
-		boolean isforward = partydueusesuggestService.isforward(flowobj); // 可否转发
-		boolean iscallback = partydueusesuggestService.iscallback(flowobj); // 可否收回
-		boolean isbackward = partydueusesuggestService.isbackward(flowobj); // 可否退回
+		boolean isapply = partyDueUseBudgetService.isapply(flowobj); // 可否签收
+		boolean isforward = partyDueUseBudgetService.isforward(flowobj); // 可否转发
+		boolean iscallback = partyDueUseBudgetService.iscallback(flowobj); // 可否收回
+		boolean isbackward = partyDueUseBudgetService.isbackward(flowobj); // 可否退回
 
-		boolean issave = partydueusesuggestService.issave(flowobj); // 可否保存
-		boolean isdelete = partydueusesuggestService.isdelete(flowobj); // 可否删除
+		boolean issave = partyDueUseBudgetService.issave(flowobj); // 可否保存
+		boolean isdelete = partyDueUseBudgetService.isdelete(flowobj); // 可否删除
 
 		// 以下为特定业务权限
 		
@@ -329,7 +329,7 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		DynamicObject swapFlow = ActionHelper.prepared_author_base();
 
 		String runactkey = Mvcs.getReq().getParameter("runactkey");
-		DynamicObject ract = partydueusesuggestService.getWorkFlowEngine().getActManager().getRactService().locate(runactkey);
+		DynamicObject ract = partyDueUseBudgetService.getWorkFlowEngine().getActManager().getRactService().locate(runactkey);
 		String runflowkey = ract.getFormatAttr("runflowkey");
 		String dataid = ract.getFormatAttr("dataid");
 		

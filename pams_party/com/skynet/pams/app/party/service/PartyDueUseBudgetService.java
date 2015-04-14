@@ -66,7 +66,7 @@ public class PartyDueUseBudgetService extends SkynetNameEntityService<PartyDueUs
 		sql.append("    and plan.flowdefid = bflow.id ");
 		sql.append("    and bflow.classid = 'DFGL' ");
 		sql.append("    and plan.ctype = '流程' ");
-		sql.append("    and plan.state = '计划' ");
+		sql.append("    and plan.state = '活动' ");
 		return sql.toString();
 	}
 		

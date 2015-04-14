@@ -39,7 +39,7 @@
               <ul class="sub">
                 <li><a href="${base}/party/partydue/research/usesuggest/mainframe.action">意见征求</a></li>
                 <li><a href="about:blank">基数核准</a></li>
-                <li><a href="about:blank">计划编制</a></li>
+                <li><a href="${base}/party/partydue/usebudget/mainframe.action">计划编制</a></li>
                 <li><a href="about:blank">党费收取</a></li>
                 <li><a href="about:blank">党费使用</a></li>
                 <li><a href="about:blank">工作总结</a></li>

@@ -230,7 +230,7 @@ function page_flowtrace()
 
 function page_save_detail()
 {
-	detailform.action = "${base}/party/partydue/research/usesuggestdetail/save.action";
+	detailform.action = "${base}/party/partydue/usebudgetdetail/save.action";
 	detailform.submit();
 }
 </script>

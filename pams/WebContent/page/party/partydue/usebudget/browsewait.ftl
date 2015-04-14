@@ -6,7 +6,7 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=no,minimum-scale=1,maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>高层计划</title>
+<title>计划编制</title>
 <link rel="stylesheet" href="/pams/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="/pams/lib/font-awesome/css/font-awesome.min.css">
@@ -58,7 +58,7 @@
 jQuery(function($) {
 	//获得数据
 	$.ajax({
-		url: '${base}/party/partydue/research/usesuggest/browsewait/json.action',
+		url: '${base}/party/partydue/usebudget/browsewait/json.action',
 		dataType: 'json',
 		success: function(d)
 		{
@@ -68,7 +68,7 @@ jQuery(function($) {
 			{
 				trHtml += '<tr data-id="'+n.runactkey+'">';
 				trHtml += '<td class="check"></td>';		
-				trHtml += '<td><a href="${base}/party/partydue/research/usesuggest/readpage.action?runactkey='+n.runactkey+'">'+n.cno+'</a></td>';
+				trHtml += '<td><a href="${base}/party/partydue/usebudget/readpage.action?runactkey='+n.runactkey+'">'+n.cno+'</a></td>';
 				trHtml += '<td>'+n.cname+'</td>';
 				trHtml += '<td>'+n.bactcname+'</td>';
 				trHtml += '<td>'+n.username+'</td>';				
@@ -100,7 +100,7 @@ jQuery(function($) {
 function page_locate(runactkey)
 {
 	console.log("locate.begin.");
-	window.location = "${base}/party/partydue/research/usesuggest/readpage.action?runactkey=" + runactkey;
+	window.location = "${base}/party/partydue/usebudget/readpage.action?runactkey=" + runactkey;
 }
 
 		

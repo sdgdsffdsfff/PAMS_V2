@@ -32,7 +32,7 @@ import com.skynet.pams.base.pojo.PartyDueUseSuggest;
 import com.skynet.pams.base.pojo.Plan;
 
 @IocBean
-@At("/party/partydue/research/usesuggest")
+@At("/party/partydue/usebudget")
 public class PartyDueUseSuggestAction extends BaseAction {
 
 	@Inject

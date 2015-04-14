@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimum-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>项目管理</title>
+    <title>党费管理</title>
     <link rel="stylesheet" href="${base}/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${base}/lib/font-awesome/css/font-awesome.min.css">
     <link href="../logo60.png" rel="apple-touch-icon">
@@ -27,7 +27,7 @@
         <li> 
         <div class="t"><i class="fa fa-paper-plane-o"></i> 计划任务</div>
         <ul class="sub">
-        <li><a href="${base}/party/partydue/research/usesuggest/browseplan.action">待执行计划</a></li>
+        <li><a href="${base}/party/partydue/usebudget/browsewait.action">待执行计划</a></li>
         <li><a href="about:blank">已执行计划</a></li>
         <li><a href="about:blank">已完成计划</a></li>
         </ul>
@@ -37,8 +37,8 @@
             <div class="t"><i class="fa fa-code-fork"></i> 业务流程</div>
             <ul class="sub">
 
-              <li class="active"> <a href="${base}/party/partydue/research/usesuggest/browsewait.action">个人待办业务</a></li>
-              <li><a href="${base}/party/partydue/research/usesuggest/browsehandle.action">个人已办业务</a></li>
+              <li class="active"> <a href="${base}/party/partydue/usebudget/browsewait.action">个人待办业务</a></li>
+              <li><a href="${base}/party/partydue/usebudget/browsehandle.action">个人已办业务</a></li>
               <li><a href="about:blank">个人全部业务</a></li>
             </ul>
           </li>
@@ -52,7 +52,7 @@
         </ul>
       </div>
       <div id="gsLayoutContainer-right">
-        <iframe src="${base}/party/partydue/research/usesuggest/browsewait.action" frameborder="0" name="rightFrame" allowtransparency="true"></iframe>
+        <iframe src="${base}/party/partydue/usebudget/browsewait.action" frameborder="0" name="rightFrame" allowtransparency="true"></iframe>
       </div>
     </div>
     <script src="${base}/lib/jquery-ui.min.js"></script>

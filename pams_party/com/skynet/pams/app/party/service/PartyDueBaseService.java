@@ -2,9 +2,11 @@ package com.skynet.pams.app.party.service;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.nutz.dao.Cnd;
@@ -61,12 +63,13 @@ public class PartyDueBaseService extends SkynetNameEntityService<PartyDueBase>
 	public String get_browseplan_sql(Map map) throws Exception
 	{
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid from t_app_plan plan, t_sys_wfbflow bflow ");
-		sql.append("  where 1 = 1 ");
-		sql.append("    and plan.flowdefid = bflow.id ");
-		sql.append("    and bflow.classid = 'DFGL' ");
-		sql.append("    and plan.ctype = '流程' ");
-		sql.append("    and plan.state = '计划' ");
+		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid, bflow.cname flowcname, bflow.sno flowsno ").append("\n");
+		sql.append("   from t_app_plan plan, t_sys_wfbflow bflow ").append("\n");
+		sql.append("  where 1 = 1 ").append("\n");
+		sql.append("    and plan.flowdefid = bflow.id ").append("\n");
+		sql.append("    and bflow.sno = 'DFGL_DFSJ_JSHZ' ").append("\n");
+		sql.append("    and plan.ctype = '流程' ").append("\n");
+		sql.append("    and plan.state = '计划' ").append("\n");
 		return sql.toString();
 	}
 		
@@ -79,7 +82,7 @@ public class PartyDueBaseService extends SkynetNameEntityService<PartyDueBase>
 
 		sql.append(" select bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browsewait_field(map)).append("\n");
-		sql.append(" from t_app_partydue bv, " + uIService.get_browsewait_table(map)).append("\n");
+		sql.append(" from t_app_pdbase bv, " + uIService.get_browsewait_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browsewait_where(map)).append("\n");
 		
@@ -106,7 +109,7 @@ public class PartyDueBaseService extends SkynetNameEntityService<PartyDueBase>
 		
 		sql.append(" select distinct bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browsehandle_field(map)).append("\n");
-		sql.append(" from t_app_partydue bv, " + uIService.get_browsehandle_table(map)).append("\n");
+		sql.append(" from t_app_pdbase bv, " + uIService.get_browsehandle_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browsehandle_where(map)).append("\n");
 		
@@ -138,7 +141,7 @@ public class PartyDueBaseService extends SkynetNameEntityService<PartyDueBase>
 		
 		sql.append(" select distinct bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browseall_field(map)).append("\n");
-		sql.append(" from t_app_partydue bv, " + uIService.get_browseall_table(map)).append("\n");
+		sql.append(" from t_app_pdbase bv, " + uIService.get_browseall_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browseall_where(map)).append("\n");
 
@@ -157,25 +160,76 @@ public class PartyDueBaseService extends SkynetNameEntityService<PartyDueBase>
 		return sql.toString();
 	}
 	
+	// 查询所有部门基数核准数据
+	public List<DynamicObject> browseallbasedetails(String baseid) throws Exception
+	{
+		List<DynamicObject> datas = new ArrayList<DynamicObject>();
+		
+		StringBuffer sql = new StringBuffer();
+
+		sql.append(" select gu.groupid deptid, gu.groupname deptname, gu.loginname baseuser, gu.username baseusername, base.base1, base.base2, base.base3, base.base4, base.base5 ").append("\n");
+		sql.append("  from t_sys_groupuser gu ").append("\n");
+		sql.append("  left join ").append("\n");
+		sql.append(" ( ").append("\n");
+		sql.append(" select deptid, deptname, baseuser, baseusername, base1, base2, base3, base4, base5 ").append("\n");
+		sql.append("  from t_app_pdbase base, t_app_pdbasedetail basedetail").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and base.id = basedetail.baseid ").append("\n");
+		sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
+		sql.append(" ) base ").append("\n");
+		sql.append(" on gu.loginname = base.baseuser ").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and gu.grouptype = 'DEPT' ").append("\n");
+		
+		datas = sdao().queryForList(sql.toString());
+		return datas;
+	}
+	
+	// 查询本部门基数核准数据
+	public List<DynamicObject> browsedeptbasedetails(String baseid, String deptid) throws Exception
+	{
+		List<DynamicObject> datas = new ArrayList<DynamicObject>();
+		
+		StringBuffer sql = new StringBuffer();
+
+		sql.append(" select gu.groupid deptid, gu.groupname deptname, gu.loginname baseuser, gu.username baseusername, base.base1, base.base2, base.base3, base.base4, base.base5 ").append("\n");
+		sql.append("  from t_sys_groupuser gu ").append("\n");
+		sql.append("  left join ").append("\n");
+		sql.append(" ( ").append("\n");
+		sql.append(" select deptid, deptname, baseuser, baseusername, base1, base2, base3, base4, base5 ").append("\n");
+		sql.append("  from t_app_pdbase base, t_app_pdbasedetail basedetail").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and base.id = basedetail.baseid ").append("\n");
+		sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
+		sql.append("   and basedetail.deptid = ").append(SQLParser.charValue(deptid)).append("\n");
+		sql.append(" ) base ").append("\n");
+		sql.append(" on gu.loginname = base.baseuser ").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append(" and gu.groupid = " + SQLParser.charValue(deptid)).append("\n");
+		
+		datas = sdao().queryForList(sql.toString());
+		return datas;
+	}
+	
 	//
-	public String plancreate(Plan plan, PartyDue partydue, DynamicObject swapFlow) throws Exception
+	public String plancreate(Plan plan, PartyDueBase partyduebase, DynamicObject swapFlow) throws Exception
 	{
 		Timestamp systime = new Timestamp(System.currentTimeMillis());
 
 		// 创建业务数据
 		String cno = gen_cno();
-		partydue.setCno(cno);
-		dao().insert(partydue);
-		String id = partydue.getId();
+		partyduebase.setCno(cno);
+		dao().insert(partyduebase);
+		String id = partyduebase.getId();
 
 		// 创建流程数据
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		String workname = "[" + StringToolKit.formatText(partydue.getCno()) + "]　" + StringToolKit.formatText(partydue.getCname());
+		String workname = "[" + StringToolKit.formatText(partyduebase.getCno()) + "]　" + StringToolKit.formatText(partyduebase.getCno());
 		
 		VCreate vo = new VCreate();
 		vo.flowdefid = swapFlow.getFormatAttr(GlobalConstants.swap_flowdefid);
 		vo.priority = "1";
-		vo.dataid = partydue.getId();
+		vo.dataid = partyduebase.getId();
 		vo.tableid = swapFlow.getFormatAttr(GlobalConstants.swap_tableid);
 		vo.loginname = swapFlow.getFormatAttr(GlobalConstants.swap_coperatorloginname);
 		vo.username = swapFlow.getFormatAttr(GlobalConstants.swap_coperatorcname);
@@ -454,7 +508,7 @@ public class PartyDueBaseService extends SkynetNameEntityService<PartyDueBase>
 		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();
 		String sysdate = sf.format(date);
-		String csql = " select substr(max(cno),length(max(cno))-3, 4) as cno from t_app_partydue where to_char(createtime,'yyyy-mm-dd') = to_char(to_date('" + sysdate + "', 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')";
+		String csql = " select substr(max(cno),length(max(cno))-3, 4) as cno from t_app_pdbase where to_char(createtime,'yyyy-mm-dd') = to_char(to_date('" + sysdate + "', 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')";
 		String express = "$yy$mm$dd####";
 
 		Map map = new HashMap();

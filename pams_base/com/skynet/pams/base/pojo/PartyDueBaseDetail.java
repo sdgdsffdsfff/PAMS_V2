@@ -13,15 +13,36 @@ import org.nutz.dao.entity.annotation.Table;
 public class PartyDueBaseDetail {
 	@Name
 	private String id; // 标识
+	
+	@Column
+	private String baseid; // 基准主表标识	
 
 	@Column
-	private String cno; // 单号
+	private String deptid; // 部门标识
+	
+	@Column
+	private String deptname; // 部门标识
+	
+	@Column
+	private String baseuser; // 人员标识
 
 	@Column
-	private String cname; // 费用名
+	private String baseusername; // 人员姓名
+	
+	@Column
+	private float base1; // 基数1
+	
+	@Column
+	private float base2; // 基数2
 
 	@Column
-	private int due; // 费用名
+	private float base3; // 基数2
+	
+	@Column
+	private float base4; // 基数4
+
+	@Column
+	private float base5; // 基数5
 
 	@Column
 	private String planid; // 计划标识
@@ -39,76 +60,166 @@ public class PartyDueBaseDetail {
 	@Column
 	private String creatercname; // 创建人姓名
 
-	public String getId() {
+	public String getId()
+	{
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(String id)
+	{
 		this.id = id;
 	}
 
-	public String getCno() {
-		return cno;
+	public String getBaseid()
+	{
+		return baseid;
 	}
 
-	public void setCno(String cno) {
-		this.cno = cno;
+	public void setBaseid(String baseid)
+	{
+		this.baseid = baseid;
 	}
 
-	public String getCname() {
-		return cname;
+	public String getDeptid()
+	{
+		return deptid;
 	}
 
-	public void setCname(String cname) {
-		this.cname = cname;
+	public void setDeptid(String deptid)
+	{
+		this.deptid = deptid;
 	}
 
-	public int getDue() {
-		return due;
+	public String getDeptname()
+	{
+		return deptname;
 	}
 
-	public void setDue(int due) {
-		this.due = due;
+	public void setDeptname(String deptname)
+	{
+		this.deptname = deptname;
 	}
 
-	public String getPlanid() {
+	public String getBaseuser()
+	{
+		return baseuser;
+	}
+
+	public void setBaseuser(String baseuser)
+	{
+		this.baseuser = baseuser;
+	}
+
+	public String getBaseusername()
+	{
+		return baseusername;
+	}
+
+	public void setBaseusername(String baseusername)
+	{
+		this.baseusername = baseusername;
+	}
+
+	public float getBase1()
+	{
+		return base1;
+	}
+
+	public void setBase1(float base1)
+	{
+		this.base1 = base1;
+	}
+
+	public float getBase2()
+	{
+		return base2;
+	}
+
+	public void setBase2(float base2)
+	{
+		this.base2 = base2;
+	}
+
+	public float getBase3()
+	{
+		return base3;
+	}
+
+	public void setBase3(float base3)
+	{
+		this.base3 = base3;
+	}
+
+	public float getBase4()
+	{
+		return base4;
+	}
+
+	public void setBase4(float base4)
+	{
+		this.base4 = base4;
+	}
+
+	public float getBase5()
+	{
+		return base5;
+	}
+
+	public void setBase5(float base5)
+	{
+		this.base5 = base5;
+	}
+
+	public String getPlanid()
+	{
 		return planid;
 	}
 
-	public void setPlanid(String planid) {
+	public void setPlanid(String planid)
+	{
 		this.planid = planid;
 	}
 
-	public String getFlowdefid() {
+	public String getFlowdefid()
+	{
 		return flowdefid;
 	}
 
-	public void setFlowdefid(String flowdefid) {
+	public void setFlowdefid(String flowdefid)
+	{
 		this.flowdefid = flowdefid;
 	}
 
-	public Timestamp getCreatetime() {
+	public Timestamp getCreatetime()
+	{
 		return createtime;
 	}
 
-	public void setCreatetime(Timestamp createtime) {
+	public void setCreatetime(Timestamp createtime)
+	{
 		this.createtime = createtime;
 	}
 
-	public String getCreater() {
+	public String getCreater()
+	{
 		return creater;
 	}
 
-	public void setCreater(String creater) {
+	public void setCreater(String creater)
+	{
 		this.creater = creater;
 	}
 
-	public String getCreatercname() {
+	public String getCreatercname()
+	{
 		return creatercname;
 	}
 
-	public void setCreatercname(String creatercname) {
+	public void setCreatercname(String creatercname)
+	{
 		this.creatercname = creatercname;
 	}
+
+
 
 }

@@ -73,6 +73,24 @@ public class Plan {
     @Column
     private int completepercent; // 完成百分比
     
+	@Column
+	private String chargedeptid; // 主管部门标识
+	
+	@Column
+	private String chargedeptname; // 主管部门名称
+	
+	@Column
+	private String masterdeptid; // 主办部门标识
+	
+	@Column
+	private String masterdeptname; // 主管部门名称
+	
+	@Column
+	private String slavedeptid; // 协办部门标识
+	
+	@Column
+	private String slavedeptname; // 协办部门名称
+    
     @Column
     @ColDefine(type=ColType.DATETIME)
     private Timestamp createtime; // 创建时间   
@@ -120,275 +138,403 @@ public class Plan {
     @Column
     private String runactkey; // 活动实例标识（计划相关流程节点）
 
-	public String getId() {
+	public String getId()
+	{
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(String id)
+	{
 		this.id = id;
 	}
 
-	public String getCname() {
+	public String getCname()
+	{
 		return cname;
 	}
 
-	public void setCname(String cname) {
+	public void setCname(String cname)
+	{
 		this.cname = cname;
 	}
 
-	public String getParentid() {
+	public String getParentid()
+	{
 		return parentid;
 	}
 
-	public void setParentid(String parentid) {
+	public void setParentid(String parentid)
+	{
 		this.parentid = parentid;
 	}
 
-	public Timestamp getPlanstartdate() {
+	public Timestamp getPlanstartdate()
+	{
 		return planstartdate;
 	}
 
-	public void setPlanstartdate(Timestamp planstartdate) {
+	public void setPlanstartdate(Timestamp planstartdate)
+	{
 		this.planstartdate = planstartdate;
 	}
 
-	public Timestamp getPlanenddate() {
+	public Timestamp getPlanenddate()
+	{
 		return planenddate;
 	}
 
-	public void setPlanenddate(Timestamp planenddate) {
+	public void setPlanenddate(Timestamp planenddate)
+	{
 		this.planenddate = planenddate;
 	}
 
-	public String getPlanheader() {
+	public String getPlanheader()
+	{
 		return planheader;
 	}
 
-	public void setPlanheader(String planheader) {
+	public void setPlanheader(String planheader)
+	{
 		this.planheader = planheader;
 	}
 
-	public String getPlanheadercname() {
+	public String getPlanheadercname()
+	{
 		return planheadercname;
 	}
 
-	public void setPlanheadercname(String planheadercname) {
+	public void setPlanheadercname(String planheadercname)
+	{
 		this.planheadercname = planheadercname;
 	}
 
-	public Timestamp getActualstartdate() {
+	public Timestamp getActualstartdate()
+	{
 		return actualstartdate;
 	}
 
-	public void setActualstartdate(Timestamp actualstartdate) {
+	public void setActualstartdate(Timestamp actualstartdate)
+	{
 		this.actualstartdate = actualstartdate;
 	}
 
-	public Timestamp getActualenddate() {
+	public Timestamp getActualenddate()
+	{
 		return actualenddate;
 	}
 
-	public void setActualenddate(Timestamp actualenddate) {
+	public void setActualenddate(Timestamp actualenddate)
+	{
 		this.actualenddate = actualenddate;
 	}
 
-	public String getActualheader() {
+	public String getActualheader()
+	{
 		return actualheader;
 	}
 
-	public void setActualheader(String actualheader) {
+	public void setActualheader(String actualheader)
+	{
 		this.actualheader = actualheader;
 	}
 
-	public String getActualheadercname() {
+	public String getActualheadercname()
+	{
 		return actualheadercname;
 	}
 
-	public void setActualheadercname(String actualheadercname) {
+	public void setActualheadercname(String actualheadercname)
+	{
 		this.actualheadercname = actualheadercname;
 	}
 
-	public Timestamp getBasestartdate() {
+	public Timestamp getBasestartdate()
+	{
 		return basestartdate;
 	}
 
-	public void setBasestartdate(Timestamp basestartdate) {
+	public void setBasestartdate(Timestamp basestartdate)
+	{
 		this.basestartdate = basestartdate;
 	}
 
-	public Timestamp getBaseenddate() {
+	public Timestamp getBaseenddate()
+	{
 		return baseenddate;
 	}
 
-	public void setBaseenddate(Timestamp baseenddate) {
+	public void setBaseenddate(Timestamp baseenddate)
+	{
 		this.baseenddate = baseenddate;
 	}
 
-	public int getPlanworkload() {
+	public int getPlanworkload()
+	{
 		return planworkload;
 	}
 
-	public void setPlanworkload(int planworkload) {
+	public void setPlanworkload(int planworkload)
+	{
 		this.planworkload = planworkload;
 	}
 
-	public int getBaseplanworkload() {
+	public int getBaseplanworkload()
+	{
 		return baseplanworkload;
 	}
 
-	public void setBaseplanworkload(int baseplanworkload) {
+	public void setBaseplanworkload(int baseplanworkload)
+	{
 		this.baseplanworkload = baseplanworkload;
 	}
 
-	public int getActualworkload() {
+	public int getActualworkload()
+	{
 		return actualworkload;
 	}
 
-	public void setActualworkload(int actualworkload) {
+	public void setActualworkload(int actualworkload)
+	{
 		this.actualworkload = actualworkload;
 	}
 
-	public int getPhaseorstep() {
+	public int getPhaseorstep()
+	{
 		return phaseorstep;
 	}
 
-	public void setPhaseorstep(int phaseorstep) {
+	public void setPhaseorstep(int phaseorstep)
+	{
 		this.phaseorstep = phaseorstep;
 	}
 
-	public String getSequencekey() {
+	public String getSequencekey()
+	{
 		return sequencekey;
 	}
 
-	public void setSequencekey(String sequencekey) {
+	public void setSequencekey(String sequencekey)
+	{
 		this.sequencekey = sequencekey;
 	}
 
-	public int getCompletepercent() {
+	public int getCompletepercent()
+	{
 		return completepercent;
 	}
 
-	public void setCompletepercent(int completepercent) {
+	public void setCompletepercent(int completepercent)
+	{
 		this.completepercent = completepercent;
 	}
 
-	public Timestamp getCreatetime() {
+	public String getChargedeptid()
+	{
+		return chargedeptid;
+	}
+
+	public void setChargedeptid(String chargedeptid)
+	{
+		this.chargedeptid = chargedeptid;
+	}
+
+	public String getChargedeptname()
+	{
+		return chargedeptname;
+	}
+
+	public void setChargedeptname(String chargedeptname)
+	{
+		this.chargedeptname = chargedeptname;
+	}
+
+	public String getMasterdeptid()
+	{
+		return masterdeptid;
+	}
+
+	public void setMasterdeptid(String masterdeptid)
+	{
+		this.masterdeptid = masterdeptid;
+	}
+
+	public String getMasterdeptname()
+	{
+		return masterdeptname;
+	}
+
+	public void setMasterdeptname(String masterdeptname)
+	{
+		this.masterdeptname = masterdeptname;
+	}
+
+	public String getSlavedeptid()
+	{
+		return slavedeptid;
+	}
+
+	public void setSlavedeptid(String slavedeptid)
+	{
+		this.slavedeptid = slavedeptid;
+	}
+
+	public String getSlavedeptname()
+	{
+		return slavedeptname;
+	}
+
+	public void setSlavedeptname(String slavedeptname)
+	{
+		this.slavedeptname = slavedeptname;
+	}
+
+	public Timestamp getCreatetime()
+	{
 		return createtime;
 	}
 
-	public void setCreatetime(Timestamp createtime) {
+	public void setCreatetime(Timestamp createtime)
+	{
 		this.createtime = createtime;
 	}
 
-	public String getCreater() {
+	public String getCreater()
+	{
 		return creater;
 	}
 
-	public void setCreater(String creater) {
+	public void setCreater(String creater)
+	{
 		this.creater = creater;
 	}
 
-	public String getCreatercname() {
+	public String getCreatercname()
+	{
 		return creatercname;
 	}
 
-	public void setCreatercname(String creatercname) {
+	public void setCreatercname(String creatercname)
+	{
 		this.creatercname = creatercname;
 	}
 
-	public Timestamp getModifytime() {
+	public Timestamp getModifytime()
+	{
 		return modifytime;
 	}
 
-	public void setModifytime(Timestamp modifytime) {
+	public void setModifytime(Timestamp modifytime)
+	{
 		this.modifytime = modifytime;
 	}
 
-	public String getModifier() {
+	public String getModifier()
+	{
 		return modifier;
 	}
 
-	public void setModifier(String modifier) {
+	public void setModifier(String modifier)
+	{
 		this.modifier = modifier;
 	}
 
-	public String getModifiercname() {
+	public String getModifiercname()
+	{
 		return modifiercname;
 	}
 
-	public void setModifiercname(String modifiercname) {
+	public void setModifiercname(String modifiercname)
+	{
 		this.modifiercname = modifiercname;
 	}
 
-	public String getDescription() {
+	public String getDescription()
+	{
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
 
-	public String getRemark() {
+	public String getRemark()
+	{
 		return remark;
 	}
 
-	public void setRemark(String remark) {
+	public void setRemark(String remark)
+	{
 		this.remark = remark;
 	}
 
-	public String getState() {
+	public String getState()
+	{
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(String state)
+	{
 		this.state = state;
 	}
 
-	public String getCtype() {
+	public String getCtype()
+	{
 		return ctype;
 	}
 
-	public void setCtype(String ctype) {
+	public void setCtype(String ctype)
+	{
 		this.ctype = ctype;
 	}
 
-	public int getCost() {
+	public int getCost()
+	{
 		return cost;
 	}
 
-	public void setCost(int cost) {
+	public void setCost(int cost)
+	{
 		this.cost = cost;
 	}
 
-	public String getFlowdefid() {
+	public String getFlowdefid()
+	{
 		return flowdefid;
 	}
 
-	public void setFlowdefid(String flowdefid) {
+	public void setFlowdefid(String flowdefid)
+	{
 		this.flowdefid = flowdefid;
 	}
 
-	public String getActdefid() {
+	public String getActdefid()
+	{
 		return actdefid;
 	}
 
-	public void setActdefid(String actdefid) {
+	public void setActdefid(String actdefid)
+	{
 		this.actdefid = actdefid;
 	}
 
-	public String getRunflowkey() {
+	public String getRunflowkey()
+	{
 		return runflowkey;
 	}
 
-	public void setRunflowkey(String runflowkey) {
+	public void setRunflowkey(String runflowkey)
+	{
 		this.runflowkey = runflowkey;
 	}
 
-	public String getRunactkey() {
+	public String getRunactkey()
+	{
 		return runactkey;
 	}
 
-	public void setRunactkey(String runactkey) {
+	public void setRunactkey(String runactkey)
+	{
 		this.runactkey = runactkey;
 	}
 

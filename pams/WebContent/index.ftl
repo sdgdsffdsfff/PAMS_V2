@@ -35,17 +35,8 @@
               <div title="计划管理" class="t"><i class="fa fa-calendar"></i> <a href="${base}/page/frame/group_plan.html">计划管理</a></div>
             </li>
             <li>
-              <div title="费用管理" class="t"><i class="fa fa-list-alt"></i> 党费管理</div>
-              <ul class="sub">
-                <li><a href="${base}/party/partydue/research/usesuggest/mainframe.action">意见征求</a></li>
-                <li><a href="about:blank">基数核准</a></li>
+              <div title="费用管理" class="t"><i class="fa fa-list-alt"></i> <a href="${base}/page/frame/group_party.html">党费管理</a></div>
                 <li><a href="${base}/party/partydue/usebudget/mainframe.action">计划编制</a></li>
-                <li><a href="about:blank">党费收取</a></li>
-                <li><a href="about:blank">党费使用</a></li>
-                <li><a href="about:blank">工作总结</a></li>
-                <li><a href="about:blank">归档共享</a></li>
-
-              </ul>
             </li>
             <li>
               <div title="统计分析" class="t"><i class="fa fa-bar-chart-o"></i> <a href="${base}/page/frame/group_report.html">考核统计</a></div>

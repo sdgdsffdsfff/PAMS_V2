@@ -1,0 +1,78 @@
+﻿insert into t_sys_wfbform (id, url, classid, cname) values('DFGL','','DFGL','党费管理');
+insert into t_sys_wfbflowclass (id, appid, cname, cclass) values('DFGL', 'DFGL', '党费管理', 'DFGL');
+
+insert into t_sys_wfbflow(id, cname, formid, classid, verson, state, sno) values('DFGL_DFSJ_JSHZ','党费收缴基数核准流程','DFGL','DFGL','1','激活','DFGL_DFSJ_JSHZ');
+
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_000','开始','BEGIN','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_XF','下发','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_BZ','编制','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_SH','审核','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_SB','上报','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_JSHZ','基数汇总','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_JS','校审','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_SLDSH','送领导审阅','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_SY','审阅','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_SD','审定','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
+values('DFGL_DFSJ_JSHZ_999','结束','END','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','N',null,'单人','N',null);
+
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_DFSJ_JSHZ_XF_001','DFGL_DFSJ_JSHZ_XF',null,'ROLE','USER','普通用户',null);
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_DFSJ_JSHZ_BZ_001','DFGL_DFSJ_JSHZ_BZ',null,'ROLE','USER','普通用户',null);
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_DFSJ_JSHZ_SH_001','DFGL_DFSJ_JSHZ_SH',null,'ROLE','USER','普通用户',null);
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_DFSJ_JSHZ_SB_001','DFGL_DFSJ_JSHZ_SB',null,'ROLE','USER','普通用户',null);
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_DFSJ_JSHZ_JSHZ_001','DFGL_DFSJ_JSHZ_JSHZ',null,'ROLE','USER','普通用户',null);
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_DFSJ_JSHZ_JS_001','DFGL_DFSJ_JSHZ_JS',null,'ROLE','USER','普通用户',null);
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_DFSJ_JSHZ_SLDSH_001','DFGL_DFSJ_JSHZ_SLDSH',null,'ROLE','USER','普通用户',null);
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_DFSJ_JSHZ_SY_001','DFGL_DFSJ_JSHZ_SY',null,'ROLE','USER','普通用户',null);
+insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
+values('DFGL_DFSJ_JSHZ_SD_001','DFGL_DFSJ_JSHZ_SD',null,'ROLE','USER','普通用户',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_000_XF','转下发',null,null,'DFGL_DFSJ_JSHZ_000','DFGL_DFSJ_JSHZ_XF','DFGL_DFSJ_JSHZ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_XF_BZ','转编制',null,null,'DFGL_DFSJ_JSHZ_XF','DFGL_DFSJ_JSHZ_BZ','DFGL_DFSJ_JSHZ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_BZ_SH','转审核',null,null,'DFGL_DFSJ_JSHZ_BZ','DFGL_DFSJ_JSHZ_SH','DFGL_DFSJ_JSHZ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_SH_SB','转上报',null,null,'DFGL_DFSJ_JSHZ_SH','DFGL_DFSJ_JSHZ_SB','DFGL_DFSJ_JSHZ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_SB_JSHZ','转基数汇总',null,null,'DFGL_DFSJ_JSHZ_SB','DFGL_DFSJ_JSHZ_JSHZ','DFGL_DFSJ_JSHZ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_JSHZ_JS','转校审',null,null,'DFGL_DFSJ_JSHZ_JSHZ','DFGL_DFSJ_JSHZ_JS','DFGL_DFSJ_JSHZ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_JS_SLDSH','转送领导审核',null,null,'DFGL_DFSJ_JSHZ_JS','DFGL_DFSJ_JSHZ_SLDSH','DFGL_DFSJ_JSHZ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_SLDSH_SY','转审阅',null,null,'DFGL_DFSJ_JSHZ_SLDSH','DFGL_DFSJ_JSHZ_SY','DFGL_DFSJ_JSHZ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_SY_SD','转审定',null,null,'DFGL_DFSJ_JSHZ_SY','DFGL_DFSJ_JSHZ_SD','DFGL_DFSJ_JSHZ',null);
+
+insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
+values('DFGL_DFSJ_JSHZ_SD_999','转结束',null,null,'DFGL_DFSJ_JSHZ_SD','DFGL_DFSJ_JSHZ_999','DFGL_DFSJ_JSHZ',null);
+
+

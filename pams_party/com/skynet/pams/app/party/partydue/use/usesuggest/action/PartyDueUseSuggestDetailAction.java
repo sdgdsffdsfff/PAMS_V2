@@ -1,4 +1,4 @@
-package com.skynet.pams.app.party.partydue.research.action;
+package com.skynet.pams.app.party.partydue.use.usesuggest.action;
 
 import java.sql.Timestamp;
 import java.util.Map;
@@ -22,7 +22,7 @@ import com.skynet.pams.app.party.service.PartyDueUseSuggestService;
 import com.skynet.pams.base.pojo.PartyDueUseSuggestDetail;
 
 @IocBean
-@At("/party/partydue/research/usesuggestdetail")
+@At("/party/partydue/use/usesuggestdetail")
 public class PartyDueUseSuggestDetailAction  extends BaseAction {
 	
 	@Inject
@@ -34,7 +34,7 @@ public class PartyDueUseSuggestDetailAction  extends BaseAction {
 	public static String tableid = "PartyDueUseSuggestDetail";
 	
 	@At("/save")
-	@Ok("redirect:/party/partydue/research/usesuggest/locate.action?runactkey=${obj.runactkey}")
+	@Ok("redirect:/party/partydue/use/usesuggest/locate.action?runactkey=${obj.runactkey}")
 	public Map save(@Param("..") PartyDueUseSuggestDetail obj) throws Exception
 	{
 		HttpSession session = Mvcs.getHttpSession(true);

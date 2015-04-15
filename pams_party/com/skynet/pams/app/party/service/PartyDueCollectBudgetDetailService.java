@@ -26,23 +26,24 @@ import com.skynet.framework.services.db.SQLParser;
 import com.skynet.framework.services.db.dybeans.DynamicObject;
 import com.skynet.framework.services.function.StringToolKit;
 import com.skynet.pams.base.pojo.PartyDue;
+import com.skynet.pams.base.pojo.PartyDueUseBudgetDetail;
 import com.skynet.pams.base.pojo.Plan;
 
-@InjectName("partyService")
+@InjectName("partyduecollectbudgetdetailService")
 @IocBean(args = { "refer:dao" }) 
-public class PartyService extends SkynetNameEntityService<PartyDue>
+public class PartyDueCollectBudgetDetailService extends SkynetNameEntityService<PartyDueUseBudgetDetail>
 {
-	public PartyService()
+	public PartyDueCollectBudgetDetailService()
 	{
 		super();
 	}
 	
-	public PartyService(Dao dao)
+	public PartyDueCollectBudgetDetailService(Dao dao)
 	{
 		super(dao);
 	}	
 	
-	public PartyService(Dao dao, Class<PartyDue> entityType)
+	public PartyDueCollectBudgetDetailService(Dao dao, Class<PartyDueUseBudgetDetail> entityType)
 	{
 		super(dao, entityType);
 	}

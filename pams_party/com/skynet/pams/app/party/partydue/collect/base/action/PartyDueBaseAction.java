@@ -1,4 +1,4 @@
-package com.skynet.pams.app.party.partydue.usebudget.action;
+package com.skynet.pams.app.party.partydue.collect.base.action;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -25,21 +25,21 @@ import com.skynet.app.workflow.vo.VApply;
 import com.skynet.framework.action.BaseAction;
 import com.skynet.framework.common.generator.UUIDGenerator;
 import com.skynet.framework.services.db.dybeans.DynamicObject;
-import com.skynet.pams.app.party.service.PartyDueUseBudgetDetailService;
-import com.skynet.pams.app.party.service.PartyDueUseBudgetService;
+import com.skynet.pams.app.party.service.PartyDueUseSuggestDetailService;
+import com.skynet.pams.app.party.service.PartyDueUseSuggestService;
 import com.skynet.pams.app.plan.service.PlanService;
 import com.skynet.pams.base.pojo.PartyDueUseSuggest;
 import com.skynet.pams.base.pojo.Plan;
 
 @IocBean
-@At("/party/partydue/usebudget")
-public class PartyDueUseBudgetAction extends BaseAction {
+@At("/party/partydue/collect/base")
+public class PartyDueBaseAction extends BaseAction {
 
 	@Inject
-	private PartyDueUseBudgetService partydueusesuggestService;
+	private PartyDueUseSuggestService partydueusesuggestService;
 	
 	@Inject
-	private PartyDueUseBudgetDetailService partydueusesuggestdetailService;
+	private PartyDueUseSuggestDetailService partydueusesuggestdetailService;
 	
 	@Inject
 	private PlanService planService;
@@ -81,9 +81,9 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		swapFlow.setAttr(GlobalConstants.swap_flowdefid, flowdefid);
 		swapFlow.setAttr(GlobalConstants.swap_tableid, tableid);
 
-		// String runactkey = partydueusesuggestService.plancreate(plan, usesuggest, swapFlow);
+		String runactkey = partydueusesuggestService.plancreate(plan, usesuggest, swapFlow);
 		
-		// ro.put("runactkey", runactkey);
+		ro.put("runactkey", runactkey);
 		return ro;
 	}
 	

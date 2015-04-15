@@ -27,7 +27,7 @@
         <li> 
         <div class="t"><i class="fa fa-paper-plane-o"></i> 计划任务</div>
         <ul class="sub">
-        <li><a href="${base}/party/partydue/use/usesuggest/browseplan.action">待执行计划</a></li>
+        <li><a href="${base}/party/partydue//collect/collect/browseplan.action">待执行计划</a></li>
         <li><a href="about:blank">已执行计划</a></li>
         <li><a href="about:blank">已完成计划</a></li>
         </ul>
@@ -37,8 +37,8 @@
             <div class="t"><i class="fa fa-code-fork"></i> 业务流程</div>
             <ul class="sub">
 
-              <li class="active"> <a href="${base}/party/partydue/use/usesuggest/browsewait.action">个人待办业务</a></li>
-              <li><a href="${base}/party/partydue/use/usesuggest/browsehandle.action">个人已办业务</a></li>
+              <li class="active"> <a href="${base}/party/partydue//collect/collect/browsewait.action">个人待办业务</a></li>
+              <li><a href="${base}/party/partydue//collect/collect/browsehandle.action">个人已办业务</a></li>
               <li><a href="about:blank">个人全部业务</a></li>
             </ul>
           </li>
@@ -52,7 +52,7 @@
         </ul>
       </div>
       <div id="gsLayoutContainer-right">
-        <iframe src="${base}/party/partydue/use/usesuggest/browsewait.action" frameborder="0" name="rightFrame" allowtransparency="true"></iframe>
+        <iframe src="${base}/party/partydue//collect/collect/browsewait.action" frameborder="0" name="rightFrame" allowtransparency="true"></iframe>
       </div>
     </div>
     <script src="${base}/lib/jquery-ui.min.js"></script>

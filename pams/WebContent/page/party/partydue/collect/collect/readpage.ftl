@@ -203,14 +203,14 @@ else
 // 签收
 function page_apply()
 {
-	var url = "${base}/party/partydue/use/usesuggest/apply.action?runactkey=${obj.runactkey}";	 
+	var url = "${base}/party/partydue//collect/collect/apply.action?runactkey=${obj.runactkey}";	 
 	window.location = url;
 }
 
 // 修改
 function page_edit()
 {
-	var url = "${base}/party/partydue/use/usesuggest/locate.action?runactkey=${obj.runactkey}";	 
+	var url = "${base}/party/partydue//collect/collect/locate.action?runactkey=${obj.runactkey}";	 
 	window.location = url;
 }
 

@@ -58,7 +58,7 @@
 jQuery(function($) {
 	//获得数据
 	$.ajax({
-		url: '${base}/party/partydue/use/usesuggest/browseplan/json.action',
+		url: '${base}/party/partydue/collect/collectbudget/browseplan/json.action',
 		dataType: 'json',
 		success: function(d)
 		{
@@ -106,7 +106,7 @@ function page_locate(runactkey)
 //计划启动
 function page_startplan(planid, flowdefid)
 {
-	url = "${base}/party/partydue/use/usesuggest/startplan.action?planid=" + planid + "&flowdefid=" + flowdefid;
+	url = "${base}/party/partydue/collect/collectbudget/startplan.action?planid=" + planid + "&flowdefid=" + flowdefid;
 	window.location = url;
 }
 		

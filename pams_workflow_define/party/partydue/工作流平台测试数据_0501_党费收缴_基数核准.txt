@@ -8,7 +8,7 @@ values('DFGL_DFSJ_JSHZ_000','开始','BEGIN','DFGL_DFSJ_JSHZ','DFGL','普通','O
 insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
 values('DFGL_DFSJ_JSHZ_XF','下发','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
 insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
-values('DFGL_DFSJ_JSHZ_BZ','编制','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
+values('DFGL_DFSJ_JSHZ_BZ','编制','NORMAL','DFGL_DFSJ_JSHZ','DFGL','多部门并行','OR','OR','N',null,'单人','N',null);
 insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
 values('DFGL_DFSJ_JSHZ_SH','审核','NORMAL','DFGL_DFSJ_JSHZ','DFGL','普通','OR','OR','N',null,'单人','N',null);
 insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
@@ -29,7 +29,7 @@ values('DFGL_DFSJ_JSHZ_999','结束','END','DFGL_DFSJ_JSHZ','DFGL','普通','OR'
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
 values('DFGL_DFSJ_JSHZ_XF_001','DFGL_DFSJ_JSHZ_XF',null,'ROLE','USER','普通用户',null);
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
-values('DFGL_DFSJ_JSHZ_BZ_001','DFGL_DFSJ_JSHZ_BZ',null,'ROLE','USER','普通用户',null);
+values('DFGL_DFSJ_JSHZ_BZ_001','DFGL_DFSJ_JSHZ_BZ',null,'DEPTROLE','DJZZ','党建专职',null);
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
 values('DFGL_DFSJ_JSHZ_SH_001','DFGL_DFSJ_JSHZ_SH',null,'ROLE','USER','普通用户',null);
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)

@@ -1,4 +1,4 @@
-package com.skynet.pams.app.plan.action;
+package com.skynet.pams.app.plan.plan.action;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -9,15 +9,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.sql.Sql;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.mvc.Mvcs;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
+import com.skynet.app.organ.service.OrganService;
+import com.skynet.app.organ.service.UserService;
 import com.skynet.app.workflow.pojo.BAct;
 import com.skynet.framework.action.BaseAction;
 import com.skynet.framework.common.generator.FormatKey;
@@ -28,39 +33,46 @@ import com.skynet.pams.app.plan.service.PlanService;
 import com.skynet.pams.base.pojo.Plan;
 
 @IocBean
-@At("/plan")
+@At("/plan/plan")
 public class PlanAction extends BaseAction {
 
 	@Inject
 	private PlanService planService;
+	
+	@Inject
+	private OrganService organService;		
+	
+	@Inject
+	private UserService userService;	
 
 	@At("/browsecreate")
-	@Ok("Forward:/page/plan/browsecreate.html")
+	@Ok("Forward:/page/plan/plan/browsecreate.ftl")
 	public String browsecreate() throws Exception {
 		return "browsecreate";
 	}
 
 	@At("/browsecreate/json")
-	@Ok("->:/page/plan/browsecreate.json.ftl")
+	@Ok("->:/page/plan/plan/browsecreate.json.ftl")
 	public Map browsecreatejson() throws Exception {
-		List plans = planService.sdao().findBy("t_app_plan",
-				Cnd.where("parentid", "=", null).orderBy("sequencekey", "asc"));
+		List<DynamicObject> plans = planService.findByCond(Cnd.where("parentid", "=", null).orderBy("sequencekey", "asc"));
 		ro.put("plans", plans);
 		return ro;
 	}
 
 	@At("/locate")
-	@Ok("Forward:/page/plan/locate.html")
+	@Ok("->:/page/plan/plan/locate.ftl")
 	public Map locate(String id) throws Exception {
-		Map arg = new HashMap();
-		arg.put("id", id);
-		Map obj = new HashMap();
-		obj.put("arg", arg);
-		return obj;
+		// 临时功能 查询用户列表
+		List<DynamicObject> users = userService.findByCond(Cnd.where("1","=","1").orderBy().asc("cname"));
+		List<DynamicObject> depts = organService.findByCond(Cnd.where("ctype","=","DEPT").orderBy().asc("internal"));
+		ro.setObj("users", users);
+		ro.setObj("depts", depts);		
+		ro.setAttr("id", id);
+		return ro;
 	}
 
 	@At("/listsubplanjson")
-	@Ok("->:/page/plan/listsubplan.ftl")
+	@Ok("->:/page/plan/plan/listsubplan.ftl")
 	public Map findsubplan(String id) throws Exception {
 		Map data = new HashMap();
 
@@ -95,6 +107,9 @@ public class PlanAction extends BaseAction {
 			List<DynamicObject> subracts = planService.getWorkFlowEngine()
 					.getFlowManager().sub_plans(runactkey);
 			for (int j = 0; j < subracts.size(); j++) {
+				String[] names = "planheader,planheadercname,chargedeptid,chargedeptname,masterdeptid,masterdeptname,slavedeptid,slavedeptname".split(",");
+				subracts.get(j).setAttrs(names, subplan.getFormatAttrArray(names));
+				
 				subracts.get(j).setAttr("parentid", subplanid);
 				subracts.get(j).setAttr("sequencekey",
 						subsequencekey + FormatKey.format(j, 4));
@@ -104,7 +119,7 @@ public class PlanAction extends BaseAction {
 				subracts.get(j).setAttr("planstartdate",
 						subplan.getFormatAttr("planstartdate"));
 				subracts.get(j).setAttr("planenddate",
-						subplan.getFormatAttr("planstartdate"));
+						subplan.getFormatAttr("planenddate"));
 				subracts.get(j).setAttr("planworkload",
 						subplan.getFormatAttr("planworkload"));
 				subracts.get(j).setAttr("baseplanworkload",
@@ -125,7 +140,7 @@ public class PlanAction extends BaseAction {
 	}
 
 	@At("/addsubplan")
-	@Ok("->:/page/plan/addsubplan.ftl")
+	@Ok("->:/page/plan/plan/addsubplan.ftl")
 	public Map addsubplan(int type, String pid, String sname) {
 
 		Plan plan = planService.dao().fetch(Plan.class, pid);
@@ -152,7 +167,7 @@ public class PlanAction extends BaseAction {
 	}
 
 	@At("/saveplan")
-	@Ok("->:/page/plan/saveplan.ftl")
+	@Ok("->:/page/plan/plan/saveplan.ftl")
 	public Map saveplan(@Param("..") Plan plan) {
 		planService.dao().update(plan);
 		DynamicObject planobj = DynamicObject.transBean(plan);
@@ -160,7 +175,7 @@ public class PlanAction extends BaseAction {
 	}
 
 	@At("/deleteplan")
-	@Ok("->:/page/plan/deleteplan.ftl")
+	@Ok("->:/page/plan/plan/deleteplan.ftl")
 	public String deleteplan(String ids) {
 		String[] idss = StringToolKit.split(ids, ",");
 		for (int i = 0; i < idss.length; i++) {
@@ -231,7 +246,7 @@ public class PlanAction extends BaseAction {
 	}
 
 	@At("/gantt")
-	@Ok("->:/page/plan/gantt.ftl")
+	@Ok("->:/page/plan/plan/gantt.ftl")
 	public Map gantt(String planid) throws Exception {
 		DynamicObject plan = planService.locate(planid);
 
@@ -244,7 +259,7 @@ public class PlanAction extends BaseAction {
 	}
 
 	@At("/tasks")
-	@Ok("->:/page/plan/tasks.ftl")
+	@Ok("->:/page/plan/plan/tasks.ftl")
 	public Map tasks(String start, String end, String planid) throws Exception {
 
 		DynamicObject plan = planService.locate(planid);
@@ -305,8 +320,14 @@ public class PlanAction extends BaseAction {
 	
 	
 	public void init_plandata_dfgl() throws Exception {
+
+		HttpSession session = Mvcs.getHttpSession(true);
+		DynamicObject token = (DynamicObject)session.getAttribute(com.skynet.framework.spec.GlobalConstants.sys_login_token);
+		String loginname = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_user);
+		String userid = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_userid);
+		String username = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_username);
+		
 		long s = 1000 * 60 * 60 * 24;
-		// planService.dao().create(Plan.class, true);
 		
 		Date cdate = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -318,6 +339,8 @@ public class PlanAction extends BaseAction {
 		plan.setPlanworkload(100);
 		plan.setBaseplanworkload(100);
 		plan.setState("计划");
+		plan.setPlanheader(loginname);
+		plan.setPlanheadercname(username);
 
 		SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
 
@@ -325,25 +348,25 @@ public class PlanAction extends BaseAction {
 		plan.setPlanstartdate(new Timestamp(time - s * 60));
 		plan.setPlanenddate(new Timestamp(time + s * 40));
 		planService.dao().insert(plan);
-
+		
 		Plan subplan1 = new Plan();
 		subplan1.setId(UUID.randomUUID().toString());
-		subplan1.setCname("工作调研");
+		subplan1.setCname("党费收缴工作");
 		subplan1.setSequencekey("00010001");
 		subplan1.setPhaseorstep(1);
 		subplan1.setParentid(plan.getId());
 		subplan1.setPlanworkload(10);
 		subplan1.setBaseplanworkload(10);
-		subplan1.setState("计划");	
-
-		subplan1.setPlanstartdate(new Timestamp(time - s * 60));
-		subplan1.setPlanenddate(new Timestamp(time - s * 50));
-
-		planService.dao().insert(subplan1);
-
+		subplan1.setState("计划");
+		
+		subplan1.setPlanstartdate(new Timestamp(time - s * 50));
+		subplan1.setPlanenddate(new Timestamp(time - s * 40));
+		
+		planService.dao().insert(subplan1);		
+		
 		Plan subplan2 = new Plan();
 		subplan2.setId(UUID.randomUUID().toString());
-		subplan2.setCname("计划编制");
+		subplan2.setCname("党费使用工作");
 		subplan2.setSequencekey("00010002");
 		subplan2.setPhaseorstep(1);
 		subplan2.setParentid(plan.getId());
@@ -354,72 +377,11 @@ public class PlanAction extends BaseAction {
 		subplan2.setPlanstartdate(new Timestamp(time - s * 50));
 		subplan2.setPlanenddate(new Timestamp(time - s * 40));
 
-		planService.dao().insert(subplan2);
+		planService.dao().insert(subplan2);		
 
-		Plan subplan3 = new Plan();
-		subplan3.setId(UUID.randomUUID().toString());
-		subplan3.setCname("党费收取");
-		subplan3.setSequencekey("00010003");
-		subplan3.setPhaseorstep(1);
-		subplan3.setParentid(plan.getId());
-		subplan3.setPlanworkload(20);
-		subplan3.setBaseplanworkload(20);
-		subplan3.setState("计划");			
-
-		subplan3.setPlanstartdate(new Timestamp(time - s * 40));
-		subplan3.setPlanenddate(new Timestamp(time - s * 20));
-
-		planService.dao().insert(subplan3);
-
-		Plan subplan4 = new Plan();
-		subplan4.setId(UUID.randomUUID().toString());
-		subplan4.setCname("党费使用");
-		subplan4.setSequencekey("00010004");
-		subplan4.setPhaseorstep(1);
-		subplan4.setParentid(plan.getId());
-		subplan4.setPlanworkload(30);
-		subplan4.setBaseplanworkload(30);
-		subplan4.setState("计划");			
-
-		subplan4.setPlanstartdate(new Timestamp(time - s * 20));
-		subplan4.setPlanenddate(new Timestamp(time + s * 10));
-
-		planService.dao().insert(subplan4);
-
-		Plan subplan5 = new Plan();
-		subplan5.setId(UUID.randomUUID().toString());
-		subplan5.setCname("工作总结");
-		subplan5.setSequencekey("00010005");
-		subplan5.setPhaseorstep(1);
-		subplan5.setParentid(plan.getId());
-		subplan5.setPlanworkload(15);
-		subplan5.setBaseplanworkload(15);
-		subplan5.setState("计划");			
-
-		subplan5.setPlanstartdate(new Timestamp(time + s * 11));
-		subplan5.setPlanenddate(new Timestamp(time + s * 25));
-
-		planService.dao().insert(subplan5);
-
-		Plan subplan6 = new Plan();
-		subplan6.setId(UUID.randomUUID().toString());
-		subplan6.setCname("归档共享");
-		subplan6.setSequencekey("00010006");
-		subplan6.setPhaseorstep(1);
-		subplan6.setParentid(plan.getId());
-		subplan6.setPlanworkload(5);
-		subplan6.setBaseplanworkload(5);
-		subplan6.setState("计划");			
-
-		subplan6.setPlanstartdate(new Timestamp(time + s * 26));
-		subplan6.setPlanenddate(new Timestamp(time + s * 30));
-
-		planService.dao().insert(subplan6);
-		
-		
 		Plan subplan11 = new Plan();
 		subplan11.setId(UUID.randomUUID().toString());
-		subplan11.setCname("意见征求");
+		subplan11.setCname("基数核准");
 		subplan11.setSequencekey("000100010001");
 		subplan11.setPhaseorstep(1);
 		subplan11.setParentid(subplan1.getId());
@@ -428,25 +390,114 @@ public class PlanAction extends BaseAction {
 		subplan11.setState("计划");	
 
 		subplan11.setPlanstartdate(new Timestamp(time - s * 60));
-		subplan11.setPlanenddate(new Timestamp(time - s * 55));
+		subplan11.setPlanenddate(new Timestamp(time - s * 50));
 
 		planService.dao().insert(subplan11);
-		
+
 		Plan subplan12 = new Plan();
 		subplan12.setId(UUID.randomUUID().toString());
-		subplan12.setCname("基数核准");
+		subplan12.setCname("计划编制");
 		subplan12.setSequencekey("000100010002");
 		subplan12.setPhaseorstep(1);
 		subplan12.setParentid(subplan1.getId());
-		subplan12.setPlanworkload(10);
-		subplan12.setBaseplanworkload(10);
-		subplan12.setState("计划");	
+		subplan12.setPlanworkload(20);
+		subplan12.setBaseplanworkload(20);
+		subplan12.setState("计划");			
 
-		subplan12.setPlanstartdate(new Timestamp(time - s * 55));
-		subplan12.setPlanenddate(new Timestamp(time - s * 50));
+		subplan12.setPlanstartdate(new Timestamp(time - s * 40));
+		subplan12.setPlanenddate(new Timestamp(time - s * 20));
 
 		planService.dao().insert(subplan12);
+		
+		Plan subplan13 = new Plan();
+		subplan13.setId(UUID.randomUUID().toString());
+		subplan13.setCname("党费收缴");
+		subplan13.setSequencekey("000100010003");
+		subplan13.setPhaseorstep(1);
+		subplan13.setParentid(subplan1.getId());
+		subplan13.setPlanworkload(20);
+		subplan13.setBaseplanworkload(20);
+		subplan13.setState("计划");			
 
+		subplan13.setPlanstartdate(new Timestamp(time - s * 40));
+		subplan13.setPlanenddate(new Timestamp(time - s * 20));
+
+		planService.dao().insert(subplan13);
+		
+		Plan subplan21 = new Plan();
+		subplan21.setId(UUID.randomUUID().toString());
+		subplan21.setCname("意见征求");
+		subplan21.setSequencekey("000100020001");
+		subplan21.setPhaseorstep(1);
+		subplan21.setParentid(subplan2.getId());
+		subplan21.setPlanworkload(10);
+		subplan21.setBaseplanworkload(10);
+		subplan21.setState("计划");	
+
+		subplan21.setPlanstartdate(new Timestamp(time - s * 60));
+		subplan21.setPlanenddate(new Timestamp(time - s * 50));
+
+		planService.dao().insert(subplan21);
+
+		Plan subplan22 = new Plan();
+		subplan22.setId(UUID.randomUUID().toString());
+		subplan22.setCname("计划编制");
+		subplan22.setSequencekey("000100020002");
+		subplan22.setPhaseorstep(1);
+		subplan22.setParentid(subplan2.getId());
+		subplan22.setPlanworkload(20);
+		subplan22.setBaseplanworkload(20);
+		subplan22.setState("计划");			
+
+		subplan22.setPlanstartdate(new Timestamp(time - s * 40));
+		subplan22.setPlanenddate(new Timestamp(time - s * 20));
+
+		planService.dao().insert(subplan22);
+		
+		Plan subplan23 = new Plan();
+		subplan23.setId(UUID.randomUUID().toString());
+		subplan23.setCname("党费使用");
+		subplan23.setSequencekey("000100020003");
+		subplan23.setPhaseorstep(1);
+		subplan23.setParentid(subplan2.getId());
+		subplan23.setPlanworkload(20);
+		subplan23.setBaseplanworkload(20);
+		subplan23.setState("计划");			
+
+		subplan23.setPlanstartdate(new Timestamp(time - s * 40));
+		subplan23.setPlanenddate(new Timestamp(time - s * 20));
+
+		planService.dao().insert(subplan23);
+		
+		Plan subplan3 = new Plan();
+		subplan3.setId(UUID.randomUUID().toString());
+		subplan3.setCname("工作总结");
+		subplan3.setSequencekey("00010003");
+		subplan3.setPhaseorstep(1);
+		subplan3.setParentid(plan.getId());
+		subplan3.setPlanworkload(15);
+		subplan3.setBaseplanworkload(15);
+		subplan3.setState("计划");			
+
+		subplan3.setPlanstartdate(new Timestamp(time + s * 11));
+		subplan3.setPlanenddate(new Timestamp(time + s * 25));
+
+		planService.dao().insert(subplan3);
+
+		Plan subplan4 = new Plan();
+		subplan4.setId(UUID.randomUUID().toString());
+		subplan4.setCname("归档共享");
+		subplan4.setSequencekey("00010004");
+		subplan4.setPhaseorstep(1);
+		subplan4.setParentid(plan.getId());
+		subplan4.setPlanworkload(5);
+		subplan4.setBaseplanworkload(5);
+		subplan4.setState("计划");			
+
+		subplan4.setPlanstartdate(new Timestamp(time + s * 26));
+		subplan4.setPlanenddate(new Timestamp(time + s * 30));
+
+		planService.dao().insert(subplan4);
 	}	
 
 	public void init_plandata() throws Exception {

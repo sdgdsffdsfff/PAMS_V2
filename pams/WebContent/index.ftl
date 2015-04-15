@@ -36,7 +36,6 @@
             </li>
             <li>
               <div title="费用管理" class="t"><i class="fa fa-list-alt"></i> <a href="${base}/page/frame/group_party.html">党费管理</a></div>
-                <li><a href="${base}/party/partydue/usebudget/mainframe.action">计划编制</a></li>
             </li>
             <li>
               <div title="统计分析" class="t"><i class="fa fa-bar-chart-o"></i> <a href="${base}/page/frame/group_report.html">考核统计</a></div>

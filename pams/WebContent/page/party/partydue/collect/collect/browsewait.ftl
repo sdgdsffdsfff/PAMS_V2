@@ -6,7 +6,7 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=no,minimum-scale=1,maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>计划编制</title>
+<title>高层计划</title>
 <link rel="stylesheet" href="/pams/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="/pams/lib/font-awesome/css/font-awesome.min.css">
@@ -58,11 +58,7 @@
 jQuery(function($) {
 	//获得数据
 	$.ajax({
-<<<<<<< HEAD:pams/WebContent/page/party/partydue/usebudget/browsewait.ftl
-		url: '${base}/party/partydue/usebudget/browsewait/json.action',
-=======
 		url: '${base}/party/partydue//collect/collect/browsewait/json.action',
->>>>>>> 30916dea41e34ea1de320c23034e9225dadb0d34:pams/WebContent/page/party/partydue/collect/collect/browsewait.ftl
 		dataType: 'json',
 		success: function(d)
 		{
@@ -72,11 +68,7 @@ jQuery(function($) {
 			{
 				trHtml += '<tr data-id="'+n.runactkey+'">';
 				trHtml += '<td class="check"></td>';		
-<<<<<<< HEAD:pams/WebContent/page/party/partydue/usebudget/browsewait.ftl
-				trHtml += '<td><a href="${base}/party/partydue/usebudget/readpage.action?runactkey='+n.runactkey+'">'+n.cno+'</a></td>';
-=======
 				trHtml += '<td><a href="${base}/party/partydue//collect/collect/readpage.action?runactkey='+n.runactkey+'">'+n.cno+'</a></td>';
->>>>>>> 30916dea41e34ea1de320c23034e9225dadb0d34:pams/WebContent/page/party/partydue/collect/collect/browsewait.ftl
 				trHtml += '<td>'+n.cname+'</td>';
 				trHtml += '<td>'+n.bactcname+'</td>';
 				trHtml += '<td>'+n.username+'</td>';				
@@ -108,11 +100,7 @@ jQuery(function($) {
 function page_locate(runactkey)
 {
 	console.log("locate.begin.");
-<<<<<<< HEAD:pams/WebContent/page/party/partydue/usebudget/browsewait.ftl
-	window.location = "${base}/party/partydue/usebudget/readpage.action?runactkey=" + runactkey;
-=======
 	window.location = "${base}/party/partydue//collect/collect/readpage.action?runactkey=" + runactkey;
->>>>>>> 30916dea41e34ea1de320c23034e9225dadb0d34:pams/WebContent/page/party/partydue/collect/collect/browsewait.ftl
 }
 
 		

@@ -231,11 +231,9 @@ public class PartyDueBaseAction extends BaseAction {
 		String id = ract.getFormatAttr("dataid");
 		String tableid = ract.getFormatAttr("tableid");
 		DynamicObject base = partyduebaseService.locate(id);
-
-		
 		List<DynamicObject> deptbasedetails = partyduebaseService.browsedeptbasedetails(id, deptid); // 本部门基数核准
-		
-		List<DynamicObject> basedetails = partyduebaseService.browseallbasedetails(id); // 基数核准汇总
+		List<DynamicObject> basedetails = partyduebaseService.browsesumdeptbasedetails(id, "00000000"); // 基数核准汇总
+
 		// 权限设置
 		set_author();
 		
@@ -255,8 +253,8 @@ public class PartyDueBaseAction extends BaseAction {
 	
 	
 	@At("/savedeptbasedetails")
-	@Ok("->:/page/party/partydue/collect/base/locate.ftl")
-	public Map savedeptbasedetails(String baseid, String[] baseuser, float[] base1, float[] base2, float[] base3, float[] base4) throws Exception {
+	@Ok("redirect:locate.action?runactkey=${obj.runactkey}")
+	public Map savedeptbasedetails(String runactkey, String baseid, String[] baseuser, float[] base1, float[] base2, float[] base3, float[] base4) throws Exception {
 
 		HttpSession session = Mvcs.getHttpSession(true);
 		DynamicObject token = (DynamicObject)session.getAttribute(com.skynet.framework.spec.GlobalConstants.sys_login_token);
@@ -275,6 +273,8 @@ public class PartyDueBaseAction extends BaseAction {
 		map.setObj("base4s", base4);
 		
 		partyduebasedetailService.savedeptbasedetails(map);
+		
+		ro.setAttr("runactkey", runactkey);
 		
 		return ro;
 	}

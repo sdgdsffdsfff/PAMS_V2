@@ -3,7 +3,6 @@ package com.skynet.pams.app.party.partydue.collect.collbudget.action;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.Mvcs;
@@ -28,7 +26,7 @@ import com.skynet.framework.services.db.dybeans.DynamicObject;
 import com.skynet.pams.app.party.service.PartyDueCollectBudgetDetailService;
 import com.skynet.pams.app.party.service.PartyDueCollectBudgetService;
 import com.skynet.pams.app.plan.service.PlanService;
-import com.skynet.pams.base.pojo.PartyDueUseSuggest;
+import com.skynet.pams.base.pojo.PartyDueCollectBudget;
 import com.skynet.pams.base.pojo.Plan;
 
 @IocBean
@@ -44,7 +42,7 @@ public class PartyDueCollectBudgetAction extends BaseAction {
 	@Inject
 	private PlanService planService;
 	
-	public static String tableid = "PartyDueUseSuggest";
+	public static String tableid = "PartyDueCollectBudget";
 	
 	@At("/mainframe")
 	@Ok("->:/page/party/partydue/collect/collectbudget/mainframe.ftl")
@@ -66,13 +64,13 @@ public class PartyDueCollectBudgetAction extends BaseAction {
 		Plan plan = planService.get(planid);
 		
 		Timestamp nowtime = new Timestamp(System.currentTimeMillis());
-		PartyDueUseSuggest usesuggest = new PartyDueUseSuggest();
-		usesuggest.setId(UUIDGenerator.getInstance().getNextValue());
-		usesuggest.setCname(plan.getCname());
-		usesuggest.setCreatetime(nowtime);
-		usesuggest.setCreater(loginname);
-		usesuggest.setCreatercname(username);
-		usesuggest.setCyear((new GregorianCalendar()).get(Calendar.YEAR));
+		PartyDueCollectBudget collectbudget = new PartyDueCollectBudget();
+		collectbudget.setId(UUIDGenerator.getInstance().getNextValue());
+		collectbudget.setCname(plan.getCname());
+		collectbudget.setCreatetime(nowtime);
+		collectbudget.setCreater(loginname);
+		collectbudget.setCreatercname(username);
+		collectbudget.setCyear((new GregorianCalendar()).get(Calendar.YEAR));
 		
 		DynamicObject swapFlow = new DynamicObject();
 		swapFlow.setAttr(GlobalConstants.swap_coperatorid, userid);
@@ -81,9 +79,9 @@ public class PartyDueCollectBudgetAction extends BaseAction {
 		swapFlow.setAttr(GlobalConstants.swap_flowdefid, flowdefid);
 		swapFlow.setAttr(GlobalConstants.swap_tableid, tableid);
 
-		// String runactkey = partyduecollectbudgetService.plancreate(plan, usesuggest, swapFlow);
+		String runactkey = partyduecollectbudgetService.plancreate(plan, collectbudget, swapFlow);
 		
-		// ro.put("runactkey", runactkey);
+		ro.put("runactkey", runactkey);
 		return ro;
 	}
 	
@@ -233,17 +231,9 @@ public class PartyDueCollectBudgetAction extends BaseAction {
 				.getRactService().locate(runactkey);
 		String id = ract.getFormatAttr("dataid");
 		String tableid = ract.getFormatAttr("tableid");
-		DynamicObject usesuggest = partyduecollectbudgetService.locate(id);
-		DynamicObject usesuggestdetail = partyduecollectbudgetdetailService.locateBy(Cnd.where("suggestid", "=", id).and("deptid", "=", deptid));	
+		DynamicObject collectbudget = partyduecollectbudgetService.locate(id);
+		List<DynamicObject> collectbudgetdetails = partyduecollectbudgetService.browsesumdeptbasedetails(id, "00000000"); // 预算汇总	
 		
-		usesuggestdetail.setAttr("deptid", deptid);
-		usesuggestdetail.setAttr("deptname", deptname);
-		usesuggestdetail.setAttr("suggester", loginname);
-		usesuggestdetail.setAttr("suggestercname", username);
-		usesuggestdetail.setAttr("suggesttime", sf.format(new Date()));
-		
-		
-		List<DynamicObject> usesuggestdetails = partyduecollectbudgetdetailService.findByCond(Cnd.where("suggestid", "=", id)); // 汇总意见
 		// 权限设置
 		set_author();
 		
@@ -253,11 +243,30 @@ public class PartyDueCollectBudgetAction extends BaseAction {
 
 		ro.put("tableid", tableid);
 		ro.put("runactkey", runactkey);
-		ro.put("usesuggest", usesuggest);
-		ro.put("usesuggestdetail", usesuggestdetail);
-		ro.put("usesuggestdetails", usesuggestdetails);	
+		ro.put("collectbudget", collectbudget);
+		ro.put("collectbudgetdetails", collectbudgetdetails);	
 		ro.put("ract", ract);
 		ro.put("routes", routes);
+	}
+	
+	@At("/savedeptbudgetdetails")
+	@Ok("redirect:locate.action?runactkey=${obj.runactkey}")
+	public Map savedeptbudgetdetails(String runactkey, String collectbudgetid, String[] deptid, float[] collcost1, float[] collcost2, float[] collcost3, float[] turncost1, float[] turncost2) throws Exception {
+
+		DynamicObject map = new DynamicObject();
+		map.setAttr("collectbudgetid", collectbudgetid);
+		map.setObj("deptids", deptid);
+		map.setObj("collcost1s", collcost1);
+		map.setObj("collcost2s", collcost2);
+		map.setObj("collcost3s", collcost3);
+		map.setObj("turncost1s", turncost1);
+		map.setObj("turncost2s", turncost1);	
+		
+		partyduecollectbudgetdetailService.savedeptbudgetdetails(map);
+		
+		ro.setAttr("runactkey", runactkey);
+		
+		return ro;
 	}
 	
 	// 签收

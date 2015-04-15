@@ -24,6 +24,13 @@
 </head>
 <body>
 
+<div id="container">
+<div class="gsop">
+	<div class="opleft">
+		<button id="bt_insert" class="btn btn-primary">新增</button>
+		<button id="bt_delete" class="btn btn-primary">删除</button>		
+	</div>
+</div>
 
 <table id="allContactTb" class="table personListTable hover">
 <thead>
@@ -32,14 +39,12 @@
       <th>名称</th>
       <th>计划开始</th>
       <th>计划结束</th>
+      <th>负责人</th>
       <th>完成比例(%)</th>      
       <th>工作量</th>
       <th>工作量比例(%)</th>      
       <th>实际开始</th>
-      <th>实际结束</th>
-      <th>基准工作量</th>      
-      <th>基准开始</th>
-      <th>基准结束</th>      
+      <th>实际结束</th>    
     </tr>
   </thead>
   <tbody>
@@ -64,11 +69,11 @@
 jQuery(function($) {
 	//获得数据
 	$.ajax({
-		url: '/pams/plan/browsecreate/json.action',
+		url: '/pams/plan/plan/browsecreate/json.action',
 		dataType: 'json',
 		success: function(d)
 		{
-			console.log(d);
+			// console.log(d);
 			data = d;
 			
 			$.each(data,function(i,n)
@@ -76,17 +81,16 @@ jQuery(function($) {
 				var trHtml = "";
 				trHtml += '<tr data-id="'+n.id+'">';
 				trHtml += '<td class="check"></td>';
-				trHtml += '<td><a href="/pams/plan/locate.action?id='+n.id+'">'+n.cname+'</a></td>';				
+				trHtml += '<td><a href="/pams/plan/plan/locate.action?id='+n.id+'">'+n.cname+'</a></td>';				
 				trHtml += '<td>'+n.planstartdate+'</td>';
 				trHtml += '<td>'+n.planenddate+'</td>';
+				trHtml += '<td>'+n.planheadercname+'</td>';
 				trHtml += '<td></td>';
 				trHtml += '<td>'+n.baseplanworkload+'</td>';
 				trHtml += '<td></td>';
 				trHtml += '<td>'+n.actualstartdate +'</td>';
 				trHtml += '<td>'+n.actualenddate +'</td>';
-				trHtml += '<td></td>';
-				trHtml += '<td></td>';
-				trHtml += '<td></td>';
+
 				trHtml += '</tr>';
 				
 				$('#allContactTb tbody').append(trHtml);
@@ -103,7 +107,7 @@ jQuery(function($) {
 function page_locate(id)
 {
 	console.log("locate.begin.");
-	window.location = "/pams/plan/locate.action?id=" + id;
+	window.location = "/pams/plan/plan/locate.action?id=" + id;
 }
 
 		

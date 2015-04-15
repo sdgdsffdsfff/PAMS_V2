@@ -5,6 +5,7 @@
 		"cname":"${plan.cname}",
 		"planstartdate":"<#if plan.planstartdate==""><#else>${plan.planstartdate?date}</#if>",
 		"planenddate":"<#if plan.planenddate==""><#else>${plan.planenddate?date}</#if>",
+		"planheadercname":"${plan.planheadercname}",
 		"baseplanworkload":"${plan.baseplanworkload}",
 		"actualstartdate":"<#if plan.actualstartdate==""><#else>${plan.actualstartdate?date}</#if>",
 		"actualenddate":"<#if plan.actualenddate==""><#else>${plan.actualenddate?date}</#if>"

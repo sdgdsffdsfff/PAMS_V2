@@ -29,11 +29,11 @@
     <tr>
       <th class="check min"></th>   
       <th>编号</th>
-      <th>标题</th>    
+      <th>标题</th>     
       <th>节点</th>
       <th>处理人</th>      
       <th>处理状态</th>
-      <th>执行时长</th>
+
     </tr>
   </thead>
   <tbody>
@@ -58,7 +58,7 @@
 jQuery(function($) {
 	//获得数据
 	$.ajax({
-		url: '${base}/party/partydue/research/usesuggest/browsehandle/json.action',
+		url: '${base}/party/partydue/use/usesuggest/browsewait/json.action',
 		dataType: 'json',
 		success: function(d)
 		{
@@ -68,12 +68,12 @@ jQuery(function($) {
 			{
 				trHtml += '<tr data-id="'+n.runactkey+'">';
 				trHtml += '<td class="check"></td>';		
-				trHtml += '<td><a href="${base}/party/partydue/research/usesuggest/readpage.action?runactkey='+n.runactkey+'">'+n.cno+'</a></td>';
+				trHtml += '<td><a href="${base}/party/partydue/use/usesuggest/readpage.action?runactkey='+n.runactkey+'">'+n.cno+'</a></td>';
 				trHtml += '<td>'+n.cname+'</td>';
 				trHtml += '<td>'+n.bactcname+'</td>';
 				trHtml += '<td>'+n.username+'</td>';				
 				trHtml += '<td>'+n.ractstate+'</td>';
-				trHtml += '<td>'+(n.zxsc*24*100)/100+'</td>';
+		
 				trHtml += '</tr>';
 			});
 			console.log(trHtml);
@@ -100,7 +100,7 @@ jQuery(function($) {
 function page_locate(runactkey)
 {
 	console.log("locate.begin.");
-	window.location = "${base}/party/partydue/research/usesuggest/readpage.action?runactkey=" + runactkey;
+	window.location = "${base}/party/partydue/use/usesuggest/readpage.action?runactkey=" + runactkey;
 }
 
 		

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,29 +6,29 @@
 	content="width=device-width,initial-scale=1,user-scalable=no,minimum-scale=1,maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>高层计划</title>
-<link rel="stylesheet" href="/pams/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${base}/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="/pams/lib/font-awesome/css/font-awesome.min.css">
-<link href="../logo60.png" rel="apple-touch-icon">
-<link href="../logo76.png" rel="apple-touch-icon" sizes="76x76">
-<link href="../logo120.png" rel="apple-touch-icon" sizes="120x120">
-<link href="../logo152.png" rel="apple-touch-icon" sizes="152x152">
+	href="${base}/lib/font-awesome/css/font-awesome.min.css">
+<link href="${base}/logo60.png" rel="apple-touch-icon">
+<link href="${base}/logo76.png" rel="apple-touch-icon" sizes="76x76">
+<link href="${base}/logo120.png" rel="apple-touch-icon" sizes="120x120">
+<link href="${base}/logo152.png" rel="apple-touch-icon" sizes="152x152">
 <link rel="stylesheet"
-	href="/pams/lib/datetimepicker/css/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" href="/pams/css/animation.css">
-<link rel="stylesheet" href="/pams/lib/slider.css">
-<link rel="stylesheet" href="/pams/css/main.css">
-<script src="/pams/lib/jquery-2.1.1.min.js"></script>
-<link rel="stylesheet" href="/pams/css/advplan2.css">
+	href="${base}/lib/datetimepicker/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="${base}/css/animation.css">
+<link rel="stylesheet" href="${base}/lib/slider.css">
+<link rel="stylesheet" href="${base}/css/main.css">
+<script src="${base}/lib/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="${base}/css/advplan2.css">
 </head>
 <body>
 	<script>
-		var ajax_url_add_node = '/pams/plan/addsubplan.action';
-		var ajax_url_delete_node = '/pams/plan/deleteplan.action';
-		var ajax_url_save_node = '/pams/plan/saveplan.action';
-		var ajax_url_save_node_sequence = '../data/advplan_save_sequence.json';
+		var ajax_url_add_node = '${base}/plan/plan/addsubplan.action';
+		var ajax_url_delete_node = '${base}/plan/plan/deleteplan.action';
+		var ajax_url_save_node = '${base}/plan/plan/saveplan.action';
+		var ajax_url_save_node_sequence = '../plan/data/advplan_save_sequence.json';
 		var ajax_url_save_node_parentworkload = '../data/advplan_save_node.json';//任务计算 workload 以后 用于保存父节点的 wordload
-		var ajax_url_decompose_node = '/pams/plan/decomposeplan.action';
+		var ajax_url_decompose_node = '${base}/plan/plan/decomposeplan.action';
 	</script>
 
 	<div id="container">
@@ -54,6 +53,7 @@
 					<div class="td name">名称</div>
 					<div class="td">计划开始</div>
 					<div class="td">计划结束</div>
+					<div class="td">负责人</div>
 					<div class="td">完成比例(%)</div>
 					<div class="td">工作量</div>
 					<div class="td">工作量比例(%)</div>
@@ -110,13 +110,13 @@
 										</button>
 										<ul id="decomposeNode" class="dropdown-menu">
 											<li data-type="1" data-dismiss="modal" id="flow_dfgl_yjzq" flowid='DFGL_YJZQ'><i
-												class="fa fa-flag" ></i>意见征求流程</li>
+												class="fa fa-flag" ></i> 意见征求流程</li>
 											<li data-type="1" data-dismiss="modal" id="flow_dfgl_jhbz" flowid='DFGL_JHBZ'><i
-												class="fa fa-flag-o" ></i>计划编制流程</li>
+												class="fa fa-flag-o" ></i> 计划编制流程</li>
 											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsq" flowid='DFGL_DFSQ'><i
-												class="fa fa-flag-o" ></i>党费收取流程</li>	
+												class="fa fa-flag-o" ></i> 党费收取流程</li>	
 											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsy" flowid='DFGL_DFSY'><i
-												class="fa fa-flag-o" ></i>党费使用流程</li>	
+												class="fa fa-flag-o" ></i> 党费使用流程</li>	
 										</ul>
 									</div>
 									<button id="deleteNode" class="btn btn-danger">
@@ -133,30 +133,120 @@
 								</div>
 							</div>
 							<div id="formContainer">
-								<label class="gslabel hide"><span class="t">id</span>
-									<input name="id" class="form-control"> </label> <label
-									class="gslabel hide"><span class="t">parentid</span>
-									<input name="parentid" class="form-control"> </label> <label
-									class="gslabel hide"><span class="t">sequencekey</span>
-									<input name="sequencekey" class="form-control"> </label> <label
-									class="gslabel"><span class="t">名称</span> <input
-									name="cname" class="form-control"> </label> <label
-									class="gslabel"><span class="t">状态</span> <select
-									name="phasestatus" class="form-control">
-										<option value="0">未启动</option>
-										<option value="1">启动</option>
-								</select> </label> <label class="gslabel"><span class="t">是否可裁减</span> <select
-									name="ismantory" class="form-control">
-										<option value="0">不能</option>
-										<option value="1">可以</option>
-								</select> </label> <label class="gslabel"><span class="t">描述</span> <input
-									name="remark" class="form-control"> </label> <label
-									class="gslabel"><span class="t">延迟原因</span> <input
-									name="delayreason" class="form-control"> </label> <label
-									class="gslabel"><span class="t">应对措施</span> <input
-									name="strategy" class="form-control"> </label> <label
-									class="gslabel"><span class="t">备注</span> <input
-									name="remark2" class="form-control"> </label>
+							
+							<input id="id" name="id" type="hidden" class="form-control"> 
+							<input id="parentid" name="parentid" type="hidden" class="form-control">
+							<input id="sequencekey" name="sequencekey" type="hidden" class="form-control">
+							
+						     <div class="form-group">
+						        <label for="cname" class="col-sm-2 control-label">标题名称：<sup class="fa fa-asterisk"></sup></label>
+						        <div class="col-sm-10"> 
+						          <input id="cname" name="cname" value="" class="form-control">
+						        </div>           
+						     </div>
+						     
+						      <div class="form-group">
+						        <label for="planheadercname" class="col-sm-2 control-label">负责人：<sup class="fa fa-asterisk"></sup></label>
+						        <div class="col-sm-4">
+						        	<input id="planheader" name="planheader" required="" value="" type="hidden">
+						        	 <input id="planheadercname" name="planheadercname" value="" class="form-control" type="hidden">
+						        	
+						        	<select
+									id="planheadercnametext" name="planheadercnametext" class="form-control">
+						        	<#list obj.users as aobj>
+						        		<option value="${aobj.loginname}">${aobj.cname}</option>
+						        	</#list>
+									</select> 
+						        	
+						        </div>
+						        <label for="chargedeptname" class="col-sm-2 control-label">主管部门：<sup class="fa fa-asterisk"></sup></label>
+						        <div class="col-sm-4"> 
+						        	<input id="chargedeptid" name="chargedeptid" type="hidden" required="" value="">
+						        	<input id="chargedeptname" name="chargedeptname" value="" class="form-control" type="hidden">
+						        	<select
+									id="chargedeptnametext" name="chargedeptnametext" class="form-control">
+						        	<#list obj.depts as aobj>
+						        		<option value="${aobj.id}">${aobj.cname}</option>
+						        	</#list>
+									</select> 
+						          
+						        </div>            
+						      </div> 
+						      
+						      <div class="form-group">
+						        <label for="masterdeptname" class="col-sm-2 control-label">主办部门：<sup class="fa fa-asterisk"></sup></label>
+						        <div class="col-sm-4">
+						        	<input id="masterdeptid" name="masterdeptid" required="" value="" type="hidden">
+						        	<input id="masterdeptname" name="masterdeptname" value="" class="form-control" type="hidden">
+						        	<select
+									id="masterdeptnametext" name="masterdeptnametext" class="form-control">
+						        	<#list obj.depts as aobj>
+						        		<option value="${aobj.id}">${aobj.cname}</option>
+						        	</#list>
+									</select> 
+						        </div>
+						        <label for="slavedeptname" class="col-sm-2 control-label">协办部门：<sup class="fa fa-asterisk"></sup></label>
+						        <div class="col-sm-4"> 
+						        	<input id="slavedeptid" name="slavedeptid" type="hidden" value="">
+						        	<input id="slavedeptname" name="slavedeptname" value="" class="form-control" type="hidden">
+						        	<select
+									id="slavedeptnametext" name="slavedeptnametext" class="form-control">
+						        	<#list obj.depts as aobj>
+						        		<option value="${aobj.id}">${aobj.cname}</option>
+						        	</#list>
+									</select> 
+						          
+						        </div>            
+						      </div>
+						      
+						      <div class="form-group">
+						        <label for="phasestatus" class="col-sm-2 control-label">状态：<sup class="fa fa-asterisk"></sup></label>
+						        <div class="col-sm-4">
+						        <select id=""
+								name="phasestatus" class="form-control">
+									<option value="计划">计划</option>
+									<option value="执行">执行</option>
+									<option value="完成">完成</option>
+									</select> 
+						        </div>
+						        <label for="ismantory" class="col-sm-2 control-label">是否可裁剪：<sup class="fa fa-asterisk"></sup></label>
+						        <div class="col-sm-4"> 
+						        <select
+								name="ismantory" class="form-control">
+									<option value="0">不能</option>
+									<option value="1">可以</option>
+								</select>
+						        </div>            
+						      </div>
+						      
+							     <div class="form-group">
+							        <label for="remark" class="col-sm-2 control-label">描述：<sup class="fa fa-asterisk"></sup></label>
+							        <div class="col-sm-10"> 
+							          <input id="remark" name="remark" value="" class="form-control">
+							        </div>           
+							     </div>
+							     
+							     <div class="form-group">
+							        <label for="delayreason" class="col-sm-2 control-label">延迟原因：<sup class="fa fa-asterisk"></sup></label>
+							        <div class="col-sm-10"> 
+							          <input id="delayreason" name="delayreason" value="" class="form-control">
+							        </div>           
+							     </div>
+						      
+							     <div class="form-group">
+							        <label for="strategy" class="col-sm-2 control-label">应对措施：<sup class="fa fa-asterisk"></sup></label>
+							        <div class="col-sm-10"> 
+							          <input id="strategy" name="strategy" value="" class="form-control">
+							        </div>           
+							     </div>
+							     
+							     <div class="form-group">
+							        <label for="memo" class="col-sm-2 control-label">备注：<sup class="fa fa-asterisk"></sup></label>
+							        <div class="col-sm-10"> 
+							          <input id="memo" name="memo" value="" class="form-control">
+							        </div>           
+							     </div>
+							     
 								<div id="dateBox">
 									<table class="table-condensed table">
 										<thead>
@@ -241,18 +331,18 @@
 			</div>
 		</div>
 	</div>
-	<script src="/pams/lib/jquery-ui.min.js"></script>
-	<script src="/pams/lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/pams/lib/moment.min.js"></script>
-	<script src="/pams/lib/moment.zh-cn.js"></script>
+	<script src="${base}/lib/jquery-ui.min.js"></script>
+	<script src="${base}/lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${base}/lib/moment.min.js"></script>
+	<script src="${base}/lib/moment.zh-cn.js"></script>
 	<script
-		src="/pams/lib/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+		src="${base}/lib/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script
-		src="/pams/lib/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-	<script src="/pams/lib/lodash.min.js"></script>
-	<script src="/pams/lib/bootstrap-slider.js"></script>
-	<script src="/pams/lib/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-	<script src="/pams/js/main.js"></script>
+		src="${base}/lib/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="${base}/lib/lodash.min.js"></script>
+	<script src="${base}/lib/bootstrap-slider.js"></script>
+	<script src="${base}/lib/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<script src="${base}/js/main.js"></script>
 	<script>
 		var params = parseUrl(window.location.href);
 		var planid = params["id"];
@@ -271,15 +361,12 @@
 		
 		function page_gantt()
 		{
-			var url = "/pams/page/plan/gantt.html?planid="+planid;
+			var url = "${base}/page/plan/plan/gantt.html?planid="+planid;
 			window.open(url);
 		}
 		
 
 		jQuery(function($) {
-			
-			
-			
 			
 			//
 			var modalTabsTitle = $('#modalTabs-title');
@@ -294,7 +381,7 @@
 
 			//获得数据
 			$.ajax({
-				url : '/pams/plan/listsubplanjson.action',
+				url : '${base}/plan/plan/listsubplanjson.action',
 				dataType : 'json',
 				data : {
 					id : planid
@@ -369,6 +456,7 @@
 					+ jihuakaishi + '</div>';
 			rootHtml += '<div class="td" data-name="planenddate">'
 					+ jihuajieshu + '</div>';
+			rootHtml += '<div class="td" data-name="planheadercname">' + data.planheadercname + '</div>';
 			rootHtml += '<div class="td">' + data.completepercent * 100
 					+ '</div>';
 			rootHtml += '<div class="td gongzuoliang">' + data.planworkload + '</div>';
@@ -379,8 +467,8 @@
 					+ shijijieshu + '</div>';
 			rootHtml += '<div class="td" data-name="actualheadercname"></div>';
 			rootHtml += '<div class="td">' + data.baseplanworkload + '</div>';
-			rootHtml += '<div class="td">' + jizhunkaishi + '</div>';
-			rootHtml += '<div class="td">' + jizhunjieshu + '</div></div>';
+			rootHtml += '<div class="td">' + shijikaishi + '</div>';
+			rootHtml += '<div class="td">' + shijijieshu + '</div></div>';
 
 			rootDiv.html(rootHtml);
 
@@ -528,8 +616,8 @@
 
                 //回填数据到 modal
                 formContainer.find(':input').each(function(j, k) {
-          console.log("name:" + this.name);
-          console.log("value:" + found[this.name]);
+          // console.log("name:" + this.name);
+          // console.log("value:" + found[this.name]);
           
                     if (this.name) {
                         $(this).val(found[this.name])
@@ -539,6 +627,28 @@
                 //add number to num input
                 $('.gsRange input[type=range]').trigger('change');
 
+
+                // 下拉选择赋值 临时 蒲剑
+                if($('#planheader').val()!=="")
+                {
+                	$("#planheadercnametext option[value='"+$('#planheader').val()+"']").attr("selected",true);
+                }
+                
+                if($('#chargedeptid').val()!=="")
+                {
+                	$("#chargedeptnametext option[value='"+$('#chargedeptid').val()+"']").attr("selected",true);
+                }
+                
+                if($('#masterdeptid').val()!=="")
+                {
+                	$("#masterdeptnametext option[value='"+$('#masterdeptid').val()+"']").attr("selected",true);
+                }
+                
+                if($('#slavedeptid').val()!=="")
+                {
+                	$("#slavedeptnametext option[value='"+$('#slavedeptid').val()+"']").attr("selected",true);
+                }
+                
                 //dateBox 初始化
 
                 //初次基准
@@ -795,7 +905,20 @@
             alert('没找到这个 li');
             return false;
         }
+        
+        // 赋值
+        $('#planheader').val($('#planheadercnametext').val());
+        $('#planheadercname').val($('#planheadercnametext').find("option:selected").text()); 
+        
+        $('#chargedeptid').val($('#chargedeptnametext').val());
+        $('#chargedeptname').val($('#chargedeptnametext').find("option:selected").text());        
 
+        $('#masterdeptid').val($('#masterdeptnametext').val());
+        $('#masterdeptname').val($('#masterdeptnametext').find("option:selected").text());  
+        
+        $('#slavedeptid').val($('#slavedeptnametext').val());
+        $('#slavedeptname').val($('#slavedeptnametext').find("option:selected").text());          
+        
         var litr = li.find('>.tr');
         var otype = litr.attr('data-type');
 
@@ -876,7 +999,7 @@
 
         //修改 root 的 min max end
 
-        console.log(found);
+        //console.log(found);
         
         //ajax
         $.ajax({
@@ -1131,6 +1254,7 @@
 											+ jihuakaishi + '</div>';
 									thtml += '<div class="td" data-name="planenddate">'
 											+ jihuajieshu + '</div>';
+									thtml += '<div class="td" data-name="planheadername">'+k.planheadercname+'</div>';
 									thtml += '<div class="td" data-name="completepercent">'
 											+ wanchengbili + '</div>';
 									thtml += '<div class="td gongzuoliang" data-name="planworkload">'
@@ -1413,8 +1537,8 @@
             "planenddate": item.planenddate,
             "forecastdate": "",
             "forecastenddate": "",
-            "actualstartdate": "",
-            "actualenddate": "",
+            "actualstartdate": item.actualstartdate,
+            "actualenddate": item.actualenddate,
             "projectid": "",
             "phaseorstep": otype,
             "delflag": "",

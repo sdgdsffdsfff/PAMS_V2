@@ -198,6 +198,8 @@ else
 	$("#bt_save_detail").hide();
 }
 
+
+
 function page_forward()
 {
 	var url = "${base}/workflow/ui/forwardselect.action";

@@ -5,6 +5,22 @@
   "desc":"${obj.plan.description}",
   "planworkload":"${obj.plan.planworkload}",
   "baseplanworkload":"${obj.plan.baseplanworkload}",
+  
+	"planheader": "${obj.plan.planheader}",
+	"planheadercname": "${obj.plan.planheadercname}",
+	
+	"chargedeptid": "${obj.plan.chargedeptid}",
+	"chargedeptname": "${obj.plan.chargedeptname}",
+	
+	"masterdeptid": "${obj.plan.masterdeptid}",
+	"masterdeptname": "${obj.plan.masterdeptname}",	
+	
+	"slavedeptid": "${obj.plan.slavedeptid}",
+	"slavedeptname": "${obj.plan.slavedeptname}", 
+	
+	"actualstartdate": "${obj.plan.actualstartdate}",
+	"actualenddate": "${obj.plan.actualenddate}",
+  
 	"items":[
 	<#list obj.subplans as aobj>
 	{
@@ -20,6 +36,19 @@
 		"modifier": "${aobj.modifier}",
 		"planstartdate": "${aobj.planstartdate}",
 		"planenddate": "${aobj.planenddate}",
+		
+		"planheader": "${aobj.planheader}",
+		"planheadercname": "${aobj.planheadercname}",
+		
+		"chargedeptid": "${aobj.chargedeptid}",
+		"chargedeptname": "${aobj.chargedeptname}",
+		
+		"masterdeptid": "${aobj.masterdeptid}",
+		"masterdeptname": "${aobj.masterdeptname}",	
+		
+		"slavedeptid": "${aobj.slavedeptid}",
+		"slavedeptname": "${aobj.slavedeptname}",			
+		
 		"forecastdate": "",
 		"forecastenddate": "",
 		"actualstartdate": "${aobj.actualstartdate}",

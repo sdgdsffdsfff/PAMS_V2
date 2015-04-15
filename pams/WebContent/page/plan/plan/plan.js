@@ -26,7 +26,7 @@ jQuery(function($)
 
 //获得数据
 $.ajax({
-  url: '/pams/plan/listsubplanjson.action',
+  url: '/pams/plan/plan/listsubplanjson.action',
   dataType: 'json',
   data:{id:planid}, // planid 为当前记录标识
   /*
@@ -66,31 +66,31 @@ ADVPLAN = $('#advplan');
 
   //基准开始时间：proj_phase表中basestartdate中最小值
   var jizhunkaishi = moment(_.min(data.items, function(x) {
-    if (!$.trim(x.BASESTARTDATE) == '') {
-      return moment(x.BASESTARTDATE)._d.getTime();
+    if (!$.trim(x.basestartdate) == '') {
+      return moment(x.basestartdate)._d.getTime();
     }
-  }).BASESTARTDATE).format('YYYY-MM-DD');
+  }).basestartdate).format('YYYY-MM-DD');
 
   //基准结束时间：proj_phase表中 baseenddate 中最大值
   var jizhunjieshu = moment(_.max(data.items, function(x) {
-    if (!$.trim(x.BASEENDDATE) == '') {
-      return moment(x.BASEENDDATE)._d.getTime();
+    if (!$.trim(x.baseenddate) == '') {
+      return moment(x.baseenddate)._d.getTime();
     }
-  }).BASEENDDATE).format('YYYY-MM-DD');
+  }).baseenddate).format('YYYY-MM-DD');
 
   //实际开始时间：proj_phase表中 actualstartdate 中最小值
   var shijikaishi = moment(_.min(data.items, function(x) {
-    if (!$.trim(x.ACTUALSTARTDATE) == '') {
+    if (!$.trim(x.actualstartdate) == '') {
       return moment(x.ACTUALSTARTDATE)._d.getTime();
     }
-  }).ACTUALSTARTDATE).format('YYYY-MM-DD');
+  }).actualstartdate).format('YYYY-MM-DD');
 
   //实际结束时间：proj_phase表中 acutalenddate 中最大值
   var shijijieshu = moment(_.max(data.items, function(x) {
-    if (!$.trim(x.ACUTALENDDATE) == '') {
-      return moment(x.ACUTALENDDATE)._d.getTime();
+    if (!$.trim(x.acutalenddate) == '') {
+      return moment(x.acutalenddate)._d.getTime();
     }
-  }).ACUTALENDDATE).format('YYYY-MM-DD');
+  }).acutalenddate).format('YYYY-MM-DD');
 
   var rootHtml = '';
   rootHtml += '<div class="tr" data-type="-1">';

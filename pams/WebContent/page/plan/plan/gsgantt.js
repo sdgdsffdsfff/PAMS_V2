@@ -53,7 +53,7 @@ function initGsGantt(ele, data) {
 function renderPlan(planid){
 	console.log("planid:"+planid);
 	$.ajax({
-		url:'/pams/plan/plan.action',
+		url:'/pams/plan/plan/plan.action',
 		data:{
 			planid:planid,
 		},
@@ -73,7 +73,7 @@ function renderPlan(planid){
 
 function renderTasks(start,end,projid){
 	$.ajax({
-		url:'/pams/plan/tasks.action',
+		url:'/pams/plan/plan/tasks.action',
 		data:{
 			start:start,
 			end:end,
@@ -115,7 +115,7 @@ jQuery(function($) {
 	
 
 	$.ajax({
-		url:'/pams/plan/gantt.action',
+		url:'/pams/plan/plan/gantt.action',
 		data:{
 			planid:planid
 		},

@@ -32,7 +32,8 @@
       <th>计划开始日期</th>
       <th>计划结束日期</th>      
       <th>计划人</th>
-      <th>计划流程名称</th>
+      <th>流程名称</th>
+      <th>流程编号</th>
       <th></th>
     </tr>
   </thead>
@@ -71,8 +72,9 @@ jQuery(function($) {
 				trHtml += '<td><a href="${base}/party/readpage.action?id='+n.id+'"">'+n.cname+'</a></td>';
 				trHtml += '<td>'+n.planstartdate+'</td>';
 				trHtml += '<td>'+n.planenddate+'</td>';
-				trHtml += '<td>'+n.creater+'</td>';				
-				trHtml += '<td>'+n.flowdefid+'</td>';
+				trHtml += '<td>'+n.creater+'</td>';	
+				trHtml += '<td>'+n.flowcname+'</td>';				
+				trHtml += '<td>'+n.flowsno+'</td>';
 				trHtml += '<td><button class="btn btn-primary" onclick="page_startplan(\''+n.id+'\',\''+n.flowdefid+'\')">启动</button></td>';
 				trHtml += '</tr>';
 			});

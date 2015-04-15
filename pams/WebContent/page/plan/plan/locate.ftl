@@ -109,14 +109,20 @@
 											<i class="fa fa-plus"></i> 分解任务 <span class="caret"></span>
 										</button>
 										<ul id="decomposeNode" class="dropdown-menu">
-											<li data-type="1" data-dismiss="modal" id="flow_dfgl_yjzq" flowid='DFGL_YJZQ'><i
-												class="fa fa-flag" ></i> 意见征求流程</li>
-											<li data-type="1" data-dismiss="modal" id="flow_dfgl_jhbz" flowid='DFGL_JHBZ'><i
-												class="fa fa-flag-o" ></i> 计划编制流程</li>
-											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsq" flowid='DFGL_DFSQ'><i
-												class="fa fa-flag-o" ></i> 党费收取流程</li>	
-											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsy" flowid='DFGL_DFSY'><i
-												class="fa fa-flag-o" ></i> 党费使用流程</li>	
+											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsj_jshz" flowid='DFGL_DFSJ_JSHZ'><i
+											class="fa fa-flag-o" ></i> 党费收缴-基数核准流程</li>	
+											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsj_jhbz" flowid='DFGL_DFSJ_JHBZ'><i
+											class="fa fa-flag-o" ></i> 党费收缴-计划编制流程</li>	
+											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsj_dfsj" flowid='DFGL_DFSJ_DFSJ'><i
+											class="fa fa-flag-o" ></i> 党费收缴-党费收缴流程</li>
+										
+											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsy_yjzq" flowid='DFGL_DFSY_YJZQ'><i
+											class="fa fa-flag-o" ></i> 党费使用-意见征求流程</li>	
+											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsy_jhbz" flowid='DFGL_DFSY_JHBZ'><i
+											class="fa fa-flag-o" ></i> 党费使用-计划编制流程</li>	
+											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsy_dfsy" flowid='DFGL_DFSY_DFSY'><i
+											class="fa fa-flag-o" ></i> 党费使用-党费使用流程</li>
+											
 										</ul>
 									</div>
 									<button id="deleteNode" class="btn btn-danger">
@@ -1100,7 +1106,6 @@
 		// 用户选择流程开始 后期增加
 
 		// 用户选择流程结束
-		// var flowid = "DFGL_ZZ";
 		var flowid = _this.attr('flowid');
 
 		$.ajax({

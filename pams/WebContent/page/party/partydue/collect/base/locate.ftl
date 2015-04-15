@@ -108,6 +108,7 @@
 		      <td>${aobj.base2}</td>
 		      <td>${aobj.base3}</td>
 		      <td>${aobj.base4}</td>
+		      <td></td>
 		  </tr>    
 		  </#list>
 		  </tbody>

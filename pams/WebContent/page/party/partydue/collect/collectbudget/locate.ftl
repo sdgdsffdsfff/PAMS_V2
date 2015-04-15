@@ -56,124 +56,73 @@
 	<br/>
 
   <div class="container"> 
-    <h4><i class="fa fa-group"></i> 党费使用征求意见表</h4>
+    <h4><i class="fa fa-group"></i> 费用收缴预算表</h4>
     <form id="mainform" method="post" action="" class="form-horizontal">
     <div id="div_jbxx">
     <h5><a href="#1"><i class="fa fa-calendar"></i> 基本信息</a></h5>
      <div class="form-group">
         <label for="cname" class="col-sm-2 control-label">标题名称：<sup class="fa fa-asterisk"></sup></label>
         <div class="col-sm-10"> 
-          <input id="cname" name="cname" required="" value="${obj.usesuggest.cname}" class="form-control">
+          <input id="cname" name="cname" required="" value="${obj.collectbudget.cname}" class="form-control">
         </div>           
       </div>
  
       <div class="form-group">
-        <label for="creatercname" class="col-sm-2 control-label">征集人：<sup class="fa fa-asterisk"></sup></label>
+        <label for="cyear" class="col-sm-2 control-label">基准年份：<sup class="fa fa-asterisk"></sup></label>
         <div class="col-sm-4"> 
-          <input id="creatercname" name="creatercname" required="" value="${obj.usesuggest.creatercname}" class="form-control">
+          <input id="cyear" name="cyear" required="" value="${obj.collectbudget.cyear}" class="form-control">
+        </div> 	      
+        <label for="creatercname" class="col-sm-2 control-label">下发人：<sup class="fa fa-asterisk"></sup></label>
+        <div class="col-sm-4"> 
+          <input id="creatercname" name="creatercname" required="" value="${obj.collectbudget.creatercname}" class="form-control">
         </div>
-        <label for="cyear" class="col-sm-2 control-label">征集年份：<sup class="fa fa-asterisk"></sup></label>
-        <div class="col-sm-4"> 
-          <input id="cyear" name="cyear" required="" value="${obj.usesuggest.cyear}" class="form-control">
-        </div>            
-      </div> 
+      </div>
+      </div>
       </form>
       
-      </div>
       
+      <form id="deptbudgetdetailform" method="post" action="" class="form-horizontal">
+      <input type="hidden" name="runactkey" value="${obj.runactkey}">
+      <input type="hidden" name="collectbudgetid" value="${obj.collectbudget.id}">
 	  <div id="div_hzjy">
       
-      <h5><a href="#1"><i class="fa fa-calendar"></i> 汇总意见</a></h5>
- 	  <table id="suggetTb" class="table personListTable hover">
+      <h5><a href="#1"><i class="fa fa-calendar"></i> 费用收缴预算表</a></h5>
+ 	  <table id="basedetailTb" class="table personListTable hover">
 		<thead>
 		    <tr>
 		      <th class="check"></th>   
-		      <th>单位</th>
-		      <th>日期</th>
-		      <th>姓名</th>      
-		      <th>职务</th>
-		      <th>反馈意见</th>
+		      <th width="150">单位部门</th>     
+		      <th width="100">基数</th>
+		      <th width="100">小计</th>
+		      <th width="100">组织费用</th>
+		      <th width="100">活动经费</th>
+		      <th width="100">其它</th>
+		      <th width="100">上缴上级</th>
+		      <th width="100">其它</th>
+		      <th>备注</th>	
 		    </tr>
 		  </thead>
 		  <tbody>
-		  <#list obj.usesuggestdetails as aobj>
+		  <#list obj.collectbudgetdetails as aobj>
 		  <tr>
 		      <td class="check"></td>   
-		      <td>${aobj.deptname}</td>
-		      <td><#if aobj.suggesttime??>${aobj.suggesttime?date}</#if></td>
-		      <td>${aobj.suggestercname}</td>      
-		      <td>${aobj.job}</td>
-		      <td>${aobj.suggestion}</td>
+		      <td><input name="deptid" value="${aobj.deptid}" class="form-control" type="hidden">${aobj.deptname}</td>
+		      <td>${aobj.base}</td>
+		      <td></td>
+		      <td><input name="collcost1" value="${aobj.collcost1}" class="form-control" style="border:none"></td>
+		      <td><input name="collcost2" value="${aobj.collcost2}" class="form-control" style="border:none"></td>
+		      <td><input name="collcost3" value="${aobj.collcost3}" class="form-control" style="border:none"></td>
+		      <td><input name="turncost1" value="${aobj.turncost1}" class="form-control" style="border:none"></td>
+		      <td><input name="turncost2" value="${aobj.turncost2}" class="form-control" style="border:none"></td>			      
+		      <td></td>
 		  </tr>    
 		  </#list>
 		  </tbody>
 	  </table>
 	  </div>
 	  
-      <div id="div_bbmyj">
-      <form id="detailform" method="post" action="" class="form-horizontal">
-      <input type="hidden" id="runactkey" name="runactkey" value="${obj.runactkey}">
-      <input type="hidden" id="detailid" name="id" value="${obj.usesuggestdetail.id}">
-      <input type="hidden" id="suggestid" name="suggestid" value="${obj.usesuggest.id}">
-      <input type="hidden" id="deptid" name="deptid" value="${obj.usesuggestdetail.deptid}">
-	  
-	  <h5><a href="#1"><i class="fa fa-calendar"></i> 本部门意见</a></h5>	  
-      <div class="form-group">
-        <label for="deptname" class="col-sm-2 control-label">单位：<sup class="fa fa-asterisk"></sup></label>
-        <div class="col-sm-4"> 
-          <input id="deptname" name="deptname" required="" value="${obj.usesuggestdetail.deptname}" class="form-control">
-        </div>
-        <label for="suggesttime" class="col-sm-2 control-label">日期：<sup class="fa fa-asterisk"></sup></label>
-        <div class="col-sm-4"> 
-          <input id="suggesttime" name="suggesttime" required="" value="<#if obj.usesuggestdetail.suggesttime??>${obj.usesuggestdetail.suggesttime}</#if>" class="datetimepicker">
-        </div>            
-      </div>
-      <div class="form-group">
-        <label for="suggestercname" class="col-sm-2 control-label">姓名：<sup class="fa fa-asterisk"></sup></label>
-        <div class="col-sm-4">
-          <input id="suggestercname" name="suggestercname" required="" value="${obj.usesuggestdetail.suggestercname}" class="form-control">
-        </div>
-		<label for="job" class="col-sm-2 control-label">职务：</label>
-        <div class="col-sm-4">
-          <input id="job" name="job" value="${obj.usesuggestdetail.job}" class="form-control">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="contact" class="col-sm-2 control-label">联系方式：</label>
-        <div class="col-sm-4">
-          <input id="contact" name="contact" value="${obj.usesuggestdetail.contact}" class="form-control">
-        </div>
-		<label for="email" class="col-sm-2 control-label">邮箱：</label>
-        <div class="col-sm-4">
-          <input id="email" name="email" value="${obj.usesuggestdetail.email}" class="form-control">
-        </div>
-      </div>
-      
-      <div class="form-group">
-          <label for="address" class="col-sm-2 control-label">地址</label>
-          <div class="col-sm-10"> 
-            <input name="address" id="address" value="${obj.usesuggestdetail.address}" class="form-control">
-          </div>
-      </div>
-      <div class="form-group">
-      	<label for="suggestion" class="col-sm-2 control-label">意见及建议</label>
-      	<div class="col-sm-10"> 
-	  		<textarea id="suggestion" name="suggestion" class="form-control">${obj.usesuggestdetail.suggestion}</textarea>
-		</div>
-	  </div>
-		<div class="form-group">
-		  <label for="oupload" class="col-sm-2 control-label">附件</label>
-		  <div class="col-sm-10">
-		<button id="uploadBtn" class="btn"><i class="fa fa-paperclip"></i> 选择文件</button>
-		<ul id="attachList" class="edit">
-		    </ul>
-		  </div>
-		</div>
-		
-		</div>
-		
-      </div>
     </form>
+    
   </div>
 </div>
 
@@ -183,7 +132,7 @@ $("#bt_flowtrace").click(function() {page_flowtrace()});
 
 var actcname = "${obj.ract.cname}";
 
-if(actcname=="通知转发")
+if(actcname=="")
 {
 	$("#div_bbmyj").show();
 	$("#div_hzyj").hide();
@@ -232,8 +181,8 @@ function page_flowtrace()
 
 function page_save_detail()
 {
-	detailform.action = "${base}/party/partydue/research/usesuggestdetail/save.action";
-	detailform.submit();
+	deptbudgetdetailform.action = "${base}/party/partydue/collect/collectbudget/savedeptbudgetdetails.action";
+	deptbudgetdetailform.submit();
 }
 </script>
 

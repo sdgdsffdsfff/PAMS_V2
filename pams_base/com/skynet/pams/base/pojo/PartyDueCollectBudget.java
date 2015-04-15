@@ -8,9 +8,9 @@ import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
-// 党费使用预算表
-@Table("T_APP_PDUSEBUDGET")
-public class PartyDueUseBudget {
+// 党费收缴预算表
+@Table("T_APP_PDCOLLBUDGET")
+public class PartyDueCollectBudget {
 	@Name
 	private String id; // 标识
 
@@ -24,7 +24,7 @@ public class PartyDueUseBudget {
 	private int cyear; // 计划年度
 	
 	@Column
-	private int cmonth; // 计划年度	
+	private int cmonth; // 计划月度
 
 	@Column
 	private String planid; // 计划标识
@@ -141,5 +141,4 @@ public class PartyDueUseBudget {
 	{
 		this.creatercname = creatercname;
 	}
-
 }

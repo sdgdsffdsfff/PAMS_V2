@@ -185,6 +185,32 @@ public class PartyDueBaseService extends SkynetNameEntityService<PartyDueBase>
 		return datas;
 	}
 	
+	// 按部门统计基数核准数据
+	public List<DynamicObject> browsesumdeptbasedetails(String baseid, String orgid) throws Exception
+	{
+		List<DynamicObject> datas = new ArrayList<DynamicObject>();
+		
+		StringBuffer sql = new StringBuffer();
+
+		sql.append(" select org.id deptid, org.cname deptname, '' baseuser, '' baseusername, base1, base2, base3, base4, base5 ").append("\n");
+		sql.append("  from t_sys_organ org ").append("\n");
+		sql.append("  left join ").append("\n");
+		sql.append(" ( ").append("\n");
+		sql.append(" select deptid, deptname, sum(base1) base1, sum(base2) base2, sum(base3) base3, sum(base4) base4, sum(base5) base5 ").append("\n");
+		sql.append("  from t_app_pdbase base, t_app_pdbasedetail basedetail").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and base.id = basedetail.baseid ").append("\n");
+		sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
+		sql.append(" group by deptid, deptname ").append("\n");
+		sql.append(" ) base ").append("\n");
+		sql.append(" on org.id = base.deptid ").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and org.parentorganid = ").append(SQLParser.charValue(orgid)).append("\n");
+		
+		datas = sdao().queryForList(sql.toString());
+		return datas;
+	}
+	
 	// 查询本部门基数核准数据
 	public List<DynamicObject> browsedeptbasedetails(String baseid, String deptid) throws Exception
 	{

@@ -760,7 +760,8 @@ ul#modalTabs-title li.active {
 #gop .dropdown-menu li {
 	padding: 0 15px;
 	cursor: pointer;
-	line-height: 25px
+	line-height: 25px;
+	width:250px
 }
 
 #gop .dropdown-menu li i {

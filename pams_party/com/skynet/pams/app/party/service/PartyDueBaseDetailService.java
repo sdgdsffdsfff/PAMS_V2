@@ -30,7 +30,7 @@ public class PartyDueBaseDetailService extends SkynetNameEntityService<PartyDueB
 		super(dao, entityType);
 	}
 	
-	// 查询本部门基数核准数据
+	// 保存基数核准数据
 	public void savedeptbasedetails(Map map) throws Exception
 	{
 		String baseid = (String)map.get("baseid");

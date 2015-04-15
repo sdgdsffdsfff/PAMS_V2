@@ -2,9 +2,11 @@ package com.skynet.pams.app.party.service;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.nutz.dao.Cnd;
@@ -26,12 +28,12 @@ import com.skynet.framework.services.db.SQLParser;
 import com.skynet.framework.services.db.dybeans.DynamicObject;
 import com.skynet.framework.services.function.StringToolKit;
 import com.skynet.pams.base.pojo.PartyDue;
-import com.skynet.pams.base.pojo.PartyDueUseBudget;
+import com.skynet.pams.base.pojo.PartyDueCollectBudget;
 import com.skynet.pams.base.pojo.Plan;
 
 @InjectName("partyduecollectbudgetService")
 @IocBean(args = { "refer:dao" }) 
-public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyDueUseBudget>
+public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyDueCollectBudget>
 {
 	public PartyDueCollectBudgetService()
 	{
@@ -43,7 +45,7 @@ public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyD
 		super(dao);
 	}	
 	
-	public PartyDueCollectBudgetService(Dao dao, Class<PartyDueUseBudget> entityType)
+	public PartyDueCollectBudgetService(Dao dao, Class<PartyDueCollectBudget> entityType)
 	{
 		super(dao, entityType);
 	}
@@ -61,12 +63,13 @@ public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyD
 	public String get_browseplan_sql(Map map) throws Exception
 	{
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid from t_app_plan plan, t_sys_wfbflow bflow ");
-		sql.append("  where 1 = 1 ");
-		sql.append("    and plan.flowdefid = bflow.id ");
-		sql.append("    and bflow.classid = 'DFGL' ");
-		sql.append("    and plan.ctype = '流程' ");
-		sql.append("    and plan.state = '计划' ");
+		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid, bflow.cname flowcname, bflow.sno flowsno ").append("\n");
+		sql.append("   from t_app_plan plan, t_sys_wfbflow bflow ").append("\n");
+		sql.append("  where 1 = 1 ").append("\n");
+		sql.append("    and plan.flowdefid = bflow.id ").append("\n");
+		sql.append("    and bflow.sno = 'DFGL_DFSJ_JHBZ' ").append("\n");
+		sql.append("    and plan.ctype = '流程' ").append("\n");
+		sql.append("    and plan.state = '计划' ").append("\n");
 		return sql.toString();
 	}
 		
@@ -79,7 +82,7 @@ public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyD
 
 		sql.append(" select bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browsewait_field(map)).append("\n");
-		sql.append(" from t_app_partydue bv, " + uIService.get_browsewait_table(map)).append("\n");
+		sql.append(" from t_app_pdcollbudget bv, " + uIService.get_browsewait_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browsewait_where(map)).append("\n");
 		
@@ -106,7 +109,7 @@ public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyD
 		
 		sql.append(" select distinct bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browsehandle_field(map)).append("\n");
-		sql.append(" from t_app_partydue bv, " + uIService.get_browsehandle_table(map)).append("\n");
+		sql.append(" from t_app_pdcollbudget bv, " + uIService.get_browsehandle_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browsehandle_where(map)).append("\n");
 		
@@ -138,7 +141,7 @@ public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyD
 		
 		sql.append(" select distinct bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browseall_field(map)).append("\n");
-		sql.append(" from t_app_partydue bv, " + uIService.get_browseall_table(map)).append("\n");
+		sql.append(" from t_app_pdcollbudget bv, " + uIService.get_browseall_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browseall_where(map)).append("\n");
 
@@ -158,24 +161,24 @@ public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyD
 	}
 	
 	//
-	public String plancreate(Plan plan, PartyDue partydue, DynamicObject swapFlow) throws Exception
+	public String plancreate(Plan plan, PartyDueCollectBudget partyduecollectbudget, DynamicObject swapFlow) throws Exception
 	{
 		Timestamp systime = new Timestamp(System.currentTimeMillis());
 
 		// 创建业务数据
 		String cno = gen_cno();
-		partydue.setCno(cno);
-		dao().insert(partydue);
-		String id = partydue.getId();
+		partyduecollectbudget.setCno(cno);
+		dao().insert(partyduecollectbudget);
+		String id = partyduecollectbudget.getId();
 
 		// 创建流程数据
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		String workname = "[" + StringToolKit.formatText(partydue.getCno()) + "]　" + StringToolKit.formatText(partydue.getCname());
+		String workname = "[" + StringToolKit.formatText(partyduecollectbudget.getCno()) + "]　" + StringToolKit.formatText(partyduecollectbudget.getCname());
 		
 		VCreate vo = new VCreate();
 		vo.flowdefid = swapFlow.getFormatAttr(GlobalConstants.swap_flowdefid);
 		vo.priority = "1";
-		vo.dataid = partydue.getId();
+		vo.dataid = partyduecollectbudget.getId();
 		vo.tableid = swapFlow.getFormatAttr(GlobalConstants.swap_tableid);
 		vo.loginname = swapFlow.getFormatAttr(GlobalConstants.swap_coperatorloginname);
 		vo.username = swapFlow.getFormatAttr(GlobalConstants.swap_coperatorcname);
@@ -229,6 +232,42 @@ public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyD
 		String runactkey = workFlowEngine.getFlowManager().create(vo);
 
 		return runactkey;
+	}
+	
+	// 按部门统计基数核准数据
+	public List<DynamicObject> browsesumdeptbasedetails(String baseid, String orgid) throws Exception
+	{
+		List<DynamicObject> datas = new ArrayList<DynamicObject>();
+		
+		StringBuffer sql = new StringBuffer();
+
+		sql.append(" select org.id deptid, org.cname deptname, '' collectbudgetuser, '' collectbudgetusername, (base1+base2+base3+base4+base5) base, collcost1, collcost2, collcost3, collcost4, collcost5, turncost1, turncost2 ").append("\n");
+		sql.append("  from t_sys_organ org ").append("\n");
+		sql.append("  left join ").append("\n");
+		sql.append(" ( ").append("\n");
+		sql.append(" select deptid, deptname, sum(base1) base1, sum(base2) base2, sum(base3) base3, sum(base4) base4, sum(base5) base5 ").append("\n");
+		sql.append("  from t_app_pdbase base, t_app_pdbasedetail basedetail").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and base.id = basedetail.baseid ").append("\n");
+		// sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
+		sql.append(" group by deptid, deptname ").append("\n");
+		sql.append(" ) base ").append("\n");
+		sql.append(" on org.id = base.deptid ").append("\n");
+		sql.append("  left join ").append("\n");		
+		sql.append(" ( ").append("\n");
+		sql.append(" select colldeptid deptid, colldeptname deptname, sum(collcost1) collcost1, sum(collcost2) collcost2, sum(collcost3) collcost3, sum(collcost4) collcost4, sum(collcost5) collcost5, sum(turncost1) turncost1, sum(turncost2) turncost2 ").append("\n");
+		sql.append("  from t_app_pdcollbudget base, t_app_pdcollbudgetdetail basedetail").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and base.id = basedetail.collbudgetid ").append("\n");
+		sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
+		sql.append(" group by colldeptid, colldeptname ").append("\n");
+		sql.append(" ) budget ").append("\n");
+		sql.append(" on org.id = budget.deptid ").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and org.parentorganid = ").append(SQLParser.charValue(orgid)).append("\n");
+		
+		datas = sdao().queryForList(sql.toString());
+		return datas;
 	}
 	
 	// 流程权限
@@ -454,7 +493,7 @@ public class PartyDueCollectBudgetService extends SkynetNameEntityService<PartyD
 		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();
 		String sysdate = sf.format(date);
-		String csql = " select substr(max(cno),length(max(cno))-3, 4) as cno from t_app_partydue where to_char(createtime,'yyyy-mm-dd') = to_char(to_date('" + sysdate + "', 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')";
+		String csql = " select substr(max(cno),length(max(cno))-3, 4) as cno from t_app_pdcollbudget where to_char(createtime,'yyyy-mm-dd') = to_char(to_date('" + sysdate + "', 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')";
 		String express = "$yy$mm$dd####";
 
 		Map map = new HashMap();

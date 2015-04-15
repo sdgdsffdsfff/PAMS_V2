@@ -8,7 +8,7 @@ import org.nutz.dao.entity.annotation.Table;
 
 //党费收缴预算明细表
 @Table("T_APP_PDCOLLBUDGETDETAIL")
-public class PartyDueCollBudgetDetail {
+public class PartyDueCollectBudgetDetail {
 	@Name
 	private String id; // 标识
 

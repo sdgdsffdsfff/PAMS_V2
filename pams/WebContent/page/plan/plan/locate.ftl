@@ -54,12 +54,12 @@
 					<div class="td">计划开始</div>
 					<div class="td">计划结束</div>
 					<div class="td">负责人</div>
-					<div class="td">完成比例(%)</div>
-					<div class="td">工作量</div>
-					<div class="td">工作量比例(%)</div>
 					<div class="td">实际开始</div>
 					<div class="td">实际结束</div>
 					<div class="td">实际负责人</div>
+					<div class="td">完成比例(%)</div>
+					<div class="td">工作量</div>
+					<div class="td">工作量比例(%)</div>
 					<div class="td">基准工作量</div>
 					<div class="td">基准开始</div>
 					<div class="td">基准结束</div>
@@ -458,20 +458,15 @@
 			var rootHtml = '';
 			rootHtml += '<div class="tr" data-type="-1">';
 			rootHtml += '<div class="td name">' + data.projname + '</div>';
-			rootHtml += '<div class="td" data-name="planstartdate">'
-					+ jihuakaishi + '</div>';
-			rootHtml += '<div class="td" data-name="planenddate">'
-					+ jihuajieshu + '</div>';
+			rootHtml += '<div class="td" data-name="planstartdate">' + jihuakaishi + '</div>';
+			rootHtml += '<div class="td" data-name="planenddate">' + jihuajieshu + '</div>';
 			rootHtml += '<div class="td" data-name="planheadercname">' + data.planheadercname + '</div>';
-			rootHtml += '<div class="td">' + data.completepercent * 100
-					+ '</div>';
+			rootHtml += '<div class="td" data-name="actualstartdate">' + shijikaishi + '</div>';
+			rootHtml += '<div class="td" data-name="actualenddate">' + shijijieshu + '</div>';
+			rootHtml += '<div class="td" data-name="actualheadercname"></div>';
+			rootHtml += '<div class="td">' + data.completepercent * 100 + '</div>';
 			rootHtml += '<div class="td gongzuoliang">' + data.planworkload + '</div>';
 			rootHtml += '<div class="td">' + 100 + '</div>';
-			rootHtml += '<div class="td" data-name="actualstartdate">'
-					+ shijikaishi + '</div>';
-			rootHtml += '<div class="td" data-name="actualenddate">'
-					+ shijijieshu + '</div>';
-			rootHtml += '<div class="td" data-name="actualheadercname"></div>';
 			rootHtml += '<div class="td">' + data.baseplanworkload + '</div>';
 			rootHtml += '<div class="td">' + shijikaishi + '</div>';
 			rootHtml += '<div class="td">' + shijijieshu + '</div></div>';
@@ -1260,6 +1255,10 @@
 									thtml += '<div class="td" data-name="planenddate">'
 											+ jihuajieshu + '</div>';
 									thtml += '<div class="td" data-name="planheadername">'+k.planheadercname+'</div>';
+									thtml += '<div class="td" data-name="actualstartdate">' + shijikaishi + '</div>';
+									thtml += '<div class="td" data-name="actualenddate">' + shijijieshu + '</div>';
+									thtml += '<div class="td">' + k.actualheadercname + '</div>';										
+									
 									thtml += '<div class="td" data-name="completepercent">'
 											+ wanchengbili + '</div>';
 									thtml += '<div class="td gongzuoliang" data-name="planworkload">'
@@ -1267,12 +1266,7 @@
 									thtml += '<div class="td gongzuoliangbili"></div>';
 									// thtml += '<div class="td">' + k.REMARK + '</div>';
 
-									thtml += '<div class="td" data-name="actualstartdate">'
-											+ shijikaishi + '</div>';
-									thtml += '<div class="td" data-name="actualenddate">'
-											+ shijijieshu + '</div>';
-											thtml += '<div class="td">'
-												+ k.actualheadercname + '</div>';		
+	
 
 									thtml += '<div class="td">'
 											+ jizhungongzuoliang + '</div>';

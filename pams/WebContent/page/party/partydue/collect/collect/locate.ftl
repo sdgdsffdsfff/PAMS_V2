@@ -81,7 +81,7 @@
       
     </div>
     
-	  <div id="div_hzjy">
+	  <div id="div_hzyj">
       
       <h5><a href="#1"><i class="fa fa-calendar"></i> 下级部门党费收缴汇总表</a></h5>
  	  <table id="basedetailTb" class="table personListTable hover">

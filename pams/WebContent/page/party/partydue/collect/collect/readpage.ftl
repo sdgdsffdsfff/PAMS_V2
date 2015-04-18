@@ -60,118 +60,136 @@
 	<br/>
 
 	  <div class="container"> 
-	    <h4><i class="fa fa-group"></i> 党费使用征求意见表</h4>
-	    <form method="post" action="" class="form-horizontal">
+	    <h4><i class="fa fa-group"></i> 党费收缴登记表</h4>
+	    <form id="mainform" method="post" action="" class="form-horizontal">
 	    <div id="div_jbxx">
 	    <h5><a href="#1"><i class="fa fa-calendar"></i> 基本信息</a></h5>
 	     <div class="form-group">
 	        <label for="cname" class="col-sm-2 control-label">标题名称：<sup class="fa fa-asterisk"></sup></label>
 	        <div class="col-sm-10"> 
-	          <input id="cname" name="cname" required="" value="${obj.usesuggest.cname}" class="form-control">
+	          <input id="cname" name="cname" required="" value="${obj.base.cname}" class="form-control">
 	        </div>           
 	      </div>
-	 
+	      
 	      <div class="form-group">
-	        <label for="creatercname" class="col-sm-2 control-label">征集人：<sup class="fa fa-asterisk"></sup></label>
+	        <label for="creatercname" class="col-sm-2 control-label">登记人：<sup class="fa fa-asterisk"></sup></label>
 	        <div class="col-sm-4"> 
-	          <input id="creatercname" name="creatercname" required="" value="${obj.usesuggest.creatercname}" class="form-control">
+	          <input id="creatercname" name="creatercname" required="" value="${obj.base.creatercname}" class="form-control">
 	        </div>
-	        <label for="cyear" class="col-sm-2 control-label">征集年份：<sup class="fa fa-asterisk"></sup></label>
+	        <label for="cyear" class="col-sm-2 control-label">登记日期：<sup class="fa fa-asterisk"></sup></label>
 	        <div class="col-sm-4"> 
-	          <input id="cyear" name="cyear" required="" value="${obj.usesuggest.cyear}" class="form-control">
+	          <input id="cyear" name="cyear" required="" value="${obj.base.cyear}" class="form-control">
 	        </div>            
 	      </div> 
+	      </form>
 	      
-	      </div>
+	    </div>
+	    
+		  <div id="div_all">
 	      
-		  <div id="div_hzjy">
-	      
-	      <h5><a href="#1"><i class="fa fa-calendar"></i> 汇总意见</a></h5>
-	 	  <table id="suggetTb" class="table personListTable hover">
+	      <h5><a href="#1"><i class="fa fa-calendar"></i> 本单位党费收缴汇总表</a></h5>
+	 	  <table id="allbasedetailTb" class="table personListTable hover">
 			<thead>
 			    <tr>
 			      <th class="check"></th>   
-			      <th>单位</th>
-			      <th>日期</th>
-			      <th>姓名</th>      
-			      <th>职务</th>
-			      <th>反馈意见</th>
+			      <th width="150">单位部门</th>
+			      <th width="100"></th>      
+			      <th width="100">收费基数</th>
+			      <th width="100">&nbsp;</th>
+			      <th width="100">应交费金额</th>
+			      <th width="100">实交费金额</th>
+			      <th>备注</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			  <#list obj.usesuggestdetails as aobj>
+			  <#list obj.allbasedetails as aobj>
 			  <tr>
 			      <td class="check"></td>   
 			      <td>${aobj.deptname}</td>
-			      <td><#if aobj.suggesttime??>${aobj.suggesttime?date}</#if></td>
-			      <td>${aobj.suggestercname}</td>      
-			      <td>${aobj.job}</td>
-			      <td>${aobj.suggestion}</td>
+			      <td>${aobj.baseusername}</td>      
+			      <td>${aobj.basecost}</td>
+			      <td></td>
+			      <td>${aobj.plancollcost}</td>
+			      <td>${aobj.actualcollcost}</td>
+			      <td></td>
+			  </tr>    
+			  </#list>
+			  </tbody>
+		  </table>
+		  </div>
+	    
+		  <div id="div_hzyj">
+	      
+	      <h5><a href="#1"><i class="fa fa-calendar"></i> 下级部门党费收缴汇总表</a></h5>
+	 	  <table id="basedetailTb" class="table personListTable hover">
+			<thead>
+			    <tr>
+			      <th class="check"></th>   
+			      <th width="150">单位部门</th>
+			      <th width="100"></th>      
+			      <th width="100">收费基数</th>
+			      <th width="100">&nbsp;</th>
+			      <th width="100">应交费金额</th>
+			      <th width="100">实交费金额</th>
+			      <th>备注</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  <#list obj.basedetails as aobj>
+			  <tr>
+			      <td class="check"></td>   
+			      <td>${aobj.deptname}</td>
+			      <td>${aobj.baseusername}</td>      
+			      <td>${aobj.basecost}</td>
+			      <td></td>
+			      <td>${aobj.plancollcost}</td>
+			      <td>${aobj.actualcollcost}</td>
+			      <td></td>
 			  </tr>    
 			  </#list>
 			  </tbody>
 		  </table>
 		  </div>
 		  
+	      <form id="deptbasedetailform" method="post" action="" class="form-horizontal">
+	      <input type="hidden" name="runactkey" value="${obj.runactkey}">
+	      <input type="hidden" name="baseid" value="${obj.base.id}">
 		  <div id="div_bbmyj">
 		  
-		  <h5><a href="#1"><i class="fa fa-calendar"></i> 本部门意见</a></h5>	  
-	      <div class="form-group">
-	        <label for="deptname" class="col-sm-2 control-label">单位：<sup class="fa fa-asterisk"></sup></label>
-	        <div class="col-sm-4"> 
-	          <input id="deptname" name="deptname" required="" value="${obj.usesuggestdetail.deptname}" class="form-control">
-	        </div>
-	        <label for="suggesttime" class="col-sm-2 control-label">日期：<sup class="fa fa-asterisk"></sup></label>
-	        <div class="col-sm-4"> 
-	          <input id="suggesttime" name="suggesttime" required="" value="${obj.usesuggestdetail.suggesttime}" class="datetimepicker">
-	        </div>            
-	      </div>
-	      <div class="form-group">
-	        <label for="suggestercname" class="col-sm-2 control-label">姓名：<sup class="fa fa-asterisk"></sup></label>
-	        <div class="col-sm-4">
-	          <input id="suggestercname" name="suggestercname" required="" value="${obj.usesuggestdetail.suggestercname}" class="form-control">
-	        </div>
-			<label for="job" class="col-sm-2 control-label">职务：</label>
-	        <div class="col-sm-4">
-	          <input id="job" name="job" value="${obj.usesuggestdetail.job}" class="form-control">
-	        </div>
-	      </div>
-	      <div class="form-group">
-	        <label for="contact" class="col-sm-2 control-label">联系方式：</label>
-	        <div class="col-sm-4">
-	          <input id="contact" name="contact" value="${obj.usesuggestdetail.contact}" class="form-control">
-	        </div>
-			<label for="email" class="col-sm-2 control-label">邮箱：</label>
-	        <div class="col-sm-4">
-	          <input id="email" name="email" value="${obj.usesuggestdetail.email}" class="form-control">
-	        </div>
-	      </div>
-	      
-	      <div class="form-group">
-	          <label for="address" class="col-sm-2 control-label">地址</label>
-	          <div class="col-sm-10"> 
-	            <input name="address" id="address" value="${obj.usesuggestdetail.address}" class="form-control">
-	          </div>
-	      </div>
-	      <div class="form-group">
-	      	<label for="suggestion" class="col-sm-2 control-label">意见及建议</label>
-	      	<div class="col-sm-10"> 
-		  		<textarea id="suggestion" name="suggestion" class="form-control">${obj.usesuggestdetail.suggestion}</textarea>
-			</div>
-		  </div>
-			<div class="form-group">
-			  <label for="oupload" class="col-sm-2 control-label">附件</label>
-			  <div class="col-sm-10">
-			<button id="uploadBtn" class="btn"><i class="fa fa-paperclip"></i> 选择文件</button>
-			<ul id="attachList" class="edit">
-			    </ul>
-			  </div>
-			</div>
-			
-			</div>
+		  <h5><a href="#1"><i class="fa fa-calendar"></i> 本部门党费收缴登记表</a></h5>	  
+	 	  <table id="deptbasedetailTb" class="table personListTable hover">
+			<thead>
+		    <tr>
+		      <th class="check"></th>   
+		      <th width="150">单位部门</th>
+		      <th width="100">姓名</th>      
+		      <th width="100">收费基数</th>
+		      <th width="100">费率</th>
+		      <th width="100">应交费金额</th>
+		      <th width="100">实交费金额</th>
+		      <th>备注</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  <#list obj.deptbasedetails as aobj>
+		  <tr>
+		      <td class="check"></td>  
+		      <td>${aobj.deptname}</td>
+		      <td>${aobj.baseusername}</td>      
+		      <td><input name="basecost" value="${aobj.basecost}" class="form-control" style="border:none"></td>
+		      <td></td>
+		      <td><input name="basecost" value="${aobj.plancollcost}" class="form-control" style="border:none"></td>
+		      <td><input name="basecost" value="${aobj.actualcollcost}" class="form-control" style="border:none"></td>
+		      <td></td>
+		  </tr>    
+		  </#list>
+		  </tbody> 	  
+	 	  
+		  </table>
 			
 	      </div>
 	    </form>
+	    
 	  </div>
 	</div>
 
@@ -187,17 +205,39 @@ $("#bt_flowtrace").click(function() {page_flowtrace()});
 
 var actcname = "${obj.ract.cname}";
 
-if(actcname=="通知转发")
+$("#div_bbmyj").hide();
+$("#div_hzyj").hide();
+$("#div_all").hide();
+
+if(actcname=="")
 {
 	$("#div_bbmyj").show();
-	$("#div_hzyj").hidden();
+	$("#div_hzyj").hide();
+	$("#div_all").hide();
+	
+	$("#bt_save").hide();
+	$("#bt_save_detail").show();
+}
+else
+if(actcname=="组织部汇总党费")
+{
+
+	$("#div_bbmyj").hide();
+	$("#div_hzyj").hide();
+	$("#div_all").show();
+	
+	$("#bt_save").hide();
+	$("#bt_save_detail").show();	
 }
 else
 {
 	$("#div_bbmyj").hide();
 	$("#div_hzyj").show();
-}
+	$("#div_all").hide();
 	
+	$("#bt_save").show();
+	$("#bt_save_detail").hide();
+}
 
 
 // 签收

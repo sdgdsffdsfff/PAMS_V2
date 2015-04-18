@@ -133,7 +133,7 @@ insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginna
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委组织部','000000000002','DEPT','张月仙','zhangyx','zhangyx');
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委宣传部','000000000003','DEPT','郭丽霞','guolx','guolx');
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委宣传部','000000000003','DEPT','张鹏宇','zhangpy','zhangpy');
-insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委宣传部','000000000003','DEPT','王晶','wangj','wangj');
+--insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委宣传部','000000000003','DEPT','王晶','wangj','wangj');
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室党总支','000000000004','DEPT','王文斌','wangwb','wangwb');
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室党总支','000000000004','DEPT','常士琴','changsq','changsq');
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室党总支','000000000004','DEPT','施昌玲','shicl','shicl');
@@ -219,7 +219,7 @@ select sys_guid(),'党员','DY','ROLE', cname, loginname, id
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
 select sys_guid(),'党建专职','DJZZ','ROLE', cname, loginname, id
   from t_sys_user
- where loginname in ('rongj','zhangyx','duph','wangj','zhangb');   
+ where loginname in ('rongj','zhangyx','duph','wangj','zhangb','xionglj','wangxs','ligh');   
 
 
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)

@@ -130,9 +130,17 @@ public class LoginAction extends BaseAction{
 	public Map clearbusiness() throws Exception
 	{		
 		organService.sdao().execute(Sqls.create("delete from t_app_plan"));
-		organService.sdao().execute(Sqls.create("delete from t_app_partydue"));		
+		organService.sdao().execute(Sqls.create("delete from t_app_pdbase"));
+		organService.sdao().execute(Sqls.create("delete from t_app_pdbasedetail"));
+		organService.sdao().execute(Sqls.create("delete from t_app_pdcollbudget"));	
+		organService.sdao().execute(Sqls.create("delete from t_app_pdcollbudgetdetail"));	
+		organService.sdao().execute(Sqls.create("delete from t_app_pdcoll"));	
+		organService.sdao().execute(Sqls.create("delete from t_app_pdcolldept"));	
+		organService.sdao().execute(Sqls.create("delete from t_app_pdcolldetail"));	
 		organService.sdao().execute(Sqls.create("delete from t_app_pdusesuggest"));	
-		organService.sdao().execute(Sqls.create("delete from t_app_pdusesuggestdetail"));			
+		organService.sdao().execute(Sqls.create("delete from t_app_pdusesuggestdetail"));	
+		
+		
 		return ro;
 	}
 

@@ -218,21 +218,28 @@ public class PartyDueBaseService extends SkynetNameEntityService<PartyDueBase>
 		
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select gu.groupid deptid, gu.groupname deptname, gu.loginname baseuser, gu.username baseusername, base.base1, base.base2, base.base3, base.base4, base.base5 ").append("\n");
-		sql.append("  from t_sys_groupuser gu ").append("\n");
-		sql.append("  left join ").append("\n");
+		sql.append(" select gu.groupid deptid, gu.internal, gu.groupname deptname, gu.loginname baseuser, gu.username baseusername, base.base, base.base1, base.base2, base.base3, base.base4, base.base5 ").append("\n");
+		sql.append("  from (").append("\n");
+		sql.append(" select gu.groupid, orga.internal, gu.groupname, gu.loginname, gu.username ").append("\n");
+		sql.append("   from t_sys_organ orga, t_sys_organ orgb, t_sys_groupuser gu ").append("\n");
+		sql.append("  where 1 = 1 ").append("\n");
+		sql.append("    and orgb.id = gu.groupid ").append("\n");
+		sql.append("    and (orgb.internal like orga.internal || '%') ").append("\n");
+		sql.append("    and orga.parentorganid = ").append(SQLParser.charValue(deptid)).append("\n");
+		sql.append(" ) gu ").append("\n");
+		sql.append(" left join ").append("\n");
 		sql.append(" ( ").append("\n");
-		sql.append(" select deptid, deptname, baseuser, baseusername, base1, base2, base3, base4, base5 ").append("\n");
+		sql.append(" select deptid, deptname, baseuser, baseusername, base, base1, base2, base3, base4, base5 ").append("\n");
 		sql.append("  from t_app_pdbase base, t_app_pdbasedetail basedetail").append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append("   and base.id = basedetail.baseid ").append("\n");
 		sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
-		sql.append("   and basedetail.deptid = ").append(SQLParser.charValue(deptid)).append("\n");
+		// sql.append("   and basedetail.deptid = ").append(SQLParser.charValue(deptid)).append("\n");
 		sql.append(" ) base ").append("\n");
 		sql.append(" on gu.loginname = base.baseuser ").append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
-		sql.append(" and gu.groupid = " + SQLParser.charValue(deptid)).append("\n");
-		
+		// sql.append(" and gu.groupid = " + SQLParser.charValue(deptid)).append("\n");
+		sql.append(" order by internal ").append("\n");
 		datas = sdao().queryForList(sql.toString());
 		return datas;
 	}

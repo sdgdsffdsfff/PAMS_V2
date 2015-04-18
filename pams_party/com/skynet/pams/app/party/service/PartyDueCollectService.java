@@ -216,7 +216,7 @@ public class PartyDueCollectService extends SkynetNameEntityService<PartyDueColl
 		sql.append(" ) base ").append("\n");
 		sql.append(" on base.internal like (org.internal || '%') ").append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
-		// sql.append("   and org.parentorganid = ").append(SQLParser.charValue(orgid)).append("\n");
+		sql.append("   and org.parentorganid = ").append(SQLParser.charValue(orgid)).append("\n");
 		sql.append(" group by org.id, org.internal, org.cname ").append("\n");
 		sql.append(" order by internal ").append("\n");
 		
@@ -269,16 +269,18 @@ public class PartyDueCollectService extends SkynetNameEntityService<PartyDueColl
 		
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select gu.groupid colldeptid, gu.groupname colldeptname, gu.loginname colluser, gu.username collusername, basecost, rate, plancollcost, actualcollcost ").append("\n");
+		sql.append(" select gu.groupid colldeptid, gu.groupname colldeptname, gu.loginname colluser, gu.username collusername, basedetail.base basecost, basedetail.rate rate, basedetail.collbase plancollcost, actualcollcost ").append("\n");
 		sql.append("  from t_sys_groupuser gu ").append("\n");
+		sql.append("  left join t_app_pdbasedetail basedetail ").append("\n");
+		sql.append("  on gu.loginname = basedetail.baseuser ").append("\n");
 		sql.append("  left join ").append("\n");
 		sql.append(" ( ").append("\n");
 		sql.append(" select colldeptid, colldeptname, colluser, collusername, basecost, rate, plancollcost, actualcollcost ").append("\n");
-		sql.append("  from t_app_pdcoll base, t_app_pdcolldetail basedetail").append("\n");
+		sql.append("  from t_app_pdcoll coll, t_app_pdcolldetail colldetail").append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
-		sql.append("   and base.id = basedetail.collectid ").append("\n");
-		sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
-		sql.append("   and basedetail.colldeptid = ").append(SQLParser.charValue(deptid)).append("\n");
+		sql.append("   and coll.id = colldetail.collectid ").append("\n");
+		sql.append("   and coll.id = ").append(SQLParser.charValue(baseid)).append("\n");
+		sql.append("   and colldetail.colldeptid = ").append(SQLParser.charValue(deptid)).append("\n");
 		sql.append(" ) base ").append("\n");
 		sql.append(" on gu.groupid = base.colldeptid ").append("\n");
 		sql.append(" and gu.loginname = base.colluser ").append("\n");

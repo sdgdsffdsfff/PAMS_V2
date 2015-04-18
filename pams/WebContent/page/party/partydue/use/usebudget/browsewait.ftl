@@ -58,7 +58,7 @@
 jQuery(function($) {
 	//获得数据
 	$.ajax({
-		url: '${base}/party/partydue/use/usesuggest/browsewait/json.action',
+		url: '${base}/party/partydue/use/usebudget/browsewait/json.action',
 		dataType: 'json',
 		success: function(d)
 		{
@@ -68,7 +68,7 @@ jQuery(function($) {
 			{
 				trHtml += '<tr data-id="'+n.runactkey+'">';
 				trHtml += '<td class="check"></td>';		
-				trHtml += '<td><a href="${base}/party/partydue/use/usesuggest/readpage.action?runactkey='+n.runactkey+'">'+n.cno+'</a></td>';
+				trHtml += '<td><a href="${base}/party/partydue/use/usebudget/readpage.action?runactkey='+n.runactkey+'">'+n.cno+'</a></td>';
 				trHtml += '<td>'+n.cname+'</td>';
 				trHtml += '<td>'+n.bactcname+'</td>';
 				trHtml += '<td>'+n.username+'</td>';				
@@ -100,7 +100,7 @@ jQuery(function($) {
 function page_locate(runactkey)
 {
 	console.log("locate.begin.");
-	window.location = "${base}/party/partydue/use/usesuggest/readpage.action?runactkey=" + runactkey;
+	window.location = "${base}/party/partydue/use/usebudget/readpage.action?runactkey=" + runactkey;
 }
 
 		

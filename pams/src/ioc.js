@@ -12,7 +12,7 @@ var ioc={
         fields : 
         {
            driverClassName:'oracle.jdbc.driver.OracleDriver',
-           url:'jdbc:oracle:thin:@192.168.135.132:1521:orcl',
+           url:'jdbc:oracle:thin:@13.1.1.107:1521:orcl',
            username:'pams',
            password:'pams1234'
         }

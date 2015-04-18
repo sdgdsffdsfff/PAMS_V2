@@ -192,7 +192,17 @@ public class PartyDueCollectService extends SkynetNameEntityService<PartyDueColl
 		
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select org.id deptid, org.internal, org.cname deptname, '' baseuser, '' baseusername, '' rate, sum(basecost) basecost, sum(plancollcost) plancollcost, sum(actualcollcost) actualcollcost ").append("\n");
+		// 汇总下级部门数据（部门的所有下级汇总）
+		// 本部门数据（仅本部门）
+		sql.append(" select org.id colldeptid, org.internal, org.cname colldeptname, '' colluser, '' collusername, '' rate, sum(basecost) basecost, sum(plancollcost) plancollcost, sum(actualcollcost) actualcollcost ").append("\n");
+		sql.append("  from t_sys_organ org ").append("\n");
+		sql.append("  left join t_app_pdcolldetail basedetail ").append("\n");
+		sql.append("    on basedetail.colldeptid = org.id ").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and org.id = ").append(SQLParser.charValue(orgid)).append("\n");
+		sql.append(" group by org.id, org.internal, org.cname ").append("\n");	
+		sql.append(" union ").append("\n");
+		sql.append(" select org.id colldeptid, org.internal, org.cname colldeptname, '' colluser, '' collusername, '' rate, sum(basecost) basecost, sum(plancollcost) plancollcost, sum(actualcollcost) actualcollcost ").append("\n");
 		sql.append("  from t_sys_organ org ").append("\n");
 		sql.append("  left join ").append("\n");
 		sql.append(" ( ").append("\n");
@@ -204,10 +214,48 @@ public class PartyDueCollectService extends SkynetNameEntityService<PartyDueColl
 		sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
 		sql.append(" group by org.id, org.internal, org.cname ").append("\n");
 		sql.append(" ) base ").append("\n");
-		sql.append(" on base.internal like (org.internal + '%') ").append("\n");
+		sql.append(" on base.internal like (org.internal || '%') ").append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
-		sql.append("   and org.parentorganid = ").append(SQLParser.charValue(orgid)).append("\n");
+		// sql.append("   and org.parentorganid = ").append(SQLParser.charValue(orgid)).append("\n");
 		sql.append(" group by org.id, org.internal, org.cname ").append("\n");
+		sql.append(" order by internal ").append("\n");
+		
+		datas = sdao().queryForList(sql.toString());
+		return datas;
+	}
+	
+	// 仅统计下属部门上缴党费
+	public List<DynamicObject> browsesumsubdeptdetail(String baseid, String orgid) throws Exception
+	{
+		List<DynamicObject> datas = new ArrayList<DynamicObject>();
+		
+		StringBuffer sql = new StringBuffer();
+
+		// 汇总下级部门数据（部门的所有下级汇总）
+		sql.append(" select org.id colldeptid, org.internal, org.cname colldeptname, usernums, sum(collusernums) collusernums, sum(basecost) basecost, sum(plancollcost) plancollcost, sum(actualcollcost) actualcollcost ").append("\n");
+		sql.append("  from (").append("\n");
+		sql.append(" select orga.id, orga.internal, orga.cname, count(gu.username) usernums ").append("\n");
+		sql.append("   from t_sys_organ orga, t_sys_organ orgb, t_sys_groupuser gu ").append("\n");
+		sql.append("  where 1 = 1 ").append("\n");
+		sql.append("    and orgb.id = gu.groupid ").append("\n");
+		sql.append("    and (orgb.internal like orga.internal || '%') ").append("\n");
+		sql.append("    and orga.parentorganid = ").append(SQLParser.charValue(orgid)).append("\n");
+		sql.append("  group by orga.id, orga.internal, orga.cname ").append("\n");
+		sql.append(" ) org ").append("\n");
+		sql.append(" left join ").append("\n");
+		sql.append(" ( ").append("\n");
+		sql.append(" select org.id deptid, org.internal, org.cname deptname, count(basedetail.colluser) collusernums, sum(basecost) basecost, sum(plancollcost) plancollcost, sum(actualcollcost) actualcollcost ").append("\n");
+		sql.append("  from t_app_pdcoll base, t_app_pdcolldetail basedetail, t_sys_organ org ").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and base.id = basedetail.collectid ").append("\n");
+		sql.append("   and basedetail.colldeptid = org.id ").append("\n");
+		sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
+		sql.append("   and basedetail.actualcollcost > 0 ").append("\n");
+		sql.append(" group by org.id, org.internal, org.cname ").append("\n");
+		sql.append(" ) base ").append("\n");
+		sql.append(" on base.internal like (org.internal || '%') ").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append(" group by org.id, org.internal, org.cname, usernums ").append("\n");
 		sql.append(" order by internal ").append("\n");
 		
 		datas = sdao().queryForList(sql.toString());
@@ -221,7 +269,7 @@ public class PartyDueCollectService extends SkynetNameEntityService<PartyDueColl
 		
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select gu.groupid deptid, gu.groupname deptname, gu.loginname baseuser, gu.username baseusername, basecost, rate, plancollcost, actualcollcost ").append("\n");
+		sql.append(" select gu.groupid colldeptid, gu.groupname colldeptname, gu.loginname colluser, gu.username collusername, basecost, rate, plancollcost, actualcollcost ").append("\n");
 		sql.append("  from t_sys_groupuser gu ").append("\n");
 		sql.append("  left join ").append("\n");
 		sql.append(" ( ").append("\n");

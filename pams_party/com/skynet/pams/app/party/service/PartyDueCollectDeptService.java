@@ -25,4 +25,6 @@ public class PartyDueCollectDeptService extends SkynetNameEntityService<PartyDue
 	{
 		super(dao, entityType);
 	}
+	
+
 }

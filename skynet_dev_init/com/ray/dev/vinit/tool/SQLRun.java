@@ -8,7 +8,7 @@ public class SQLRun
 {
 	public static void main(String[] args) throws Exception
 	{
-		DataInputStream in = new DataInputStream(new FileInputStream(new File("c:\\temp.txt")));
+		DataInputStream in = new DataInputStream(new FileInputStream(new File("temp.txt")));
 		
 		StringBuffer sb = new StringBuffer();
 		

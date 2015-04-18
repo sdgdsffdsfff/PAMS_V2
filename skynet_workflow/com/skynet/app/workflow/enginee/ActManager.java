@@ -1194,7 +1194,7 @@ public class ActManager {
         
         sql.append(" where 1 = 1 ").append("\n");
         sql.append("   and gu.grouptype = 'DEPT' ").append("\n");
-        sql.append("  order by ordernum, cname ").append("\n");
+        sql.append("  order by orginternal, ordernum, cname ").append("\n");
 
         
         owners.addAll(ractService.sdao().queryForList(sql.toString()));

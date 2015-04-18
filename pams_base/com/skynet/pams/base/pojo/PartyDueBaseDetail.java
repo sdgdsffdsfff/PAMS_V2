@@ -30,6 +30,15 @@ public class PartyDueBaseDetail {
 	private String baseusername; // 人员姓名
 	
 	@Column
+	private float collbase; // 收缴基数 = 基数小计 * 费率%
+	
+	@Column
+	private float base; // 基数小计
+	
+	@Column
+	private float rate; // 费率	
+	
+	@Column
 	private float base1; // 基数1
 	
 	@Column
@@ -118,6 +127,36 @@ public class PartyDueBaseDetail {
 	public void setBaseusername(String baseusername)
 	{
 		this.baseusername = baseusername;
+	}
+
+	public float getCollbase()
+	{
+		return collbase;
+	}
+
+	public void setCollbase(float collbase)
+	{
+		this.collbase = collbase;
+	}
+
+	public float getBase()
+	{
+		return base;
+	}
+
+	public void setBase(float base)
+	{
+		this.base = base;
+	}
+
+	public float getRate()
+	{
+		return rate;
+	}
+
+	public void setRate(float rate)
+	{
+		this.rate = rate;
 	}
 
 	public float getBase1()
@@ -219,7 +258,5 @@ public class PartyDueBaseDetail {
 	{
 		this.creatercname = creatercname;
 	}
-
-
 
 }

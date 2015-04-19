@@ -67,18 +67,18 @@
 	     <div class="form-group">
 	        <label for="cname" class="col-sm-2 control-label">标题名称：<sup class="fa fa-asterisk"></sup></label>
 	        <div class="col-sm-10"> 
-	          <input id="cname" name="cname" required="" value="${obj.base.cname}" class="form-control">
+	          <input id="cname" name="cname" required="" value="${obj.collect.cname}" class="form-control">
 	        </div>           
 	      </div>
 	      
 	      <div class="form-group">
 	        <label for="creatercname" class="col-sm-2 control-label">登记人：<sup class="fa fa-asterisk"></sup></label>
 	        <div class="col-sm-4"> 
-	          <input id="creatercname" name="creatercname" required="" value="${obj.base.creatercname}" class="form-control">
+	          <input id="creatercname" name="creatercname" required="" value="${obj.collect.creatercname}" class="form-control">
 	        </div>
 	        <label for="cyear" class="col-sm-2 control-label">登记日期：<sup class="fa fa-asterisk"></sup></label>
 	        <div class="col-sm-4"> 
-	          <input id="cyear" name="cyear" required="" value="${obj.base.cyear}" class="form-control">
+	          <input id="cyear" name="cyear" required="" value="${obj.collect.cyear}" class="form-control">
 	        </div>            
 	      </div> 
 	      </form>
@@ -88,14 +88,14 @@
 		  <div id="div_all">
 	      
 	      <h5><a href="#1"><i class="fa fa-calendar"></i> 本单位党费收缴汇总表</a></h5>
-	 	  <table id="allbasedetailTb" class="table personListTable hover">
+	 	  <table id="alldetailTb" class="table personListTable hover">
 			<thead>
 			    <tr>
 			      <th class="check"></th>   
 			      <th width="150">单位部门</th>
-			      <th width="100"></th>      
+			      <th width="100">党员人数</th>   
+			      <th width="100">实缴人数</th> 		      
 			      <th width="100">收费基数</th>
-			      <th width="100">&nbsp;</th>
 			      <th width="100">应交费金额</th>
 			      <th width="100">实交费金额</th>
 			      <th>备注</th>
@@ -103,12 +103,12 @@
 			  </thead>
 			  <tbody>
 			  <#list obj.allbasedetails as aobj>
-			  <tr>
+			  <tr data-id="${aobj.internal}">
 			      <td class="check"></td>   
-			      <td>${aobj.deptname}</td>
-			      <td>${aobj.baseusername}</td>      
+			      <td>${aobj.colldeptname}</td>
+			      <td>${aobj.usernums}</td>
+			      <td>${aobj.collusernums}</td>      
 			      <td>${aobj.basecost}</td>
-			      <td></td>
 			      <td>${aobj.plancollcost}</td>
 			      <td>${aobj.actualcollcost}</td>
 			      <td></td>
@@ -120,15 +120,14 @@
 	    
 		  <div id="div_hzyj">
 	      
-	      <h5><a href="#1"><i class="fa fa-calendar"></i> 下级部门党费收缴汇总表</a></h5>
+	      <h5><a href="#1"><i class="fa fa-calendar"></i> 各部门党费收缴汇总表</a></h5>
 	 	  <table id="basedetailTb" class="table personListTable hover">
 			<thead>
 			    <tr>
 			      <th class="check"></th>   
 			      <th width="150">单位部门</th>
-			      <th width="100"></th>      
-			      <th width="100">收费基数</th>
-			      <th width="100">&nbsp;</th>
+			      <th width="100">党员人数</th>      
+			      <th width="100">实缴人数</th>
 			      <th width="100">应交费金额</th>
 			      <th width="100">实交费金额</th>
 			      <th>备注</th>
@@ -138,9 +137,8 @@
 			  <#list obj.basedetails as aobj>
 			  <tr>
 			      <td class="check"></td>   
-			      <td>${aobj.deptname}</td>
-			      <td>${aobj.baseusername}</td>      
-			      <td>${aobj.basecost}</td>
+			      <td>${aobj.colldeptname}</td>    
+			      <td></td>
 			      <td></td>
 			      <td>${aobj.plancollcost}</td>
 			      <td>${aobj.actualcollcost}</td>
@@ -151,13 +149,13 @@
 		  </table>
 		  </div>
 		  
-	      <form id="deptbasedetailform" method="post" action="" class="form-horizontal">
+	      <form id="deptcollectdetailsfrom" method="post" action="" class="form-horizontal">
 	      <input type="hidden" name="runactkey" value="${obj.runactkey}">
-	      <input type="hidden" name="baseid" value="${obj.base.id}">
+	      <input type="hidden" name="baseid" value="${obj.collect.id}">
 		  <div id="div_bbmyj">
 		  
 		  <h5><a href="#1"><i class="fa fa-calendar"></i> 本部门党费收缴登记表</a></h5>	  
-	 	  <table id="deptbasedetailTb" class="table personListTable hover">
+	 	  <table id="deptcollectdetailsTb" class="table personListTable hover">
 			<thead>
 		    <tr>
 		      <th class="check"></th>   
@@ -174,12 +172,12 @@
 		  <#list obj.deptbasedetails as aobj>
 		  <tr>
 		      <td class="check"></td>  
-		      <td>${aobj.deptname}</td>
-		      <td>${aobj.baseusername}</td>      
-		      <td><input name="basecost" value="${aobj.basecost}" class="form-control" style="border:none"></td>
-		      <td></td>
-		      <td><input name="basecost" value="${aobj.plancollcost}" class="form-control" style="border:none"></td>
-		      <td><input name="basecost" value="${aobj.actualcollcost}" class="form-control" style="border:none"></td>
+		      <td>${aobj.colldeptname}</td>
+		      <td>${aobj.collusername}</td>      
+		      <td>${aobj.basecost}</td>
+		      <td>${aobj.rate}</td>
+		      <td>${aobj.plancollcost}</td>
+		      <td>${aobj.actualcollcost}</td>
 		      <td></td>
 		  </tr>    
 		  </#list>
@@ -193,7 +191,7 @@
 	  </div>
 	</div>
 
-
+	
 <script type="text/javascript">
 
 $("#bt_edit").click(function() {page_edit()});
@@ -238,6 +236,13 @@ else
 	$("#bt_save").show();
 	$("#bt_save_detail").hide();
 }
+
+$(function(){
+//	$('#alldetailTb tbody tr').click(function(){   // 获取所谓的父行
+//		var internal = $(this).attr("data-id");
+//	    $('#alldetailTb tbody tr[data-id^="'+internal+'"][data-id!="'+internal+'"]').toggle();  // 隐藏/显示所谓的子行
+//	})
+})
 
 
 // 签收

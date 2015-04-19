@@ -56,6 +56,9 @@ public class PartyDueBaseDetailService extends SkynetNameEntityService<PartyDueB
 			p.setBase2(base2s[i]);
 			p.setBase3(base3s[i]);
 			p.setBase4(base4s[i]);
+			p.setBase(base1s[i]+base2s[i]+base3s[i]+base4s[i]);
+			p.setRate(10);// 暂时简化为固定值
+			p.setCollbase(p.getBase()*p.getRate()/100);
 			// p.setBase5(base5s[i]);
 			sdao().insert(p);
 		}

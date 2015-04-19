@@ -9,7 +9,6 @@ import org.nutz.ioc.loader.annotation.IocBean;
 
 import com.skynet.framework.common.generator.UUIDGenerator;
 import com.skynet.framework.service.SkynetNameEntityService;
-import com.skynet.pams.base.pojo.PartyDueBaseDetail;
 import com.skynet.pams.base.pojo.PartyDueCollectDetail;
 
 @InjectName("partyduecollectdetailService")
@@ -32,39 +31,32 @@ public class PartyDueCollectDetailService extends SkynetNameEntityService<PartyD
 	}
 	
 	// 保存基数核准数据
-	public void savedeptbasedetails(Map map) throws Exception
+	public void savedeptdetails(Map map) throws Exception
 	{
-		String baseid = (String)map.get("baseid");
-		String deptid = (String)map.get("deptid");
-		String[] baseusers = (String[])map.get("baseusers");
-		float[] base1s = (float[])map.get("base1s");
-		float[] base2s = (float[])map.get("base2s");
-		float[] base3s = (float[])map.get("base3s");
-		float[] base4s = (float[])map.get("base4s");
-		float[] base5s = (float[])map.get("base5s");
+		String collectid = (String)map.get("collectid");
+		String colldeptid = (String)map.get("colldeptid");
+		String[] collusers = (String[])map.get("collusers");
+		float[] basecosts = (float[])map.get("basecosts");
+		float[] rates = (float[])map.get("rates");
+		float[] plancollcosts = (float[])map.get("plancollcosts");
+		float[] actualcollcosts = (float[])map.get("actualcollcosts");
 		
-		sdao().clear("t_app_pdbasedetail", Cnd.where("baseid", "=", baseid).and("deptid", "=", deptid)); // 清除原有的部门数据
+		sdao().clear("t_app_pdcolldetail", Cnd.where("collectid", "=", collectid).and("colldeptid", "=", colldeptid)); // 清除部门原有数据
 		
-		for(int i=0;i<base1s.length;i++)
+		for(int i=0;i<collusers.length;i++)
 		{
-			PartyDueBaseDetail p = new PartyDueBaseDetail();
+			PartyDueCollectDetail p = new PartyDueCollectDetail();
 			String id = UUIDGenerator.getInstance().getNextValue();
 			p.setId(id);
-			p.setBaseid(baseid);
-			p.setDeptid(deptid);
-			p.setBaseuser(baseusers[i]);
-			p.setBase1(base1s[i]);
-			p.setBase2(base2s[i]);
-			p.setBase3(base3s[i]);
-			p.setBase4(base4s[i]);
-			// p.setBase5(base5s[i]);
+			p.setColldeptid(colldeptid);
+			p.setCollectid(collectid);
+			p.setColluser(collusers[i]);
+			p.setBasecost(basecosts[i]);
+			p.setRate(rates[i]);
+			p.setPlancollcost(plancollcosts[i]);
+			p.setActualcollcost(actualcollcosts[i]);
 			sdao().insert(p);
 		}
 	}
-	
-	
-
-
-	
 	
 }

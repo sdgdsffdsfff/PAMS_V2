@@ -230,10 +230,10 @@ public class PartyDueCollectAction extends BaseAction {
 				.getRactService().locate(runactkey);
 		String id = ract.getFormatAttr("dataid");
 		String tableid = ract.getFormatAttr("tableid");
-		DynamicObject base = partyduecollectService.locate(id);
+		DynamicObject collect = partyduecollectService.locate(id);
 		List<DynamicObject> deptbasedetails = partyduecollectService.browsedeptbasedetails(id, deptid); // 本部门人员上缴党费
 		List<DynamicObject> basedetails = partyduecollectService.browsesumdeptbasedetails(id, deptid); // 本部门及下级部门上缴党费汇总
-		List<DynamicObject> allbasedetails = partyduecollectService.browsesumdeptbasedetails(id, "00000000");
+		List<DynamicObject> allbasedetails = partyduecollectService.browsesumsubdeptdetail(id, "00000000");
 		// 权限设置
 		set_author();
 		
@@ -243,7 +243,7 @@ public class PartyDueCollectAction extends BaseAction {
 
 		ro.put("tableid", tableid);
 		ro.put("runactkey", runactkey);
-		ro.put("base", base);
+		ro.put("collect", collect);
 		ro.put("deptbasedetails", deptbasedetails);
 		ro.put("basedetails", basedetails);
 		ro.put("allbasedetails", allbasedetails);
@@ -253,9 +253,9 @@ public class PartyDueCollectAction extends BaseAction {
 	
 	
 	
-	@At("/savedeptbasedetails")
+	@At("/savedeptdetails")
 	@Ok("redirect:locate.action?runactkey=${obj.runactkey}")
-	public Map savedeptbasedetails(String runactkey, String baseid, String[] baseuser, float[] base1, float[] base2, float[] base3, float[] base4) throws Exception {
+	public Map savedeptdetails(String runactkey, String collectid, String[] colluser, float[] basecost, float[] rate, float[] plancollcost, float[] actualcollcost) throws Exception {
 
 		HttpSession session = Mvcs.getHttpSession(true);
 		DynamicObject token = (DynamicObject)session.getAttribute(com.skynet.framework.spec.GlobalConstants.sys_login_token);
@@ -265,15 +265,15 @@ public class PartyDueCollectAction extends BaseAction {
 		String deptname = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_deptname);
 		
 		DynamicObject map = new DynamicObject();
-		map.setAttr("baseid", baseid);
-		map.setAttr("deptid", deptid);
-		map.setObj("baseusers", baseuser);
-		map.setObj("base1s", base1);
-		map.setObj("base2s", base2);
-		map.setObj("base3s", base3);
-		map.setObj("base4s", base4);
+		map.setAttr("collectid", collectid);
+		map.setAttr("colldeptid", deptid);
+		map.setObj("collusers", colluser);
+		map.setObj("basecosts", basecost);
+		map.setObj("rates", rate);
+		map.setObj("plancollcosts", plancollcost);
+		map.setObj("actualcollcosts", actualcollcost);
 		
-		partyduecollectdetailService.savedeptbasedetails(map);
+		partyduecollectdetailService.savedeptdetails(map);
 		
 		ro.setAttr("runactkey", runactkey);
 		

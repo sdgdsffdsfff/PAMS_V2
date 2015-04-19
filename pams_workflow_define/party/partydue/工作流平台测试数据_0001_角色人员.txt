@@ -14,55 +14,199 @@ insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid)
 insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('0000000000050001','信息化第一党支部','信息化第一党支部','信息化第一党支部/部室党总支/党委','DEPT','G000D005D001','000000000005');
 insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('0000000000050002','信息化第二党支部','信息化第二党支部','信息化第二党支部/部室党总支/党委','DEPT','G000D005D002','000000000005');
 
-insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000400010001','第一党小组','第一党小组','第一党小组/部室第一党支部/部室党总支/党委','DEPT','G000D004D001D001','0000000000040001');
 
+                                                                                         
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000400010001','第一党小组','第一党小组','第一党小组/部室第一党支部/部室党总支/党委','DEPT','G000D004D001D001','0000000000040001');
 insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000400010002','第二党小组','第二党小组','第二党小组/部室第一党支部/部室党总支/党委','DEPT','G000D004D001D002','0000000000040001');
 
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000400020001','第一党小组','第一党小组','第一党小组/部室第二党支部/部室党总支/党委','DEPT','G000D004D002D001','0000000000040002');
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000400020002','第二党小组','第二党小组','第二党小组/部室第二党支部/部室党总支/党委','DEPT','G000D004D002D002','0000000000040002');
+
+
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000500010001','第一党小组','第一党小组','第一党小组/信息化第一党支部/信息化党总支/党委','DEPT','G000D005D001D001','0000000000050001');
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000500010002','第二党小组','第二党小组','第二党小组/信息化第一党支部/信息化党总支/党委','DEPT','G000D005D001D002','0000000000050001');
+
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000500020001','第一党小组','第一党小组','第一党小组/信息化第二党支部/信息化党总支/党委','DEPT','G000D005D002D001','0000000000050002');
+insert into T_SYS_ORGAN(id,cname,shortname,allname,ctype,internal,parentorganid) values('00000000000500020002','第二党小组','第二党小组','第二党小组/信息化第二党支部/信息化党总支/党委','DEPT','G000D005D002D002','0000000000050002');
+
 -- 人员
-
-insert into T_SYS_USER(id,loginname,cname) values('liuys','liuys','刘予胜');
-insert into T_SYS_USER(id,loginname,cname) values('licg','licg','李春光');
-insert into T_SYS_USER(id,loginname,cname) values('liujp','liujp','刘建平');
-insert into T_SYS_USER(id,loginname,cname) values('wudf','wudf','武登峰');
-insert into T_SYS_USER(id,loginname,cname) values('xinzq','xingzq','邢兆群');
-
-insert into T_SYS_USER(id,loginname,cname) values('yangpg','yangpg','杨培功');
-insert into T_SYS_USER(id,loginname,cname) values('wangwb','wangwb','王文斌');
-insert into T_SYS_USER(id,loginname,cname) values('zhangk','zhangk','张凯');
-insert into T_SYS_USER(id,loginname,cname) values('zhangyx','zhangyx','张月仙');
-insert into T_SYS_USER(id,loginname,cname) values('guolx','guolx','郭丽霞');
-
-insert into T_SYS_USER(id,loginname,cname) values('zhangpy','zhangpy','张鹏宇');
-insert into T_SYS_USER(id,loginname,cname) values('wangj','wangj','王晶');
-insert into T_SYS_USER(id,loginname,cname) values('changsq','changsq','常士琴');
-insert into T_SYS_USER(id,loginname,cname) values('shicl','shicl','施昌玲');
-insert into T_SYS_USER(id,loginname,cname) values('mil','mil','米蕾');
-
-insert into T_SYS_USER(id,loginname,cname) values('wangjh','wangjh','王晋华');
-insert into T_SYS_USER(id,loginname,cname) values('duph','duph','杜普华');
-insert into T_SYS_USER(id,loginname,cname) values('zhangb','zhangb','张博');
-insert into T_SYS_USER(id,loginname,cname) values('renyl','renyl','任宇路');
-insert into T_SYS_USER(id,loginname,cname) values('xionglj','xionglj','熊莉娟');
-
-insert into T_SYS_USER(id,loginname,cname) values('cuic','cuic','崔超');
-insert into T_SYS_USER(id,loginname,cname) values('huangsr','huangsr','黄苏荣');
-insert into T_SYS_USER(id,loginname,cname) values('liuyz','liuyz','刘永正');
-insert into T_SYS_USER(id,loginname,cname) values('wut','wut','武韬');
-
-insert into T_SYS_USER(id,loginname,cname) values('tiang','tiang','田格');
-insert into T_SYS_USER(id,loginname,cname) values('wangyl','wangyl','王云龙');
-insert into T_SYS_USER(id,loginname,cname) values('liyq','liyq','李亚青');
-insert into T_SYS_USER(id,loginname,cname) values('liyz','liyz','李煜柱');
-insert into T_SYS_USER(id,loginname,cname) values('zhangyuxing','zhangyuxing','张宇星');
-
-insert into T_SYS_USER(id,loginname,cname) values('huxc','huxc','胡兴春');
-insert into T_SYS_USER(id,loginname,cname) values('fengxy','fengxy','冯晓艳');
-insert into T_SYS_USER(id,loginname,cname) values('shangjj','shangjj','尚建军');
-insert into T_SYS_USER(id,loginname,cname) values('huy','huy','候宇');
-insert into T_SYS_USER(id,loginname,cname) values('fangjq','fangjq','方剑秋');
+insert into t_sys_user(id, loginname, cname) values('liuys','liuys','刘予胜');
+insert into t_sys_user(id, loginname, cname) values('licg','licg','李春光');
+insert into t_sys_user(id, loginname, cname) values('liujp','liujp','刘建平');
+insert into t_sys_user(id, loginname, cname) values('wudf','wudf','武登峰');
+insert into t_sys_user(id, loginname, cname) values('xingzq','xingzq','邢兆群');
+insert into t_sys_user(id, loginname, cname) values('yangpg','yangpg','杨培功');
+insert into t_sys_user(id, loginname, cname) values('wangwb','wangwb','王文斌');
+insert into t_sys_user(id, loginname, cname) values('zhangk','zhangk','张凯');
+insert into t_sys_user(id, loginname, cname) values('rongj','rongj','戎江');
+insert into t_sys_user(id, loginname, cname) values('wangwb','wangwb','王文斌');
+insert into t_sys_user(id, loginname, cname) values('zhangyx','zhangyx','张月仙');
+insert into t_sys_user(id, loginname, cname) values('guolx','guolx','郭丽霞');
+insert into t_sys_user(id, loginname, cname) values('zhangpy','zhangpy','张鹏宇');
+insert into t_sys_user(id, loginname, cname) values('wangj','wangj','王晶');
+insert into t_sys_user(id, loginname, cname) values('wangwb','wangwb','王文斌');
+insert into t_sys_user(id, loginname, cname) values('changsq','changsq','常士琴');
+insert into t_sys_user(id, loginname, cname) values('shicl','shicl','施昌玲');
+insert into t_sys_user(id, loginname, cname) values('wangjh','wangjh','王晋华');
+insert into t_sys_user(id, loginname, cname) values('duph','duph','杜晋华');
+insert into t_sys_user(id, loginname, cname) values('zhangyx','zhangyx','张月仙');
+insert into t_sys_user(id, loginname, cname) values('liuys','liuys','刘予胜');
+insert into t_sys_user(id, loginname, cname) values('rongj','rongj','戎江');
+insert into t_sys_user(id, loginname, cname) values('mil','mil','米蕾');
+insert into t_sys_user(id, loginname, cname) values('wangj','wangj','王晶');
+insert into t_sys_user(id, loginname, cname) values('cuic','cuic','崔超');
+insert into t_sys_user(id, loginname, cname) values('licg','licg','李春光');
+insert into t_sys_user(id, loginname, cname) values('huangsr','huangsr','黄苏荣');
+insert into t_sys_user(id, loginname, cname) values('liuyz','liuyz','刘永正');
+insert into t_sys_user(id, loginname, cname) values('wut','wut','武韬');
+insert into t_sys_user(id, loginname, cname) values('tianr','tianr','田榕');
+insert into t_sys_user(id, loginname, cname) values('wangyl','wangyl','王云龙');
+insert into t_sys_user(id, loginname, cname) values('liyq','liyq','李亚青');
+insert into t_sys_user(id, loginname, cname) values('liyz','liyz','李煜柱');
+insert into t_sys_user(id, loginname, cname) values('zhangyx1','zhangyx1','张宇星');
+insert into t_sys_user(id, loginname, cname) values('wangjf','wangjf','王建芳');
+insert into t_sys_user(id, loginname, cname) values('zhangjh','zhangjh','张继红');
+insert into t_sys_user(id, loginname, cname) values('renyl','renyl','任宇路');
+insert into t_sys_user(id, loginname, cname) values('huxc','huxc','胡兴春');
+insert into t_sys_user(id, loginname, cname) values('fengxy','fengxy','冯晓艳');
+insert into t_sys_user(id, loginname, cname) values('shangjj','shangjj','尚建军');
+insert into t_sys_user(id, loginname, cname) values('zhangb','zhangb','张博');
+insert into t_sys_user(id, loginname, cname) values('houy','houy','侯宇');
+insert into t_sys_user(id, loginname, cname) values('fangjq','fangjq','方剑秋');
+insert into t_sys_user(id, loginname, cname) values('liujp','liujp','刘建平');
+insert into t_sys_user(id, loginname, cname) values('yangpg','yangpg','杨培功');
+insert into t_sys_user(id, loginname, cname) values('qinxl','qinxl','秦晓亮');
+insert into t_sys_user(id, loginname, cname) values('suxd','suxd','苏晓东');
+insert into t_sys_user(id, loginname, cname) values('guozd','guozd','郭振东');
+insert into t_sys_user(id, loginname, cname) values('liujp','liujp','刘晶');
+insert into t_sys_user(id, loginname, cname) values('tianxj','tianxj','田晓君');
+insert into t_sys_user(id, loginname, cname) values('zhangjj','zhangjj','张建军');
+insert into t_sys_user(id, loginname, cname) values('gaoxj','gaoxj','高秀军');
+insert into t_sys_user(id, loginname, cname) values('sugl','sugl','苏国莉');
+insert into t_sys_user(id, loginname, cname) values('zhangk','zhangk','张凯');
+insert into t_sys_user(id, loginname, cname) values('xionglj','xionglj','熊丽娟');
+insert into t_sys_user(id, loginname, cname) values('liuhj','liuhj','刘汉军');
+insert into t_sys_user(id, loginname, cname) values('sub','sub','苏斌');
+insert into t_sys_user(id, loginname, cname) values('xionglj','xionglj','熊莉娟');
+insert into t_sys_user(id, loginname, cname) values('yintl','yintl','阴天亮');
+insert into t_sys_user(id, loginname, cname) values('zhaolj','zhaolj','赵廉洁');
+insert into t_sys_user(id, loginname, cname) values('zhaoyj','zhaoyj','赵玉杰');
+insert into t_sys_user(id, loginname, cname) values('liuyb','liuyb','刘跃彬');
+insert into t_sys_user(id, loginname, cname) values('wangxs','wangxs','王兴胜');
+insert into t_sys_user(id, loginname, cname) values('liq','liq','李强');
+insert into t_sys_user(id, loginname, cname) values('zhangyt','zhangyt','张雅婷');
+insert into t_sys_user(id, loginname, cname) values('lil','lil','李良');
+insert into t_sys_user(id, loginname, cname) values('yuanj','yuanj','原军');
+insert into t_sys_user(id, loginname, cname) values('wangg','wangg','王钢');
+insert into t_sys_user(id, loginname, cname) values('zhangk','zhangk','张凯');
+insert into t_sys_user(id, loginname, cname) values('zhaowb','zhaowb','赵文保');
+insert into t_sys_user(id, loginname, cname) values('huangba','huangba','黄宝安');
+insert into t_sys_user(id, loginname, cname) values('yuanl','yuanl','袁柳');
+insert into t_sys_user(id, loginname, cname) values('zhangjp','zhangjp','张嘉平');
+insert into t_sys_user(id, loginname, cname) values('tanyn','tanyn','谭燕妮');
+insert into t_sys_user(id, loginname, cname) values('wangzh','wangzh','王智宏');
+insert into t_sys_user(id, loginname, cname) values('ligh','ligh','李国华');
+insert into t_sys_user(id, loginname, cname) values('zhengxr','zhengxr','郑希如');
+insert into t_sys_user(id, loginname, cname) values('wangyx','wangyx','王迎新');
+insert into t_sys_user(id, loginname, cname) values('wangcl','wangcl','王春龙');
+insert into t_sys_user(id, loginname, cname) values('renap','renap','任爱平');
+insert into t_sys_user(id, loginname, cname) values('linghujj','linghujj','令狐进军');
+insert into t_sys_user(id, loginname, cname) values('jiajg','jiajg','贾建国');
+insert into t_sys_user(id, loginname, cname) values('guodk','guodk','郭殿奎');
+insert into t_sys_user(id, loginname, cname) values('dongjy','dongjy','董晋耀');
+insert into t_sys_user(id, loginname, cname) values('wangfp','wangfp','王凤萍');
 
 -- update t_sys_user set password = 'b59c67bf196a4758191e42f76670ceba';
 update t_sys_user set password = '1111';
+
+----
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委','00000000','DEPT','刘予胜','liuys','liuys');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委','00000000','DEPT','李春光','licg','licg');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委','00000000','DEPT','刘建平','liujp','liujp');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委','00000000','DEPT','武登峰','wudf','wudf');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委','00000000','DEPT','邢兆群','xingzq','xingzq');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委','00000000','DEPT','杨培功','yangpg','yangpg');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委办公室','000000000001','DEPT','王文斌','wangwb','wangwb');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委办公室','000000000001','DEPT','张凯','zhangk','zhangk');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委办公室','000000000001','DEPT','戎江','rongj','rongj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委组织部','000000000002','DEPT','王文斌','wangwb','wangwb');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委组织部','000000000002','DEPT','张月仙','zhangyx','zhangyx');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委宣传部','000000000003','DEPT','郭丽霞','guolx','guolx');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委宣传部','000000000003','DEPT','张鹏宇','zhangpy','zhangpy');
+--insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'党委宣传部','000000000003','DEPT','王晶','wangj','wangj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室党总支','000000000004','DEPT','王文斌','wangwb','wangwb');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室党总支','000000000004','DEPT','常士琴','changsq','changsq');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室党总支','000000000004','DEPT','施昌玲','shicl','shicl');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室党总支','000000000004','DEPT','王晋华','wangjh','wangjh');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室党总支','000000000004','DEPT','杜晋华','duph','duph');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第一党支部','0000000000040001','DEPT','张月仙','zhangyx','zhangyx');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第一党支部','0000000000040001','DEPT','刘予胜','liuys','liuys');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第一党支部','0000000000040001','DEPT','戎江','rongj','rongj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第一党支部','0000000000040001','DEPT','米蕾','mil','mil');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第一党支部','0000000000040001','DEPT','王晶','wangj','wangj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400010001','DEPT','崔超','cuic','cuic');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400010001','DEPT','李春光','licg','licg');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400010001','DEPT','黄苏荣','huangsr','huangsr');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400010001','DEPT','刘永正','liuyz','liuyz');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400010001','DEPT','武韬','wut','wut');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400010001','DEPT','田榕','tianr','tianr');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400010002','DEPT','王云龙','wangyl','wangyl');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400010002','DEPT','李亚青','liyq','liyq');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400010002','DEPT','李煜柱','liyz','liyz');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400010002','DEPT','张宇星','zhangyx1','zhangyx1');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400010002','DEPT','王建芳','wangjf','wangjf');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400010002','DEPT','张继红','zhangjh','zhangjh');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第二党支部','0000000000040002','DEPT','任宇路','renyl','renyl');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第二党支部','0000000000040002','DEPT','胡兴春','huxc','huxc');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第二党支部','0000000000040002','DEPT','冯晓艳','fengxy','fengxy');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第二党支部','0000000000040002','DEPT','尚建军','shangjj','shangjj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'部室第二党支部','0000000000040002','DEPT','张博','zhangb','zhangb');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400020001','DEPT','侯宇','houy','houy');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400020001','DEPT','方剑秋','fangjq','fangjq');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400020001','DEPT','刘建平','liujp','liujp');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400020001','DEPT','杨培功','yangpg','yangpg');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400020001','DEPT','秦晓亮','qinxl','qinxl');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000400020001','DEPT','苏晓东','suxd','suxd');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400020002','DEPT','郭振东','guozd','guozd');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400020002','DEPT','刘晶','liujp','liujp');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400020002','DEPT','田晓君','tianxj','tianxj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400020002','DEPT','张建军','zhangjj','zhangjj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400020002','DEPT','高秀军','gaoxj','gaoxj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000400020002','DEPT','苏国莉','sugl','sugl');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化党总支','000000000005','DEPT','张凯','zhangk','zhangk');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化党总支','000000000005','DEPT','熊丽娟','xionglj','xionglj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化党总支','000000000005','DEPT','刘汉军','liuhj','liuhj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化党总支','000000000005','DEPT','苏斌','sub','sub');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化党总支','000000000005','DEPT','熊莉娟','xionglj','xionglj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第一党支部','0000000000050001','DEPT','阴天亮','yintl','yintl');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第一党支部','0000000000050001','DEPT','赵廉洁','zhaolj','zhaolj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第一党支部','0000000000050001','DEPT','赵玉杰','zhaoyj','zhaoyj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第一党支部','0000000000050001','DEPT','刘跃彬','liuyb','liuyb');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第一党支部','0000000000050001','DEPT','王兴胜','wangxs','wangxs');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000500010001','DEPT','李强','liq','liq');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000500010001','DEPT','张雅婷','zhangyt','zhangyt');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000500010001','DEPT','李良','lil','lil');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000500010002','DEPT','原军','yuanj','yuanj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000500010002','DEPT','王钢','wangg','wangg');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000500010002','DEPT','张凯','zhangk','zhangk');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000500010002','DEPT','赵文保','zhaowb','zhaowb');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000500010002','DEPT','黄宝安','huangba','huangba');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第二党支部','0000000000050002','DEPT','袁柳','yuanl','yuanl');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第二党支部','0000000000050002','DEPT','张嘉平','zhangjp','zhangjp');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第二党支部','0000000000050002','DEPT','谭燕妮','tanyn','tanyn');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第二党支部','0000000000050002','DEPT','王智宏','wangzh','wangzh');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'信息化第二党支部','0000000000050002','DEPT','李国华','ligh','ligh');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000500020001','DEPT','郑希如','zhengxr','zhengxr');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000500020001','DEPT','王迎新','wangyx','wangyx');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000500020001','DEPT','王春龙','wangcl','wangcl');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000500020001','DEPT','任爱平','renap','renap');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第一党小组','00000000000500020001','DEPT','令狐进军','linghujj','linghujj');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000500020002','DEPT','贾建国','jiajg','jiajg');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000500020002','DEPT','郭殿奎','guodk','guodk');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000500020002','DEPT','董晋耀','dongjy','dongjy');
+insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid) values(sys_guid(),'第二党小组','00000000000500020002','DEPT','王凤萍','wangfp','wangfp');
+
+update t_sys_groupuser gu set grouporder = (select internal from t_sys_organ org where gu.grouptype = 'DEPT' and gu.groupid = org.id);
 
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
 select sys_guid(),'普通用户','USER','ROLE', cname, loginname, id
@@ -75,7 +219,7 @@ select sys_guid(),'党员','DY','ROLE', cname, loginname, id
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)
 select sys_guid(),'党建专职','DJZZ','ROLE', cname, loginname, id
   from t_sys_user
- where loginname in ('rongj','zhangyx','duph','wangj','zhangb');   
+ where loginname in ('rongj','zhangyx','duph','wangj','zhangb','xionglj','wangxs','ligh');   
 
 
 insert into t_sys_groupuser(id, groupname, groupid, grouptype, username, loginname, userid)

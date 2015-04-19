@@ -63,18 +63,18 @@
      <div class="form-group">
         <label for="cname" class="col-sm-2 control-label">标题名称：<sup class="fa fa-asterisk"></sup></label>
         <div class="col-sm-10"> 
-          <input id="cname" name="cname" required="" value="${obj.base.cname}" class="form-control">
+          <input id="cname" name="cname" required="" value="${obj.collect.cname}" class="form-control">
         </div>           
       </div>
       
       <div class="form-group">
         <label for="creatercname" class="col-sm-2 control-label">登记人：<sup class="fa fa-asterisk"></sup></label>
         <div class="col-sm-4"> 
-          <input id="creatercname" name="creatercname" required="" value="${obj.base.creatercname}" class="form-control">
+          <input id="creatercname" name="creatercname" required="" value="${obj.collect.creatercname}" class="form-control">
         </div>
         <label for="cyear" class="col-sm-2 control-label">登记日期：<sup class="fa fa-asterisk"></sup></label>
         <div class="col-sm-4"> 
-          <input id="cyear" name="cyear" required="" value="${obj.base.cyear}" class="form-control">
+          <input id="cyear" name="cyear" required="" value="${obj.collect.cyear}" class="form-control">
         </div>            
       </div> 
       </form>
@@ -83,7 +83,7 @@
     
 	  <div id="div_hzyj">
       
-      <h5><a href="#1"><i class="fa fa-calendar"></i> 下级部门党费收缴汇总表</a></h5>
+      <h5><a href="#1"><i class="fa fa-calendar"></i> 各部门党费收缴汇总表</a></h5>
  	  <table id="basedetailTb" class="table personListTable hover">
 		<thead>
 		    <tr>
@@ -101,8 +101,8 @@
 		  <#list obj.basedetails as aobj>
 		  <tr>
 		      <td class="check"></td>   
-		      <td>${aobj.deptname}</td>
-		      <td>${aobj.baseusername}</td>      
+		      <td>${aobj.colldeptname}</td>
+		      <td>${aobj.collusername}</td>      
 		      <td>${aobj.basecost}</td>
 		      <td></td>
 		      <td>${aobj.plancollcost}</td>
@@ -114,13 +114,13 @@
 	  </table>
 	  </div>
 	  
-      <form id="deptbasedetailform" method="post" action="" class="form-horizontal">
+      <form id="deptcollectdetailsfrom" method="post" action="" class="form-horizontal">
       <input type="hidden" name="runactkey" value="${obj.runactkey}">
-      <input type="hidden" name="baseid" value="${obj.base.id}">
+      <input type="hidden" name="collectid" value="${obj.collect.id}">
 	  <div id="div_bbmyj">
 	  
 	  <h5><a href="#1"><i class="fa fa-calendar"></i> 本部门党费收缴登记表</a></h5>	  
- 	  <table id="deptbasedetailTb" class="table personListTable hover">
+ 	  <table id="deptcollectdetailsTb" class="table personListTable hover">
 		<thead>
 	    <tr>
 	      <th class="check"></th>   
@@ -137,12 +137,12 @@
 	  <#list obj.deptbasedetails as aobj>
 	  <tr>
 	      <td class="check"></td>  
-	      <td>${aobj.deptname}</td>
-	      <td>${aobj.baseusername}</td>      
+	      <td><input name="colldeptid" value="${aobj.colldeptid}" type="hidden"><input name="colldeptname" value="${aobj.colldeptname}" type="hidden">${aobj.colldeptname}</td>
+	      <td><input name="colluser" value="${aobj.colluser}" type="hidden"><input name="collusername" value="${aobj.collusername}" type="hidden">${aobj.collusername}</td>      
 	      <td><input name="basecost" value="${aobj.basecost}" class="form-control" style="border:none"></td>
-	      <td></td>
-	      <td><input name="basecost" value="${aobj.plancollcost}" class="form-control" style="border:none"></td>
-	      <td><input name="basecost" value="${aobj.actualcollcost}" class="form-control" style="border:none"></td>
+	      <td><input name="rate" value="${aobj.rate}" class="form-control" style="border:none"></td>
+	      <td><input name="plancollcost" value="${aobj.plancollcost}" class="form-control" style="border:none"></td>
+	      <td><input name="actualcollcost" value="${aobj.actualcollcost}" class="form-control" style="border:none"></td>
 	      <td></td>
 	  </tr>    
 	  </#list>
@@ -170,7 +170,7 @@ $("#div_all").hide();
 if(actcname=="")
 {
 	$("#div_bbmyj").show();
-	$("#div_hzyj").hide();
+	$("#div_hzyj").show();
 	$("#div_all").hide();
 	
 	$("#bt_save").hide();
@@ -183,17 +183,17 @@ if(actcname=="组织部汇总党费")
 	$("#div_hzyj").hide();
 	$("#div_all").show();
 	
-	$("#bt_save").hide();
-	$("#bt_save_detail").show();	
+	$("#bt_save").show();
+	$("#bt_save_detail").hide();	
 }
 else
 {
-	$("#div_bbmyj").hide();
+	$("#div_bbmyj").show();
 	$("#div_hzyj").show();
 	$("#div_all").hide();
 	
-	$("#bt_save").show();
-	$("#bt_save_detail").hide();
+	$("#bt_save").hide();
+	$("#bt_save_detail").show();
 }
 
 
@@ -230,8 +230,8 @@ function page_flowtrace()
 
 function page_save_detail()
 {
-	detailform.action = "${base}/party/partydue/research/usesuggestdetail/save.action";
-	detailform.submit();
+	deptcollectdetailsfrom.action = "${base}/party/partydue/collect/collect/savedeptdetails.action";
+	deptcollectdetailsfrom.submit();
 }
 </script>
 

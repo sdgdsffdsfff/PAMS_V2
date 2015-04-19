@@ -25,6 +25,12 @@ public class PartyDueCollectBudgetDetail {
 	private Timestamp colltime; // 预算计划收缴时间
 	
 	@Column
+	private float base; // 预算基数
+	
+	@Column
+	private float collcost; // 小计预算费用
+	
+	@Column
 	private float collcost1; // 收取预算费用1
 	
 	@Column
@@ -96,6 +102,26 @@ public class PartyDueCollectBudgetDetail {
 	public void setColltime(Timestamp colltime)
 	{
 		this.colltime = colltime;
+	}
+
+	public float getBase()
+	{
+		return base;
+	}
+
+	public void setBase(float base)
+	{
+		this.base = base;
+	}
+
+	public float getCollcost()
+	{
+		return collcost;
+	}
+
+	public void setCollcost(float collcost)
+	{
+		this.collcost = collcost;
 	}
 
 	public float getCollcost1()
@@ -177,5 +203,8 @@ public class PartyDueCollectBudgetDetail {
 	{
 		this.memo = memo;
 	}
+
+
+
 	
 }

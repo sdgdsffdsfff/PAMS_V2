@@ -1,5 +1,6 @@
 package com.skynet.app.organ.pojo;
 
+import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.skynet.framework.pojo.IdEntity;
@@ -7,14 +8,20 @@ import com.skynet.framework.pojo.IdEntity;
 @Table("T_SYS_USERROLE")
 public class UserRole extends IdEntity
 {
+	
+	@Column
 	private String userid; // 用户标识
 	
+	@Column	
 	private String loginname; // 用户名
 	
+	@Column	
 	private String username; // 姓名
-
+	
+	@Column
 	private String roleid; // 角色标识
 	
+	@Column	
 	private String rolename; // 角色名称
 
 	public String getUserid() {

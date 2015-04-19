@@ -1,23 +1,32 @@
 package com.skynet.app.organ.pojo;
 
+import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.skynet.framework.pojo.IdEntity;
 
 @Table("T_SYS_GROUPUSER")
 public class GroupUser extends IdEntity {
+	
+	@Column
 	private String groupid; // 分组标识
-
+	
+	@Column
 	private String groupname; // 分组名称
-
+	
+	@Column
 	private String grouptype; // 分组类型
-
+	
+	@Column
 	private String userid; // 用户标识
 	
+	@Column	
 	private String loginname; // 用户名
-
+	
+	@Column
 	private String username; // 用户姓名
 	
+	@Column	
 	private String grouporder; // 分组级别顺序
 	
 	public String getGroupid() {

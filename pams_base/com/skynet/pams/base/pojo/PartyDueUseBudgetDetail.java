@@ -28,7 +28,7 @@ public class PartyDueUseBudgetDetail {
 	private Timestamp endtime; // 结束时间	
 	
 	@Column
-	private float cost; // 主管部门标识
+	private float cost; // 计划费用
 	
 	@Column
 	private float costsource1; // 资金来源1

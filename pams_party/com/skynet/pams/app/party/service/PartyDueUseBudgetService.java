@@ -2,9 +2,11 @@ package com.skynet.pams.app.party.service;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.nutz.dao.Cnd;
@@ -61,12 +63,13 @@ public class PartyDueUseBudgetService extends SkynetNameEntityService<PartyDueUs
 	public String get_browseplan_sql(Map map) throws Exception
 	{
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid from t_app_plan plan, t_sys_wfbflow bflow ");
-		sql.append("  where 1 = 1 ");
-		sql.append("    and plan.flowdefid = bflow.id ");
-		sql.append("    and bflow.classid = 'DFGL' ");
-		sql.append("    and plan.ctype = '流程' ");
-		sql.append("    and plan.state = '计划' ");
+		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid, bflow.cname flowcname, bflow.sno flowsno ").append("\n");
+		sql.append("   from t_app_plan plan, t_sys_wfbflow bflow ").append("\n");
+		sql.append("  where 1 = 1 ").append("\n");
+		sql.append("    and plan.flowdefid = bflow.id ").append("\n");
+		sql.append("    and bflow.sno = 'DFGL_DFSY_JHBZ' ").append("\n");
+		sql.append("    and plan.ctype = '流程' ").append("\n");
+		sql.append("    and plan.state = '计划' ").append("\n");
 		return sql.toString();
 	}
 		
@@ -79,7 +82,7 @@ public class PartyDueUseBudgetService extends SkynetNameEntityService<PartyDueUs
 
 		sql.append(" select bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browsewait_field(map)).append("\n");
-		sql.append(" from t_app_partydue bv, " + uIService.get_browsewait_table(map)).append("\n");
+		sql.append(" from t_app_pdusebudget bv, " + uIService.get_browsewait_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browsewait_where(map)).append("\n");
 		
@@ -106,7 +109,7 @@ public class PartyDueUseBudgetService extends SkynetNameEntityService<PartyDueUs
 		
 		sql.append(" select distinct bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browsehandle_field(map)).append("\n");
-		sql.append(" from t_app_partydue bv, " + uIService.get_browsehandle_table(map)).append("\n");
+		sql.append(" from t_app_pdusebudget bv, " + uIService.get_browsehandle_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browsehandle_where(map)).append("\n");
 		
@@ -138,7 +141,7 @@ public class PartyDueUseBudgetService extends SkynetNameEntityService<PartyDueUs
 		
 		sql.append(" select distinct bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browseall_field(map)).append("\n");
-		sql.append(" from t_app_partydue bv, " + uIService.get_browseall_table(map)).append("\n");
+		sql.append(" from t_app_pdusebudget bv, " + uIService.get_browseall_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browseall_where(map)).append("\n");
 
@@ -158,7 +161,7 @@ public class PartyDueUseBudgetService extends SkynetNameEntityService<PartyDueUs
 	}
 	
 	//
-	public String plancreate(Plan plan, PartyDue partydue, DynamicObject swapFlow) throws Exception
+	public String plancreate(Plan plan, PartyDueUseBudget partydue, DynamicObject swapFlow) throws Exception
 	{
 		Timestamp systime = new Timestamp(System.currentTimeMillis());
 
@@ -444,6 +447,42 @@ public class PartyDueUseBudgetService extends SkynetNameEntityService<PartyDueUs
 		}
 
 		return sign;
+	}
+	
+	// 按部门统计基数核准数据
+	public List<DynamicObject> browsesumdeptbasedetails(String baseid, String orgid) throws Exception
+	{
+		List<DynamicObject> datas = new ArrayList<DynamicObject>();
+		
+		StringBuffer sql = new StringBuffer();
+
+		sql.append(" select org.id deptid, org.cname deptname, '' collectbudgetuser, '' collectbudgetusername, (base1+base2+base3+base4+base5) base, collcost1, collcost2, collcost3, collcost4, collcost5, turncost1, turncost2 ").append("\n");
+		sql.append("  from t_sys_organ org ").append("\n");
+		sql.append("  left join ").append("\n");
+		sql.append(" ( ").append("\n");
+		sql.append(" select deptid, deptname, sum(base1) base1, sum(base2) base2, sum(base3) base3, sum(base4) base4, sum(base5) base5 ").append("\n");
+		sql.append("  from t_app_pdbase base, t_app_pdbasedetail basedetail").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and base.id = basedetail.baseid ").append("\n");
+		// sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
+		sql.append(" group by deptid, deptname ").append("\n");
+		sql.append(" ) base ").append("\n");
+		sql.append(" on org.id = base.deptid ").append("\n");
+		sql.append("  left join ").append("\n");		
+		sql.append(" ( ").append("\n");
+		sql.append(" select colldeptid deptid, colldeptname deptname, sum(collcost1) collcost1, sum(collcost2) collcost2, sum(collcost3) collcost3, sum(collcost4) collcost4, sum(collcost5) collcost5, sum(turncost1) turncost1, sum(turncost2) turncost2 ").append("\n");
+		sql.append("  from t_app_pdcollbudget base, t_app_pdcollbudgetdetail basedetail").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and base.id = basedetail.collbudgetid ").append("\n");
+		sql.append("   and base.id = ").append(SQLParser.charValue(baseid)).append("\n");
+		sql.append(" group by colldeptid, colldeptname ").append("\n");
+		sql.append(" ) budget ").append("\n");
+		sql.append(" on org.id = budget.deptid ").append("\n");
+		sql.append(" where 1 = 1 ").append("\n");
+		sql.append("   and org.parentorganid = ").append(SQLParser.charValue(orgid)).append("\n");
+		
+		datas = sdao().queryForList(sql.toString());
+		return datas;
 	}
 	
 	

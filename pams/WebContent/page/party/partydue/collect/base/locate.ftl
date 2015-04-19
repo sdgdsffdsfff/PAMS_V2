@@ -86,15 +86,15 @@
  	  <table id="basedetailTb" class="table personListTable hover">
 		<thead>
 		    <tr>
-		      <th class="check"></th>   
+		      <th width="10" class="check"></th>   
 		      <th width="150">单位部门</th>
-		      <th width="100">姓名</th>      
-		      <th width="100">小计</th>
+		      <th width="100">党员人数</th>      
 		      <th width="100">岗位工资</th>
 		      <th width="100">技能工资</th>
 		      <th width="100">年工工资</th>
 		      <th width="100">其它</th>
-		      <th>备注</th>	
+		      <th width="100">基数</th>		      
+		      <th>费率</th>	
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -102,12 +102,12 @@
 		  <tr>
 		      <td class="check"></td>   
 		      <td>${aobj.deptname}</td>
-		      <td>${aobj.baseusername}</td>      
-		      <td></td>
+		      <td>${aobj.usernums}</td>      
 		      <td>${aobj.base1}</td>
 		      <td>${aobj.base2}</td>
 		      <td>${aobj.base3}</td>
 		      <td>${aobj.base4}</td>
+		      <td>${aobj.base}</td>
 		      <td></td>
 		  </tr>    
 		  </#list>
@@ -125,15 +125,15 @@
  	  <table id="deptbasedetailTb" class="table personListTable hover">
 		<thead>
 		    <tr>
-		      <th class="check"></th>   
+		      <th width="10" class="check"></th>   
 		      <th width="150">单位部门</th>
 		      <th width="100">姓名</th>      
-		      <th width="100">小计</th>
 		      <th width="100">岗位工资</th>
 		      <th width="100">技能工资</th>
 		      <th width="100">年工工资</th>
 		      <th width="100">其它</th>
-		      <th>备注</th>	
+		      <th width="100">基数</th>		      
+		      <th>费率</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -142,11 +142,11 @@
 		      <td class="check"></td>   
 		      <td><input name="deptid" required="" value="${aobj.deptid}" class="form-control" type="hidden">${aobj.deptname}</td>
 		      <td><input name="baseuser" required="" value="${aobj.baseuser}" class="form-control" type="hidden">${aobj.baseusername}</td>      
-		      <td></td>
-		      <td><input name="base1" value="${aobj.base1}" class="form-control" style="border:none"></td>
-		      <td><input name="base2" value="${aobj.base2}" class="form-control" style="border:none"></td>
-		      <td><input name="base3" value="${aobj.base3}" class="form-control" style="border:none"></td>
-		      <td><input name="base4" value="${aobj.base4}" class="form-control" style="border:none"></td>
+		      <td><input name="base1" value="<#if aobj.base1=='0' || aobj.base1==''>1200<#else>${aobj.base1}</#if>" class="form-control" style="border:none"></td>
+		      <td><input name="base2" value="<#if aobj.base2=='0' || aobj.base2==''>30<#else>${aobj.base2}</#if>" class="form-control" style="border:none"></td>
+		      <td><input name="base3" value="<#if aobj.base3=='0' || aobj.base3==''>15<#else>${aobj.base3}</#if>" class="form-control" style="border:none"></td>
+		      <td><input name="base4" value="<#if aobj.base4=='0' || aobj.base4==''>10<#else>${aobj.base4}</#if>" class="form-control" style="border:none"></td>
+		      <td><input name="base" value="${aobj.base}" class="form-control" readonly></td>
 		      <td></td>
 		  </tr>    
 		  </#list>

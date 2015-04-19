@@ -92,7 +92,7 @@
 			    <tr>
 			      <th class="check"></th>   
 			      <th>单位部门</th>
-			      <th>姓名</th>      
+			      <th>基数</th>      
 			      <th>小计</th>
 			      <th>组织费用</th>
 			      <th>活动经费</th>
@@ -107,7 +107,7 @@
 			  <tr>
 			      <td class="check"></td>   
 			      <td>${aobj.deptname}</td>
-			      <td>${aobj.collectbudgetusername}</td>      
+			      <td></td>      
 			      <td></td>
 			      <td>${aobj.collcost1}</td>
 			      <td>${aobj.collcost2}</td>

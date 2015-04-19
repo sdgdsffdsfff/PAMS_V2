@@ -90,15 +90,15 @@
 	 	  <table id="basedetailTb" class="table personListTable hover">
 			<thead>
 			    <tr>
-			      <th class="check"></th>   
-			      <th>单位部门</th>
-			      <th>姓名</th>      
-			      <th>小计</th>
-			      <th>岗位工资</th>
-			      <th>技能工资</th>
-			      <th>年工工资</th>
-			      <th>其它</th>
-			      <th>备注</th>	
+			      <th width="10" class="check"></th>   
+			      <th width="150">单位部门</th>
+			      <th width="100">党员人数</th>      
+			      <th width="100">岗位工资</th>
+			      <th width="100">技能工资</th>
+			      <th width="100">年工工资</th>
+			      <th width="100">其它</th>
+			      <th width="100">基数</th>		      
+			      <th>费率</th>	
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -106,12 +106,12 @@
 			  <tr>
 			      <td class="check"></td>   
 			      <td>${aobj.deptname}</td>
-			      <td>${aobj.baseusername}</td>      
-			      <td></td>
+			      <td>${aobj.usernums}</td>
 			      <td>${aobj.base1}</td>
 			      <td>${aobj.base2}</td>
 			      <td>${aobj.base3}</td>
 			      <td>${aobj.base4}</td>
+			      <td>${aobj.base}</td>
 			      <td></td>
 			  </tr>    
 			  </#list>
@@ -125,15 +125,15 @@
 	 	  <table id="deptbasedetailTb" class="table personListTable hover">
 			<thead>
 			    <tr>
-			      <th class="check"></th>   
-			      <th>单位部门</th>
-			      <th>姓名</th>      
-			      <th>小计</th>
-			      <th>岗位工资</th>
-			      <th>技能工资</th>
-			      <th>年工工资</th>
-			      <th>其它</th>
-			      <th>备注</th>	
+			      <th width="10" class="check"></th>   
+			      <th width="150">单位部门</th>
+			      <th width="100">姓名</th>      
+			      <th width="100">岗位工资</th>
+			      <th width="100">技能工资</th>
+			      <th width="100">年工工资</th>
+			      <th width="100">其它</th>
+			      <th width="100">基数</th>
+			      <th>费率</th>		
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -142,11 +142,11 @@
 			      <td class="check"></td>   
 			      <td>${aobj.deptname}</td>
 			      <td>${aobj.baseusername}</td>      
-			      <td></td>
 			      <td>${aobj.base1}</td>
 			      <td>${aobj.base2}</td>
 			      <td>${aobj.base3}</td>
 			      <td>${aobj.base4}</td>
+			      <td>${aobj.base}</td>
 			      <td></td>
 			  </tr>    
 			  </#list>

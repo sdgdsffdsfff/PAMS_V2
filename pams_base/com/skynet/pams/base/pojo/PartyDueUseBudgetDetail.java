@@ -61,7 +61,7 @@ public class PartyDueUseBudgetDetail {
 	private String masterdeptid; // 主办部门标识
 	
 	@Column
-	private String masterdeptname; // 主管部门名称
+	private String masterdeptname; // 主办部门名称
 	
 	@Column
 	private String salvedeptid; // 协办部门标识

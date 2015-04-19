@@ -42,7 +42,7 @@
   <div class="container"> 
     <h4><i class="fa fa-group"></i> 新增党费使用预算表</h4>
     <form id="mainform" method="post" action="" class="form-horizontal">
-    	<input id="usebuedgetid" name="usebuedgetid" value="${obj.usebudgetid}" type="hidden" />
+    	<input id="usebudgetid" name="usebudgetid" value="${obj.usebudgetid}" class="form-control" type="hidden" />
 	    <div id="div_jbxx">
      		<div class="form-group">
 	        	<label for="cname" class="col-sm-2 control-label">项目名称：<sup class="fa fa-asterisk"></sup></label>
@@ -64,7 +64,7 @@
 		      <div class="form-group">
 		        <label for="masterdeptname" class="col-sm-2 control-label">主办部门：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4">
-		        	<input id="masterdeptid" name="masterdeptid" required="" value="" type="hidden">
+		        	<input id="masterdeptid" name="masterdeptid" required="" value="" class="form-control" type="hidden">
 		        	<input id="masterdeptname" name="masterdeptname" value="" class="form-control" type="hidden">
 		        	<select
 					id="masterdeptnametext" name="masterdeptnametext" class="form-control">
@@ -81,7 +81,7 @@
 		      <div class="form-group">
 		        <label for="masterdeptname" class="col-sm-2 control-label">主管部门：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4">
-		        	<input id="chargedeptid" name="chargedeptid" required="" value="" type="hidden">
+		        	<input id="chargedeptid" name="chargedeptid" required="" value="" class="form-control" type="hidden">
 		        	<input id="chargedeptname" name="chargedeptname" value="" class="form-control" type="hidden">
 		        	<select
 					id="chargedeptnametext" name="chargedeptnametext" class="form-control">
@@ -92,7 +92,7 @@
 		        </div>           
 		        <label for="masterdeptname" class="col-sm-2 control-label">协办部门：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4">
-		        	<input id="salvedeptid" name="salvedeptid" required="" value="" type="hidden">
+		        	<input id="salvedeptid" name="salvedeptid" required="" value="" class="form-control" type="hidden">
 		        	<input id="slavedeptname" name="slavedeptname" value="" class="form-control" type="hidden">
 		        	<select
 					id="slavedeptnametext" name="slavedeptnametext" class="form-control">
@@ -105,7 +105,7 @@
 		      <div class="form-group">
 		        <label for="planheadercname" class="col-sm-2 control-label">项目负责人：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4">
-		        	<input id="charger" name="charger" required="" value="" type="hidden">
+		        	<input id="charger" name="charger" required="" value="" class="form-control" type="hidden">
 		        	 <input id="chargername" name="chargername" value="" class="form-control" type="hidden">
 		        	
 		        	<select

@@ -100,13 +100,13 @@
 		  <#list obj.usebudgetdetails as aobj>
 		  <tr>
 		      <td class="check"></td>   
-		      <td>${aobj.deptname}</td>
-		      <td>${aobj.collectbudgetuser}</td>      
-		      <td></td>
-		      <td>${aobj.collectbudgetusername}</td>
-		      <td>${aobj.collectbudgetusername}</td>
-		      <td>${aobj.collectbudgetusername}</td>		      
-		      <td><button class="btn btn-primary" onclick="window.open('${base}/party/partydue/use/usebudget/locatedetail.action?runactkey=${obj.runactkey}')">编辑</button></td>
+		      <td>${aobj.masterdeptname}</td>
+		      <td>${aobj.cname}</td>
+		      <td>${aobj.cost}</td>
+		      <td>${aobj.context}</td> 
+		      <td>${aobj.starttime}</td>
+		      <td>${aobj.endtime}</td>		      
+		      <td><button class="btn btn-primary" onclick="window.open('${base}/party/partydue/use/usebudget/locatedetail.action?id=${aobj.id}')">编辑</button></td>
 		  </tr>    
 		  </#list>
 		  </tbody>

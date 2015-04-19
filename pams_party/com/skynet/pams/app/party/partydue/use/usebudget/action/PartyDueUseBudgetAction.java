@@ -306,6 +306,7 @@ public class PartyDueUseBudgetAction extends BaseAction {
 	{
 		String id = UUIDGenerator.getInstance().getNextValue();
 		usebudgetdetail.setId(id);
+		usebudgetdetail.setChargedeptid("0000000000040001");
 		partydueusebudgetdetailService.sdao().insert(usebudgetdetail);
 		ro.put("id", id);
 		
@@ -327,7 +328,8 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		DynamicObject usebudgetdetail = partydueusebudgetdetailService.locate(id);
 		
 		ro.put("usebudgetdetail", usebudgetdetail);
-		
+		ro.put("usebudgetdetailid", id);
+		ro.put("usebudgetid", usebudgetdetail.getAttr("usebudgetid"));
 		ro.put("isedit", true);
 		ro.put("isapply", false);
 		ro.put("iscallback", false);

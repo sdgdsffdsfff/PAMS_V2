@@ -36,10 +36,10 @@ public class PartyDueCollectBudgetDetailService extends SkynetNameEntityService<
 		String collectbudgetid = (String)map.get("collectbudgetid");
 		String[] deptids = (String[])map.get("deptids");
 		float[] collcost1s = (float[])map.get("collcost1s");
-		float[] collcost2s = (float[])map.get("collcost2s");
-		float[] collcost3s = (float[])map.get("collcost3s");
-		float[] turncost1s = (float[])map.get("turncost1s");
-		float[] turncost2s = (float[])map.get("turncost2s");
+//		float[] collcost2s = (float[])map.get("collcost2s");
+//		float[] collcost3s = (float[])map.get("collcost3s");
+//		float[] turncost1s = (float[])map.get("turncost1s");
+//		float[] turncost2s = (float[])map.get("turncost2s");
 		
 		sdao().clear("t_app_pdcollbudgetdetail", Cnd.where("collbudgetid", "=", collectbudgetid)); // 清除原有的部门数据
 		
@@ -51,10 +51,10 @@ public class PartyDueCollectBudgetDetailService extends SkynetNameEntityService<
 			p.setCollbudgetid(collectbudgetid);
 			p.setColldeptid(deptids[i]);
 			p.setCollcost1(collcost1s[i]);
-			p.setCollcost2(collcost2s[i]);
-			p.setCollcost3(collcost3s[i]);
-			p.setTurncost1(turncost1s[i]);
-			p.setTurncost2(turncost2s[i]);
+//			p.setCollcost2(collcost2s[i]);
+//			p.setCollcost3(collcost3s[i]);
+//			p.setTurncost1(turncost1s[i]);
+//			p.setTurncost2(turncost2s[i]);
 		
 			sdao().insert(p);
 		}

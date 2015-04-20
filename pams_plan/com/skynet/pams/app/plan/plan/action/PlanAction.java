@@ -298,11 +298,13 @@ public class PlanAction extends BaseAction {
 	public Map gantt(String planid) throws Exception {
 		DynamicObject plan = planService.locate(planid);
 
-		String sequencekey = planService.get(planid).getSequencekey();
+//		String sequencekey = planService.get(planid).getSequencekey();
+//		List subplans = planService.findByCond(Cnd.where("sequencekey", "like",
+//				sequencekey+"%").and("sequencekey", "<>",
+//				sequencekey).orderBy("sequencekey", "asc"));
 		
-		List subplans = planService.findByCond(Cnd.where("sequencekey", "like",
-				sequencekey+"%").and("sequencekey", "<>",
-				sequencekey).orderBy("sequencekey", "asc"));
+		List subplans = planService.findByCond(Cnd.where("parentid", "=",
+				planid).orderBy("sequencekey", "asc"));
 
 		plan.put("subplans", subplans);
 		ro.put("plan", plan);

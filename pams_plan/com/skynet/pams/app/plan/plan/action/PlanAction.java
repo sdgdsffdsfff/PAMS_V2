@@ -3,7 +3,9 @@ package com.skynet.pams.app.plan.plan.action;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,6 +235,52 @@ public class PlanAction extends BaseAction {
 			planService.dao().insert(subplan);
 
 			subplans.add(subplan);
+		}
+
+		return subplans;
+	}
+	
+	@At("/decomposedateplan")
+	@Ok("json")
+	public List decomposedateplan(String dateid, String planid) throws Exception {
+
+		Plan plan = planService.dao().fetch(Plan.class, planid);
+		if("MONTH".equals(dateid))
+		{
+			plan.setCtype("周期");
+		}
+
+		planService.sdao().update(plan);
+		
+		List subplans = new ArrayList();
+		
+		if("MONTH".equals(dateid))
+		{
+			long s = 1000 * 60 * 60 * 24;
+			int year = new GregorianCalendar().get(Calendar.YEAR);
+
+			for(int i=0;i<12;i++)
+			{
+				Plan subplan = new Plan();
+				subplan.setId(UUID.randomUUID().toString());
+				subplan.setCname(plan.getCname() + (i+1) + "月工作");
+				subplan.setParentid(planid);
+				subplan.setPhaseorstep(1);
+				subplan.setSequencekey(plan.getSequencekey()
+						+ FormatKey.format(i, 4));
+				
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+				Date cdate = sf.parse(year +"-" + FormatKey.format(i, 2) + "-10");
+				
+				long time = cdate.getTime();
+				subplan.setPlanstartdate(new Timestamp(time));
+				subplan.setPlanenddate(new Timestamp(time + s + 5));
+				subplan.setPlanworkload(5);
+				subplan.setBaseplanworkload(5);
+				planService.dao().insert(subplan);
+
+				subplans.add(subplan);
+			}
 		}
 
 		return subplans;

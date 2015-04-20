@@ -6,8 +6,6 @@ insert into t_sys_wfbflow(id, cname, formid, classid, verson, state, sno) values
 insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
 values('DFGL_DFSJ_DFSJ_000','开始','BEGIN','DFGL_DFSJ_DFSJ','DFGL','普通','OR','OR','N',null,'单人','N',null);
 insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
-values('DFGL_DFSJ_DFSJ_SJDF','上缴党费','NORMAL','DFGL_DFSJ_DFSJ','DFGL','普通','OR','OR','Y',null,'单人','N',null);
-insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
 values('DFGL_DFSJ_DFSJ_XZHZ','小组汇总党费','NORMAL','DFGL_DFSJ_DFSJ','DFGL','普通','OR','OR','N',null,'单人','N',null);
 insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, join, isfirst, outstyle, selectstyle, selectother, formaccess) 
 values('DFGL_DFSJ_DFSJ_ZBHZ','支部汇总党费','NORMAL','DFGL_DFSJ_DFSJ','DFGL','普通','OR','OR','N',null,'单人','N',null);
@@ -19,8 +17,6 @@ insert into t_sys_wfbact(id, cname, ctype, flowid, formid, handletype, split, jo
 values('DFGL_DFSJ_DFSJ_999','结束','END','DFGL_DFSJ_DFSJ','DFGL','普通','OR','OR','N',null,'单人','N',null);
 
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
-values('DFGL_DFSJ_DFSJ_SJDF_001','DFGL_DFSJ_DFSJ_SJDF',null,'ROLE','USER','普通用户',null);
-insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
 values('DFGL_DFSJ_DFSJ_XZHZ_001','DFGL_DFSJ_DFSJ_XZHZ',null,'ROLE','USER','普通用户',null);
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
 values('DFGL_DFSJ_DFSJ_ZBHZ_001','DFGL_DFSJ_DFSJ_ZBHZ',null,'ROLE','USER','普通用户',null);
@@ -30,10 +26,7 @@ insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, ou
 values('DFGL_DFSJ_DFSJ_ZZBHZ_001','DFGL_DFSJ_DFSJ_ZZBHZ',null,'PERSON','zhangyx','张月仙',null);
 
 insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
-values('DFGL_DFSJ_DFSJ_000_SJDF','转上缴党费',null,null,'DFGL_DFSJ_DFSJ_000','DFGL_DFSJ_DFSJ_SJDF','DFGL_DFSJ_DFSJ',null);
-
-insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
-values('DFGL_DFSJ_DFSJ_SJDF_XZHZ','转小组汇总',null,null,'DFGL_DFSJ_DFSJ_SJDF','DFGL_DFSJ_DFSJ_XZHZ','DFGL_DFSJ_DFSJ',null);
+values('DFGL_DFSJ_DFSJ_000_XZHZ','转小组汇总',null,null,'DFGL_DFSJ_DFSJ_000','DFGL_DFSJ_DFSJ_XZHZ','DFGL_DFSJ_DFSJ',null);
 
 insert into t_sys_wfbroute(id, cname, routetype, conditions, startactid, endactid, flowid, direct) 
 values('DFGL_DFSJ_DFSJ_XZHZ_ZBHZ','转支部汇总',null,null,'DFGL_DFSJ_DFSJ_XZHZ','DFGL_DFSJ_DFSJ_ZBHZ','DFGL_DFSJ_DFSJ',null);

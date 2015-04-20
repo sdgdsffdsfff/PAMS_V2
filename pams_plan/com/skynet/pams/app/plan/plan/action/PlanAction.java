@@ -298,8 +298,11 @@ public class PlanAction extends BaseAction {
 	public Map gantt(String planid) throws Exception {
 		DynamicObject plan = planService.locate(planid);
 
-		List subplans = planService.findByCond(Cnd.where("parentid", "=",
-				planid).orderBy("sequencekey", "asc"));
+		String sequencekey = planService.get(planid).getSequencekey();
+		
+		List subplans = planService.findByCond(Cnd.where("sequencekey", "like",
+				sequencekey+"%").and("sequencekey", "<>",
+				sequencekey).orderBy("sequencekey", "asc"));
 
 		plan.put("subplans", subplans);
 		ro.put("plan", plan);
@@ -393,8 +396,8 @@ public class PlanAction extends BaseAction {
 		SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
 
 		long time = sf1.parse(sf1.format(cdate)).getTime();
-		plan.setPlanstartdate(new Timestamp(time - s * 60));
-		plan.setPlanenddate(new Timestamp(time + s * 40));
+		plan.setPlanstartdate(new Timestamp(time));
+		plan.setPlanenddate(new Timestamp(time + s * 160));
 		planService.dao().insert(plan);
 		
 		Plan subplan1 = new Plan();
@@ -407,8 +410,8 @@ public class PlanAction extends BaseAction {
 		subplan1.setBaseplanworkload(10);
 		subplan1.setState("计划");
 		
-		subplan1.setPlanstartdate(new Timestamp(time - s * 50));
-		subplan1.setPlanenddate(new Timestamp(time - s * 40));
+		subplan1.setPlanstartdate(new Timestamp(time));
+		subplan1.setPlanenddate(new Timestamp(time + s * 90));
 		
 		planService.dao().insert(subplan1);		
 		
@@ -422,8 +425,8 @@ public class PlanAction extends BaseAction {
 		subplan2.setBaseplanworkload(10);
 		subplan2.setState("计划");			
 
-		subplan2.setPlanstartdate(new Timestamp(time - s * 50));
-		subplan2.setPlanenddate(new Timestamp(time - s * 40));
+		subplan2.setPlanstartdate(new Timestamp(time + s * 30));
+		subplan2.setPlanenddate(new Timestamp(time + s * 120));
 
 		planService.dao().insert(subplan2);		
 
@@ -437,8 +440,8 @@ public class PlanAction extends BaseAction {
 		subplan11.setBaseplanworkload(10);
 		subplan11.setState("计划");	
 
-		subplan11.setPlanstartdate(new Timestamp(time - s * 60));
-		subplan11.setPlanenddate(new Timestamp(time - s * 50));
+		subplan11.setPlanstartdate(new Timestamp(time));
+		subplan11.setPlanenddate(new Timestamp(time + s * 20));
 
 		planService.dao().insert(subplan11);
 
@@ -452,8 +455,8 @@ public class PlanAction extends BaseAction {
 		subplan12.setBaseplanworkload(20);
 		subplan12.setState("计划");			
 
-		subplan12.setPlanstartdate(new Timestamp(time - s * 40));
-		subplan12.setPlanenddate(new Timestamp(time - s * 20));
+		subplan12.setPlanstartdate(new Timestamp(time + s * 20));
+		subplan12.setPlanenddate(new Timestamp(time + s * 30));
 
 		planService.dao().insert(subplan12);
 		
@@ -467,8 +470,8 @@ public class PlanAction extends BaseAction {
 		subplan13.setBaseplanworkload(20);
 		subplan13.setState("计划");			
 
-		subplan13.setPlanstartdate(new Timestamp(time - s * 40));
-		subplan13.setPlanenddate(new Timestamp(time - s * 20));
+		subplan13.setPlanstartdate(new Timestamp(time + s * 30));
+		subplan13.setPlanenddate(new Timestamp(time + s * 90));
 
 		planService.dao().insert(subplan13);
 		
@@ -482,8 +485,8 @@ public class PlanAction extends BaseAction {
 		subplan21.setBaseplanworkload(10);
 		subplan21.setState("计划");	
 
-		subplan21.setPlanstartdate(new Timestamp(time - s * 60));
-		subplan21.setPlanenddate(new Timestamp(time - s * 50));
+		subplan21.setPlanstartdate(new Timestamp(time + s * 30));
+		subplan21.setPlanenddate(new Timestamp(time + s * 40));
 
 		planService.dao().insert(subplan21);
 
@@ -497,8 +500,8 @@ public class PlanAction extends BaseAction {
 		subplan22.setBaseplanworkload(20);
 		subplan22.setState("计划");			
 
-		subplan22.setPlanstartdate(new Timestamp(time - s * 40));
-		subplan22.setPlanenddate(new Timestamp(time - s * 20));
+		subplan22.setPlanstartdate(new Timestamp(time + s * 40));
+		subplan22.setPlanenddate(new Timestamp(time + s * 50));
 
 		planService.dao().insert(subplan22);
 		
@@ -512,8 +515,8 @@ public class PlanAction extends BaseAction {
 		subplan23.setBaseplanworkload(20);
 		subplan23.setState("计划");			
 
-		subplan23.setPlanstartdate(new Timestamp(time - s * 40));
-		subplan23.setPlanenddate(new Timestamp(time - s * 20));
+		subplan23.setPlanstartdate(new Timestamp(time + s * 50));
+		subplan23.setPlanenddate(new Timestamp(time + s * 120));
 
 		planService.dao().insert(subplan23);
 		
@@ -527,8 +530,8 @@ public class PlanAction extends BaseAction {
 		subplan3.setBaseplanworkload(15);
 		subplan3.setState("计划");			
 
-		subplan3.setPlanstartdate(new Timestamp(time + s * 11));
-		subplan3.setPlanenddate(new Timestamp(time + s * 25));
+		subplan3.setPlanstartdate(new Timestamp(time + s * 120));
+		subplan3.setPlanenddate(new Timestamp(time + s * 150));
 
 		planService.dao().insert(subplan3);
 
@@ -542,8 +545,8 @@ public class PlanAction extends BaseAction {
 		subplan4.setBaseplanworkload(5);
 		subplan4.setState("计划");			
 
-		subplan4.setPlanstartdate(new Timestamp(time + s * 26));
-		subplan4.setPlanenddate(new Timestamp(time + s * 30));
+		subplan4.setPlanstartdate(new Timestamp(time + s * 140));
+		subplan4.setPlanenddate(new Timestamp(time + s * 160));
 
 		planService.dao().insert(subplan4);
 	}	

@@ -29,6 +29,7 @@
 		var ajax_url_save_node_sequence = '../plan/data/advplan_save_sequence.json';
 		var ajax_url_save_node_parentworkload = '../data/advplan_save_node.json';//任务计算 workload 以后 用于保存父节点的 wordload
 		var ajax_url_decompose_node = '${base}/plan/plan/decomposeplan.action';
+		var ajax_url_decomposedate_node = '${base}/plan/plan/decomposedateplan.action';		
 	</script>
 
 	<div id="container">
@@ -106,7 +107,7 @@
 									<div class="btn-group">
 										<button data-toggle="dropdown"
 											class="btn btn-primary dropdown-toggle">
-											<i class="fa fa-plus"></i> 分解任务 <span class="caret"></span>
+											<i class="fa fa-plus"></i> 按流程分解任务 <span class="caret"></span>
 										</button>
 										<ul id="decomposeNode" class="dropdown-menu">
 											<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsj_jshz" flowid='DFGL_DFSJ_JSHZ'><i
@@ -125,6 +126,22 @@
 											
 										</ul>
 									</div>
+
+									<div class="btn-group">
+									<button data-toggle="dropdown"
+										class="btn btn-primary dropdown-toggle">
+										<i class="fa fa-plus"></i> 按周期分解任务 <span class="caret"></span>
+									</button>
+									<ul id="decomposedateNode" class="dropdown-menu">
+										<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsj_jshz" dateid='QUARTER'><i
+										class="fa fa-flag-o" ></i> 按季度分解</li>										
+										<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsj_jshz" dateid='MONTH'><i
+										class="fa fa-flag-o" ></i> 按月分解</li>	
+										<li data-type="1" data-dismiss="modal" id="flow_dfgl_dfsj_jhbz" dateid='WEEK'><i
+										class="fa fa-flag-o" ></i> 按周分解</li>	
+									</ul>
+									</div>
+
 									<button id="deleteNode" class="btn btn-danger">
 										<i class="fa fa-times"></i> 删除
 									</button>
@@ -852,6 +869,11 @@
     	decompose_node($(this));
     }) 
     
+    	//分解计划
+	$('#decomposedateNode').on('click', 'li', function() {
+    	decomposedate_node($(this));
+    }) 
+    
     
 /*     	//分解计划
     $('#flow_dfgl_jhbz').on('click', function() {
@@ -1109,6 +1131,54 @@
 	        method: 'post',
 	        data: {
 	          flowid: flowid,
+	          planid: cid
+	        },
+	        success: function(d) {
+
+	        	console.log(d);
+
+	        	$.each(d, function(j, item) {
+
+	        		console.log(j + ":" + item);
+
+	        		ui_addsubplan(cid, item, otype);
+
+            	});
+
+	        }
+	    });
+	}
+	
+	
+	// 分解计划 按周期
+	function decomposedate_node(_this)
+	{
+		console.log(_this);
+		console.log("dateid:" + _this.attr('dateid'));
+		var otype = _this.attr('data-type');
+		var sname = "";
+		// if (sname != '') 
+		// {
+		// if (!ajax_url_decompose_node) 
+		// {
+		// 	alert('页面中要指定 ajax_url_add_node ！');
+		// 	return false;
+		// }
+		var cid = formContainer.find(':input[name=id]').val();
+
+		if (otype == '0') 
+		{ 
+			cid = data.projid;
+		}
+
+		var dateid = _this.attr('dateid');
+
+		$.ajax({
+	        url: ajax_url_decomposedate_node,
+	        dataType: 'json',
+	        method: 'post',
+	        data: {
+	          dateid: dateid,
 	          planid: cid
 	        },
 	        success: function(d) {

@@ -33,7 +33,7 @@ function initGsGantt(ele, data) {
 	html += '</ul>';
 
 
-	html += '<div class="total' + successCls + '"><div class="bar"><div style="width:' + data.actual * 100 + '%;" class="indi"></div></div><div class="t">' + data.t + '</div><div class="plan" style="left:' + data.plan * 100 + '%;"></div></div>';
+	html += '<div class="total' + successCls + '"><div class="bar"><div style="width:' + data.actual * 100 + '%;" class="indi"></div></div><div class="t"><a href="">' + data.t + '</a></div><div class="plan" style="left:' + data.plan * 100 + '%;"></div></div>';
 
 	html += '<ul class="phases">';
 
@@ -42,7 +42,7 @@ function initGsGantt(ele, data) {
 		if (k.actual * 1 >= k.plan * 1) {
 			successCls = ' success';
 		}
-		html += '<li title="从 ' + k.start + ' 到 ' + k.end + ' 计划：' + k.plan + ' 实际：' + k.actual + '" class="' + successCls + '" style="width:' + moment(k.end).diff(moment(k.start), 'days') * 100 / total + '%;left:' + moment(k.start).diff(moment(data.start), 'days') * 100 / total + '%;"><div class="bar"><div style="width:' + k.actual * 100 + '%;" class="indi"></div></div><div class="t">' + k.t + '</div><span class="start">'+k.start+'</span><span class="end">'+k.end+'</span><div class="plan" style="left:' + k.plan * 100 + '%;"></div></li>';
+		html += '<li title="从 ' + k.start + ' 到 ' + k.end + ' 计划：' + k.plan + ' 实际：' + k.actual + '" class="' + successCls + '" style="width:' + moment(k.end).diff(moment(k.start), 'days') * 100 / total + '%;left:' + moment(k.start).diff(moment(data.start), 'days') * 100 / total + '%;"><div class="bar"><div style="width:' + k.actual * 100 + '%;" class="indi"></div></div><div class="t"><a href="/pams/page/plan/plan/gantt.html?planid='+k.id+'" target="_blank">' + k.t + '</a></div><span class="start">'+k.start+'</span><span class="end">'+k.end+'</span><div class="plan" style="left:' + k.plan * 100 + '%;"></div></li>';
 	})
 	html += '</ul>';
 

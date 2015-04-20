@@ -90,16 +90,13 @@
 	 	  <table id="basedetailTb" class="table personListTable hover">
 			<thead>
 			    <tr>
-			      <th class="check"></th>   
-			      <th>单位部门</th>
-			      <th>基数</th>      
-			      <th>小计</th>
-			      <th>组织费用</th>
-			      <th>活动经费</th>
-			      <th>其它</th>
-			      <th>上缴上级</th>
-			      <th>其它</th>
-			      <th>备注</th>	
+			      <th width="10" class="check"></th>   
+			      <th width="150">单位部门</th> 
+			      <th width="100">党员人数</th> 
+			      <th width="100">基数</th>
+			      <th width="100">收缴月数</th>
+			      <th width="100">预算费用</th>
+			      <th>备注</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -107,13 +104,10 @@
 			  <tr>
 			      <td class="check"></td>   
 			      <td>${aobj.deptname}</td>
-			      <td></td>      
-			      <td></td>
-			      <td>${aobj.collcost1}</td>
-			      <td>${aobj.collcost2}</td>
-			      <td>${aobj.collcost3}</td>
-			      <td>${aobj.turncost1}</td>
-			      <td>${aobj.turncost2}</td>			      
+			      <td>${aobj.usernums}</td>
+			      <td>${aobj.base}</td>
+			      <td>12</td>
+			      <td><#if aobj.collcost1?number==0>${aobj.base?number*12}<#else>${aobj.collcost1}</#if></td>			      
 			      <td></td>
 			  </tr>    
 			  </#list>

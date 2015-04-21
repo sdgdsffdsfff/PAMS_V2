@@ -61,11 +61,11 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 	public String get_browseplan_sql(Map map) throws Exception
 	{
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid ").append("\n");
+		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid, bflow.cname flowcname, bflow.sno flowsno ").append("\n");
 		sql.append("   from t_app_plan plan, t_sys_wfbflow bflow ").append("\n");
 		sql.append("  where 1 = 1 ").append("\n");
 		sql.append("    and plan.flowdefid = bflow.id ").append("\n");
-		sql.append("    and bflow.classid = 'DFGL' ").append("\n");
+		sql.append("    and bflow.sno = 'DFGL_DFSY_YJZQ' ").append("\n");
 		sql.append("    and plan.ctype = '流程' ").append("\n");
 		sql.append("    and plan.state = '计划' ").append("\n");
 		return sql.toString();

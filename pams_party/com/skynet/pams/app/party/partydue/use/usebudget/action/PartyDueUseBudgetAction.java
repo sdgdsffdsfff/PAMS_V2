@@ -158,7 +158,7 @@ public class PartyDueUseBudgetAction extends BaseAction {
 	}
 	
 	@At("/browsehandle")
-	@Ok("->:/page/party/partydue/useusebudget/browsehandle.ftl")
+	@Ok("->:/page/party/partydue/use/usebudget/browsehandle.ftl")
 	public Map browsehandle() {
 		return ro;
 	}

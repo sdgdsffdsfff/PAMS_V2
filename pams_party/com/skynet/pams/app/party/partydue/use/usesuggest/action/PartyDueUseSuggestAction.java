@@ -17,7 +17,10 @@ import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.Mvcs;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
+import org.nutz.mvc.annotation.Param;
 
+import com.skynet.app.organ.service.OrganService;
+import com.skynet.app.organ.service.UserService;
 import com.skynet.app.workflow.spec.DBFieldConstants;
 import com.skynet.app.workflow.spec.GlobalConstants;
 import com.skynet.app.workflow.ui.action.ActionHelper;
@@ -29,6 +32,7 @@ import com.skynet.pams.app.party.service.PartyDueUseSuggestDetailService;
 import com.skynet.pams.app.party.service.PartyDueUseSuggestService;
 import com.skynet.pams.app.plan.service.PlanService;
 import com.skynet.pams.base.pojo.PartyDueUseSuggest;
+import com.skynet.pams.base.pojo.PartyDueUseSuggestDetail;
 import com.skynet.pams.base.pojo.Plan;
 
 @IocBean
@@ -43,6 +47,12 @@ public class PartyDueUseSuggestAction extends BaseAction {
 	
 	@Inject
 	private PlanService planService;
+	
+	@Inject
+	private UserService userService;	
+	
+	@Inject
+	private OrganService organService;	
 	
 	public static String tableid = "PartyDueUseSuggest";
 	
@@ -254,11 +264,79 @@ public class PartyDueUseSuggestAction extends BaseAction {
 		ro.put("tableid", tableid);
 		ro.put("runactkey", runactkey);
 		ro.put("usesuggest", usesuggest);
+		ro.put("usesuggestid", usesuggest.getAttr("id"));
 		ro.put("usesuggestdetail", usesuggestdetail);
 		ro.put("usesuggestdetails", usesuggestdetails);	
 		ro.put("ract", ract);
 		ro.put("routes", routes);
+		
+		List<DynamicObject> users = userService.findByCond(Cnd.where("1","=","1").orderBy().asc("cname"));
+		List<DynamicObject> depts = organService.findByCond(Cnd.where("ctype","=","DEPT").orderBy().asc("internal"));
+		ro.setObj("users", users);
+		ro.setObj("depts", depts);
 	}
+	
+	@At("/inputdetail")
+	@Ok("->:/page/party/partydue/use/usesuggest/inputdetail.ftl")
+	public Map usesuggestdetailinput(String id) throws Exception 
+	{
+		
+		ro.put("usesuggestid", id);
+		ro.put("isbackward", true);
+		return ro;
+		
+	}
+	
+	@At("/savedetail")
+	@Ok("redirect:locatedetail.action?id=${obj.id}")
+	public Map savedetail(@Param("..") PartyDueUseSuggestDetail usesuggestdetail) throws Exception 
+	{
+		partydueusesuggestdetailService.sdao().update(usesuggestdetail);
+		ro.put("id", usesuggestdetail.getId());
+		return ro;
+		
+	}
+	
+	@At("/insertdetail")
+	@Ok("redirect:locatedetail.action?id=${obj.id}")
+	public Map insertdetail(@Param("..") PartyDueUseSuggestDetail usesuggestdetail) throws Exception 
+	{
+		String id = UUIDGenerator.getInstance().getNextValue();
+		usesuggestdetail.setId(id);
+		partydueusesuggestdetailService.sdao().insert(usesuggestdetail);
+		ro.put("id", id);
+		
+		return ro;
+		
+	}
+	
+	@At("/locatedetail")
+	@Ok("->:/page/party/partydue/use/usesuggest/locatedetail.ftl")
+	public Map locatedetail(String id) throws Exception 
+	{
+		HttpSession session = Mvcs.getHttpSession(true);
+		DynamicObject token = (DynamicObject)session.getAttribute(com.skynet.framework.spec.GlobalConstants.sys_login_token);
+		String loginname = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_user);
+		String username = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_username);		
+		String deptid = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_dept);
+		String deptname = token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_deptname);
+
+		DynamicObject usesuggestdetail = partydueusesuggestdetailService.locate(id);
+		
+		ro.put("usesuggestdetail", usesuggestdetail);
+		ro.put("usesuggestdetailid", id);
+		ro.put("usesuggestid", usesuggestdetail.getAttr("suggestid"));
+		ro.put("isedit", true);
+		ro.put("isapply", false);
+		ro.put("iscallback", false);
+		ro.put("isforward", true);
+
+		ro.put("isbackward", true);
+		
+		return ro;
+		
+	}
+	
 	
 	// 签收
 	@At("/apply")

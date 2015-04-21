@@ -29,7 +29,7 @@ values('DFGL_DFSJ_JSHZ_999','结束','END','DFGL_DFSJ_JSHZ','DFGL','普通','OR'
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
 values('DFGL_DFSJ_JSHZ_XF_001','DFGL_DFSJ_JSHZ_XF',null,'ROLE','USER','普通用户',null);
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
-values('DFGL_DFSJ_JSHZ_BZ_001','DFGL_DFSJ_JSHZ_BZ',null,'DEPTROLE','DJZZ','党建专职',null);
+values('DFGL_DFSJ_JSHZ_BZ_001','DFGL_DFSJ_JSHZ_BZ',null,'DEPTROLE','USER','普通用户',null);
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)
 values('DFGL_DFSJ_JSHZ_SH_001','DFGL_DFSJ_JSHZ_SH',null,'ROLE','USER','普通用户',null);
 insert into t_sys_wfbactowner(id, actid, ownerchoice, ctype, ownerctx, cname, outstyle)

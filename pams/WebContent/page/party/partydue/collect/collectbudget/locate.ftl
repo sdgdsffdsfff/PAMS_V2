@@ -90,15 +90,12 @@
  	  <table id="basedetailTb" class="table personListTable hover">
 		<thead>
 		    <tr>
-		      <th class="check"></th>   
-		      <th width="150">单位部门</th>     
+		      <th width="10" class="check"></th>   
+		      <th width="150">单位部门</th> 
+		      <th width="100">党员人数</th> 
 		      <th width="100">基数</th>
-		      <th width="100">小计</th>
-		      <th width="100">组织费用</th>
-		      <th width="100">活动经费</th>
-		      <th width="100">其它</th>
-		      <th width="100">上缴上级</th>
-		      <th width="100">其它</th>
+		      <th width="100">收缴月数</th>		      
+		      <th width="100">预算费用</th>
 		      <th>备注</th>	
 		    </tr>
 		  </thead>
@@ -107,14 +104,11 @@
 		  <tr>
 		      <td class="check"></td>   
 		      <td><input name="deptid" value="${aobj.deptid}" class="form-control" type="hidden">${aobj.deptname}</td>
+		      <td>${aobj.usernums}</td>
 		      <td>${aobj.base}</td>
-		      <td></td>
-		      <td><input name="collcost1" value="${aobj.collcost1}" class="form-control" style="border:none"></td>
-		      <td><input name="collcost2" value="${aobj.collcost2}" class="form-control" style="border:none"></td>
-		      <td><input name="collcost3" value="${aobj.collcost3}" class="form-control" style="border:none"></td>
-		      <td><input name="turncost1" value="${aobj.turncost1}" class="form-control" style="border:none"></td>
-		      <td><input name="turncost2" value="${aobj.turncost2}" class="form-control" style="border:none"></td>			      
-		      <td></td>
+		      <td>12</td>
+		      <td><input name="collcost1" value="<#if aobj.collcost1?number==0>${aobj.base?number*12}<#else>${aobj.collcost1}</#if>" class="form-control" style="border:none" readonly></td>	      
+		      <td><input name="memo" value="" class="form-control" style="border:none"></td>
 		  </tr>    
 		  </#list>
 		  </tbody>
@@ -144,7 +138,7 @@ else
 	$("#div_bbmyj").hide();
 	$("#div_hzyj").show();
 	$("#bt_save").show();
-	$("#bt_save_detail").hide();
+	$("#bt_save_detail").show();
 }
 
 

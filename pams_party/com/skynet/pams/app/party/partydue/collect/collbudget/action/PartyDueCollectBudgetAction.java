@@ -257,10 +257,10 @@ public class PartyDueCollectBudgetAction extends BaseAction {
 		map.setAttr("collectbudgetid", collectbudgetid);
 		map.setObj("deptids", deptid);
 		map.setObj("collcost1s", collcost1);
-		map.setObj("collcost2s", collcost2);
-		map.setObj("collcost3s", collcost3);
-		map.setObj("turncost1s", turncost1);
-		map.setObj("turncost2s", turncost1);	
+//		map.setObj("collcost2s", collcost2);
+//		map.setObj("collcost3s", collcost3);
+//		map.setObj("turncost1s", turncost1);
+//		map.setObj("turncost2s", turncost1);	
 		
 		partyduecollectbudgetdetailService.savedeptbudgetdetails(map);
 		

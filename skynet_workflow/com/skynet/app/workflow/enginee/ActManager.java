@@ -1185,13 +1185,10 @@ public class ActManager {
         sql.append("   order by ordernum, cname ").append("\n");        
         sql.append("   ) ").append("\n");
         
-        sql.append("select gu.groupid organid, gu.groupname organname, org.internal orginternal, gu.grouptype organtype, temp.ownerctx, temp.cname, temp.ctype, temp.ordernum ").append("\n");
+        sql.append("select gu.groupid organid, gu.groupname organname, gu.grouporder orginternal, gu.grouptype organtype, temp.ownerctx, temp.cname, temp.ctype, temp.ordernum ").append("\n");
         sql.append("  from temp ").append("\n");
         sql.append("  left join t_sys_wfgroupuser gu ").append("\n");
         sql.append("    on temp.ownerctx = gu.loginname ").append("\n");
-        sql.append("  left join t_sys_organ org ").append("\n");
-        sql.append("    on gu.groupid = org.id ").append("\n");
-        
         sql.append(" where 1 = 1 ").append("\n");
         sql.append("   and gu.grouptype = 'DEPT' ").append("\n");
         sql.append("  order by orginternal, ordernum, cname ").append("\n");

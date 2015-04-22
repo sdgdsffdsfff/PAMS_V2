@@ -20,9 +20,9 @@
 <table id="tb_persons" class="table personListTable hover">
 <thead>
 	<tr>
-	<th width="1"></th>
-	<th>部门</th>
-	<th>姓名</th>
+	<th width="10"></th>
+	<th width="300">部门</th>
+	<th width="120">姓名</th>
 	<th>办公电话</th>
 	<th>职务</th>
 	</tr>

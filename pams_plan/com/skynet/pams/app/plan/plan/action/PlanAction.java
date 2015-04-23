@@ -268,6 +268,7 @@ public class PlanAction extends BaseAction {
 				subplan.setPhaseorstep(1);
 				subplan.setSequencekey(plan.getSequencekey()
 						+ FormatKey.format(i, 4));
+				subplan.setState("计划");
 				
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 				Date cdate = sf.parse(year +"-" + FormatKey.format(i, 2) + "-10");

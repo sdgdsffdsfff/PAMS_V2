@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="/pams/lib/datetimepicker/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" href="/pams/css/animation.css">
 <link rel="stylesheet" href="/pams/lib/slider.css">
-<link rel="stylesheet" href="/pams/css/main.css">
 <script src="/pams/lib/jquery-2.1.1.min.js"></script>
 </head>
 <body>
@@ -21,6 +20,7 @@ padding-bottom: 14px;
 text-align:left;
 margin-left:10px
 }
+
 </style>
 
 <script type="text/javascript">
@@ -38,8 +38,8 @@ $(function(){
 /////////////////////////////////////////
 
 //解决ie6 bottomTr 高度问题；ff iframe 100% 问题
-initialTabNsHeight();
-$(window).resize(function(){initialTabNsHeight();})
+// initialTabNsHeight();
+// $(window).resize(function(){initialTabNsHeight();})
 
 
 
@@ -117,26 +117,28 @@ function page_select_tab(obj, oindex)
 	<div class="formDiv">
 	
 		<h1 style="cursor:hand" onclick="page_toggle_node()">1.当前节点  </h1>
+		
 		<div id="fs_node">
-		<table id="tb_node" class="formGrid" width="600">
+		
+		<table id="tb_node" class="table personListTable hover" style="width:800">
 		<tbody>
 		<tr>
 		<td width="20">&nbsp;</td>
-		<td width="80" align="right">节点名：</td>
-		<td width="100" align="left">${obj.bact.cname}</td>
-		<td width="400"></td>
+		<td width="100" align="right">节点名：</td>
+		<td width="200">${obj.bact.cname}</td>
+		<td></td>
 		</tr>
 		<tr>
 		<td>&nbsp;</td>
-		<td>节点类型：</td>
+		<td align="right">节点类型：</td>
 		<td>${txt_ctype}</td>
 		<td></td>
 		</tr>
 		<tr>
 		<td></td>
-		<td>转出方式：</td>
+		<td align="right">转出方式：</td>
 		<td>${txt_split}</td>
-		<td align="left" style="color:#3355aa">在后续节点为多项时，仅能选择其中一项后续节点。</td>
+		<td style="color:#3355aa">在后续节点为多项时，仅能选择其中一项后续节点。</td>
 		</tr>
 		</tbody>
 		</table>
@@ -144,7 +146,7 @@ function page_select_tab(obj, oindex)
 		
 		<h1 style="cursor:hand" onclick="page_toggle_routes()">2.选择转发节点</h1>
 		<div id="fs_routes">
-		<table id="tb_routes" class="formGrid" width="600">
+		<table id="tb_routes" class="formGrid" width="800">
 		<tbody>
 		<#list obj.routes as route>
 		<#assign endact = obj.endacts[route_index]>
@@ -160,13 +162,13 @@ function page_select_tab(obj, oindex)
 		<td width="140">${route.cname}&nbsp;</td>
 		
 		<#if endact.ctype=="END">
-		<td width="350">
+		<td width="550">
 		<input type="hidden" id="actowner${route_index}" name="actowner">
 		</td>
 		<td width="50"></td>
 		<#else>
-		<td width="350">
-		<input readonly class="form-control" id="actowner${route_index}" name="actowner" style="width:300;">&nbsp;&nbsp;
+		<td width="550">
+		<input readonly class="form-control" id="actowner${route_index}" name="actowner" style="width:500;">&nbsp;&nbsp;
 		</td>
 		<td  width="50">
 		<a href="javascript:void(0)" onclick="page_selectroute('${route_index}','${route.endactid},'${endact.ctype}')">人员</a>
@@ -181,7 +183,7 @@ function page_select_tab(obj, oindex)
 	
 		<h1 style="cursor:hand" onclick="page_toggle_persons()">3.选择转发人员 </h1>	
 		<div id="fs_persons" style="display:none">
-			<table id="gTabsContainterN" width="600">
+			<table id="gTabsContainterN" width="800">
 			<tr class="topTr">
 			<td>
 				<ul>
@@ -195,8 +197,8 @@ function page_select_tab(obj, oindex)
 			</td>
 			</tr>
 			<tr class="bottomTr">
-			<td height="100">
-			<iframe id="frame_selectowner" name="frame_selectowner" src="" frameborder="0" width="600" height="100"></iframe>
+			<td height="300">
+			<iframe id="frame_selectowner" name="frame_selectowner" src="" frameborder="0" width="800" height="300"></iframe>
 			</td>
 			</tr>
 			</table>
@@ -511,7 +513,7 @@ function page_load_actowner(actdefid)
 	page_clear();
 	
 	$.ajax({
-		url:'/pams/workflow/ui/selectownertoperson/json.action',
+		url:'/pams/workflow/ui/selectownertoperson.action',
 		type:'POST',
 		data: {actdefid:actdefid},
 		dataType: "json", 

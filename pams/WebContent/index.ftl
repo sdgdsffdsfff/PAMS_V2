@@ -20,7 +20,7 @@
   <body>
     <div id="gsLayout">
       <div id="gsSidebar"><a href="${base}/frame/home.action" class="home"><i class="fa fa-home"></i></a>
-        <div class="logo"><img src="${base}/css/img/logo-v2.png">管理</div>
+        <div class="logo" style="color:#cc1c1e;font-size:8px;margin-left:10px;"><img src="${base}/css/img/logo-v2.png">&nbsp;&nbsp;党群标准化管控</div>
         <div class="user"><a href="cog.html" class="gravatar"><img src="pics/guoshuang.png"></a>
           <div class="name">
             <div class="t">guoshuang<a href="${base}/login.html" target="top" class="quit">退出</a></div><a href="_home/msg.html" class="msg">你有3个消息</a>

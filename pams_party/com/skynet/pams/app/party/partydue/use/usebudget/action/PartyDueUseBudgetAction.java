@@ -1,11 +1,13 @@
 package com.skynet.pams.app.party.partydue.use.usebudget.action;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,11 +21,13 @@ import org.nutz.mvc.annotation.Param;
 
 import com.skynet.app.organ.service.OrganService;
 import com.skynet.app.organ.service.UserService;
+import com.skynet.app.workflow.pojo.BAct;
 import com.skynet.app.workflow.spec.DBFieldConstants;
 import com.skynet.app.workflow.spec.GlobalConstants;
 import com.skynet.app.workflow.ui.action.ActionHelper;
 import com.skynet.app.workflow.vo.VApply;
 import com.skynet.framework.action.BaseAction;
+import com.skynet.framework.common.generator.FormatKey;
 import com.skynet.framework.common.generator.UUIDGenerator;
 import com.skynet.framework.services.db.dybeans.DynamicObject;
 import com.skynet.pams.app.party.service.PartyDueUseBudgetDetailService;
@@ -158,7 +162,7 @@ public class PartyDueUseBudgetAction extends BaseAction {
 	}
 	
 	@At("/browsehandle")
-	@Ok("->:/page/party/partydue/useusebudget/browsehandle.ftl")
+	@Ok("->:/page/party/partydue/use/usebudget/browsehandle.ftl")
 	public Map browsehandle() {
 		return ro;
 	}
@@ -304,13 +308,88 @@ public class PartyDueUseBudgetAction extends BaseAction {
 	@Ok("redirect:locatedetail.action?id=${obj.id}")
 	public Map insertdetail(@Param("..") PartyDueUseBudgetDetail usebudgetdetail) throws Exception 
 	{
+		// 新增详细预算记录
+		// 每条详细记录产生一条计划
+		// 然后以这个计划按照流程分解
 		String id = UUIDGenerator.getInstance().getNextValue();
 		usebudgetdetail.setId(id);
+		HttpSession session = Mvcs.getHttpSession(true);
+		DynamicObject token = (DynamicObject)session.getAttribute(com.skynet.framework.spec.GlobalConstants.sys_login_token);
+		usebudgetdetail.setChargedeptid(token.getFormatAttr(com.skynet.framework.spec.GlobalConstants.sys_login_dept));
 		partydueusebudgetdetailService.sdao().insert(usebudgetdetail);
 		ro.put("id", id);
 		
+		
+		//第一步向往数据库里面插入
+		
+		// List<DynamicObject> usebudgetdetails = partydueusebudgetdetailService.sdao().findBy("t_app_pdusebudgetdetail", Cnd.where("usebudgetid", "=", usebudgetdetail.getUsebudgetid()));
+		
+		List<DynamicObject> plans = planService.sdao().findBy("t_app_plan", Cnd.where("cname", "=", "党费使用"));
+		DynamicObject plan = plans.get(0);
+		
+		Plan subplan = new Plan();
+		subplan.setId(UUID.randomUUID().toString());
+		subplan.setCname(usebudgetdetail.getCname());
+		subplan.setParentid(plan.getFormatAttr("id"));
+		subplan.setState("计划");
+		subplan.setPlanstartdate(usebudgetdetail.getStarttime());
+		subplan.setPlanenddate(usebudgetdetail.getEndtime());
+		subplan.setPhaseorstep(1);
+		subplan.setSequencekey(plan.getFormatAttr("sequencekey")+ FormatKey.format(1, 4));
+		
+		planService.sdao().insert(subplan);
+
+		decomposeplan("DFGL_DFSY_DFSY", subplan.getId());
+
 		return ro;
 		
+	}
+	
+	public void decomposeplan(String flowid, String planid) {
+
+		Plan plan = planService.dao().fetch(Plan.class, planid);
+		plan.setFlowdefid(flowid);
+		plan.setCtype("流程");
+		planService.sdao().update(plan);
+
+		List datas = planService
+				.getWorkFlowEngine()
+				.getActManager()
+				.getRactService()
+				.sdao()
+				.query(BAct.class,
+						Cnd.where("flowid", "=", flowid)
+								.andNot("ctype", "=", "BEGIN")
+								.andNot("ctype", "=", "END"));
+		List subplans = new ArrayList();
+
+		long s = 1000 * 60 * 60 * 24;
+		
+		for (int i = 0; i < datas.size(); i++) {
+			BAct bact = (BAct) datas.get(i);
+
+			Plan subplan = new Plan();
+			subplan.setId(UUID.randomUUID().toString());
+			subplan.setCname(bact.getCname());
+			subplan.setParentid(planid);
+			subplan.setPhaseorstep(1);
+			subplan.setSequencekey(plan.getSequencekey()
+					+ FormatKey.format(i, 4));
+			subplan.setFlowdefid(flowid);
+			subplan.setActdefid(bact.getId());
+			subplan.setState("计划");
+			subplan.setCtype("活动");
+
+			long time = plan.getPlanstartdate().getTime();
+			subplan.setPlanstartdate(new Timestamp(time + s * i * 2));
+			subplan.setPlanenddate(new Timestamp(time + s * (i + 1) * 2));
+			subplan.setPlanworkload(2);
+			subplan.setBaseplanworkload(2);
+			planService.dao().insert(subplan);
+
+			subplans.add(subplan);
+		}
+
 	}
 	
 	@At("/locatedetail")
@@ -327,7 +406,8 @@ public class PartyDueUseBudgetAction extends BaseAction {
 		DynamicObject usebudgetdetail = partydueusebudgetdetailService.locate(id);
 		
 		ro.put("usebudgetdetail", usebudgetdetail);
-		
+		ro.put("usebudgetdetailid", id);
+		ro.put("usebudgetid", usebudgetdetail.getAttr("usebudgetid"));
 		ro.put("isedit", true);
 		ro.put("isapply", false);
 		ro.put("iscallback", false);

@@ -6,9 +6,9 @@ import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
-//党费使用预算明细表
-@Table("T_APP_PDUSEBUDGETDETAIL")
-public class PartyDueUseBudgetDetail {
+//党费使用计划明细表
+@Table("T_APP_PDUSEDETAIL")
+public class PartyDueUseDetail {
 	@Name
 	private String id; // 标识
 

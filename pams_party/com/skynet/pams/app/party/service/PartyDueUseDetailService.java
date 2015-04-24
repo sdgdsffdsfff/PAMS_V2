@@ -26,24 +26,24 @@ import com.skynet.framework.services.db.SQLParser;
 import com.skynet.framework.services.db.dybeans.DynamicObject;
 import com.skynet.framework.services.function.StringToolKit;
 import com.skynet.pams.base.pojo.PartyDue;
-import com.skynet.pams.base.pojo.PartyDueUseSuggest;
+import com.skynet.pams.base.pojo.PartyDueUseBudgetDetail;
 import com.skynet.pams.base.pojo.Plan;
 
-@InjectName("partydueusesuggestService")
+@InjectName("partydueusedetailService")
 @IocBean(args = { "refer:dao" }) 
-public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueUseSuggest>
+public class PartyDueUseDetailService extends SkynetNameEntityService<PartyDueUseBudgetDetail>
 {
-	public PartyDueUseSuggestService()
+	public PartyDueUseDetailService()
 	{
 		super();
 	}
 	
-	public PartyDueUseSuggestService(Dao dao)
+	public PartyDueUseDetailService(Dao dao)
 	{
 		super(dao);
 	}	
 	
-	public PartyDueUseSuggestService(Dao dao, Class<PartyDueUseSuggest> entityType)
+	public PartyDueUseDetailService(Dao dao, Class<PartyDueUseBudgetDetail> entityType)
 	{
 		super(dao, entityType);
 	}
@@ -61,13 +61,12 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 	public String get_browseplan_sql(Map map) throws Exception
 	{
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid, bflow.cname flowcname, bflow.sno flowsno ").append("\n");
-		sql.append("   from t_app_plan plan, t_sys_wfbflow bflow ").append("\n");
-		sql.append("  where 1 = 1 ").append("\n");
-		sql.append("    and plan.flowdefid = bflow.id ").append("\n");
-		sql.append("    and bflow.sno = 'DFGL_DFSY_YJZQ' ").append("\n");
-		sql.append("    and plan.ctype = '流程' ").append("\n");
-		sql.append("    and plan.state = '计划' ").append("\n");
+		sql.append(" select plan.id, plan.cname, plan.planstartdate, plan.planenddate, plan.creater, bflow.id flowdefid from t_app_plan plan, t_sys_wfbflow bflow ");
+		sql.append("  where 1 = 1 ");
+		sql.append("    and plan.flowdefid = bflow.id ");
+		sql.append("    and bflow.classid = 'DFGL' ");
+		sql.append("    and plan.ctype = '流程' ");
+		sql.append("    and plan.state = '计划' ");
 		return sql.toString();
 	}
 		
@@ -80,7 +79,7 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 
 		sql.append(" select bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browsewait_field(map)).append("\n");
-		sql.append(" from t_app_pdusesuggest bv, " + uIService.get_browsewait_table(map)).append("\n");
+		sql.append(" from t_app_partydue bv, " + uIService.get_browsewait_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browsewait_where(map)).append("\n");
 		
@@ -107,7 +106,7 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 		
 		sql.append(" select distinct bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browsehandle_field(map)).append("\n");
-		sql.append(" from t_app_pdusesuggest bv, " + uIService.get_browsehandle_table(map)).append("\n");
+		sql.append(" from t_app_partydue bv, " + uIService.get_browsehandle_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browsehandle_where(map)).append("\n");
 		
@@ -139,7 +138,7 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 		
 		sql.append(" select distinct bv.id, bv.cname, bv.cno, ").append("\n");
 		sql.append(uIService.get_browseall_field(map)).append("\n");
-		sql.append(" from t_app_pdusesuggest bv, " + uIService.get_browseall_table(map)).append("\n");
+		sql.append(" from t_app_partydue bv, " + uIService.get_browseall_table(map)).append("\n");
 		sql.append(" where 1 = 1 ").append("\n");
 		sql.append(uIService.get_browseall_where(map)).append("\n");
 
@@ -159,29 +158,28 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 	}
 	
 	//
-	public String plancreate(Plan plan, PartyDueUseSuggest entity, DynamicObject swapFlow) throws Exception
+	public String plancreate(Plan plan, PartyDue partydue, DynamicObject swapFlow) throws Exception
 	{
 		Timestamp systime = new Timestamp(System.currentTimeMillis());
 
 		// 创建业务数据
 		String cno = gen_cno();
-		entity.setCno(cno);
-		dao().insert(entity);
-		String id = entity.getId();
+		partydue.setCno(cno);
+		dao().insert(partydue);
+		String id = partydue.getId();
 
 		// 创建流程数据
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		String workname = "[" + StringToolKit.formatText(entity.getCno()) + "]" + StringToolKit.formatText(entity.getCname());
+		String workname = "[" + StringToolKit.formatText(partydue.getCno()) + "]　" + StringToolKit.formatText(partydue.getCname());
 		
 		VCreate vo = new VCreate();
 		vo.flowdefid = swapFlow.getFormatAttr(GlobalConstants.swap_flowdefid);
 		vo.priority = "1";
-		vo.dataid = entity.getId();
+		vo.dataid = partydue.getId();
 		vo.tableid = swapFlow.getFormatAttr(GlobalConstants.swap_tableid);
 		vo.loginname = swapFlow.getFormatAttr(GlobalConstants.swap_coperatorloginname);
 		vo.username = swapFlow.getFormatAttr(GlobalConstants.swap_coperatorcname);
 		vo.workname = workname;
-		vo.cno = entity.getCno();
 		vo.planid = plan.getId();
 		
 		String runactkey = workFlowEngine.getFlowManager().create(vo);
@@ -192,17 +190,14 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 		Timestamp createtime = ract.getCreatetime();
 		
 		plan.setRunflowkey(runflowkey);
-		plan.setActualstartdate(createtime);	
+		plan.setActualstartdate(createtime);
 		plan.setState("执行");
-
 		sdao().update(plan);
 		
 		Plan subplan = sdao().fetch(Plan.class, Cnd.where("parentid","=",plan.getId()).and("flowdefid","=",flowdefid).and("actdefid","=",actdefid));
 		subplan.setRunflowkey(runflowkey);
 		subplan.setRunactkey(runactkey);
 		subplan.setActualstartdate(createtime);
-		subplan.setActualheader(vo.loginname);
-		subplan.setActualheadercname(vo.username);
 		sdao().update(subplan);
 
 		return runactkey;
@@ -459,7 +454,7 @@ public class PartyDueUseSuggestService extends SkynetNameEntityService<PartyDueU
 		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();
 		String sysdate = sf.format(date);
-		String csql = " select substr(max(cno),length(max(cno))-3, 4) as cno from t_app_pdusesuggest where to_char(createtime,'yyyy-mm-dd') = to_char(to_date('" + sysdate + "', 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')";
+		String csql = " select substr(max(cno),length(max(cno))-3, 4) as cno from t_app_partydue where to_char(createtime,'yyyy-mm-dd') = to_char(to_date('" + sysdate + "', 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')";
 		String express = "$yy$mm$dd####";
 
 		Map map = new HashMap();

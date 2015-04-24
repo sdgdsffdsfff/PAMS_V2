@@ -51,6 +51,8 @@
 			
 			<button id="bt_flowtrace" class="btn btn-primary">流程跟踪</button>
 			
+			<button id="bt_add" class="btn btn-primary" onclick="window.open('${base}/party/partydue/use/usesuggest/inputdetail.action?id=${obj.usesuggestid}')">新增</button>
+			
 		</div>
 	</div>
 	<br/>
@@ -80,96 +82,32 @@
       </div>
       </form>
       
-	  <div id="div_hzjy">
-      
-      <h5><a href="#1"><i class="fa fa-calendar"></i> 汇总意见</a></h5>
- 	  <table id="suggetTb" class="table personListTable hover">
-		<thead>
-		    <tr>
-		      <th class="check"></th>   
-		      <th>单位</th>
-		      <th>日期</th>
-		      <th>姓名</th>      
-		      <th>职务</th>
-		      <th>反馈意见</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		  <#list obj.usesuggestdetails as aobj>
-		  <tr>
-		      <td class="check"></td>   
-		      <td>${aobj.deptname}</td>
-		      <td><#if aobj.suggesttime??>${aobj.suggesttime?date}</#if></td>
-		      <td>${aobj.suggestercname}</td>      
-		      <td>${aobj.job}</td>
-		      <td>${aobj.suggestion}</td>
-		  </tr>    
-		  </#list>
-		  </tbody>
-	  </table>
-	  </div>
-	  
-      <div id="div_bbmyj">
-      <form id="detailform" method="post" action="" class="form-horizontal">
-      <input type="hidden" id="runactkey" name="runactkey" value="${obj.runactkey}">
-      <input type="hidden" id="detailid" name="id" value="${obj.usesuggestdetail.id}">
-      <input type="hidden" id="suggestid" name="suggestid" value="${obj.usesuggest.id}">
-      <input type="hidden" id="deptid" name="deptid" value="${obj.usesuggestdetail.deptid}">
-	  
-	  <h5><a href="#1"><i class="fa fa-calendar"></i> 本部门意见</a></h5>	  
-      <div class="form-group">
-        <label for="deptname" class="col-sm-2 control-label">单位：<sup class="fa fa-asterisk"></sup></label>
-        <div class="col-sm-4"> 
-          <input id="deptname" name="deptname" required="" value="${obj.usesuggestdetail.deptname}" class="form-control">
-        </div>
-        <label for="suggesttime" class="col-sm-2 control-label">日期：<sup class="fa fa-asterisk"></sup></label>
-        <div class="col-sm-4"> 
-          <input id="suggesttime" name="suggesttime" required="" value="<#if obj.usesuggestdetail.suggesttime??>${obj.usesuggestdetail.suggesttime}</#if>" class="datetimepicker">
-        </div>            
-      </div>
-      <div class="form-group">
-        <label for="suggestercname" class="col-sm-2 control-label">姓名：<sup class="fa fa-asterisk"></sup></label>
-        <div class="col-sm-4">
-          <input id="suggestercname" name="suggestercname" required="" value="${obj.usesuggestdetail.suggestercname}" class="form-control">
-        </div>
-		<label for="job" class="col-sm-2 control-label">职务：</label>
-        <div class="col-sm-4">
-          <input id="job" name="job" value="${obj.usesuggestdetail.job}" class="form-control">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="contact" class="col-sm-2 control-label">联系方式：</label>
-        <div class="col-sm-4">
-          <input id="contact" name="contact" value="${obj.usesuggestdetail.contact}" class="form-control">
-        </div>
-		<label for="email" class="col-sm-2 control-label">邮箱：</label>
-        <div class="col-sm-4">
-          <input id="email" name="email" value="${obj.usesuggestdetail.email}" class="form-control">
-        </div>
-      </div>
-      
-      <div class="form-group">
-          <label for="address" class="col-sm-2 control-label">地址</label>
-          <div class="col-sm-10"> 
-            <input name="address" id="address" value="${obj.usesuggestdetail.address}" class="form-control">
-          </div>
-      </div>
-      <div class="form-group">
-      	<label for="suggestion" class="col-sm-2 control-label">意见及建议</label>
-      	<div class="col-sm-10"> 
-	  		<textarea id="suggestion" name="suggestion" class="form-control">${obj.usesuggestdetail.suggestion}</textarea>
-		</div>
-	  </div>
-		<div class="form-group">
-		  <label for="oupload" class="col-sm-2 control-label">附件</label>
-		  <div class="col-sm-10">
-		<button id="uploadBtn" class="btn"><i class="fa fa-paperclip"></i> 选择文件</button>
-		<ul id="attachList" class="edit">
-		    </ul>
+	<div id="div_hzjy">
+	      
+	      <h5><a href="#1"><i class="fa fa-calendar"></i> 汇总意见</a></h5>
+	 	  <table id="suggetTb" class="table personListTable hover">
+			<thead>
+			    <tr>
+			      <th class="check"></th>   
+			      <th>单位</th>
+			      <th>姓名</th>  
+			      <th>反馈意见</th>
+			      <th>职务</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  <#list obj.usesuggestdetails as aobj>
+			  <tr>
+			      <td class="check"></td>   
+			      <td>${aobj.deptname}</td>
+			      <td>${aobj.suggestercname}</td> 
+			      <td>${aobj.suggestion}</td>			           
+			      <td>${aobj.job}</td>			      
+			  </tr>    
+			  </#list>
+			  </tbody>
+		  </table>
 		  </div>
-		</div>
-		
-		</div>
 		
       </div>
     </form>

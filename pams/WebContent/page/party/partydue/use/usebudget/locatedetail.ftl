@@ -28,7 +28,7 @@
 	<div class="">
 		<div class="opleft">
 						
-			<button id="bt_save" class="btn btn-primary">保存</button>
+			<button id="bt_save" class="btn btn-primary" onclick="save_detail()">保存</button>
 
 			
 			<#if obj.isbackward == true>
@@ -42,59 +42,60 @@
   <div class="container"> 
     <h4><i class="fa fa-group"></i> 党费使用预算表编缉</h4>
     <form id="mainform" method="post" action="" class="form-horizontal">
-    	<input id="usebudgetdetailid" name="usebudgetdetailid" value="${obj.usebudgetdetailid}" type="hidden" />
+    	<input id="id" name="id" value="${obj.usebudgetdetailid}" type="hidden" class="form-control" />
+    	<input id="usebudgetid" name="usebudgetid" value="${obj.usebudgetid}" type="hidden" class="form-control" />
 	    <div id="div_jbxx">
      		<div class="form-group">
 	        	<label for="cname" class="col-sm-2 control-label">项目名称：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-10"> 
-		          <input id="cname" name="cname" required="" value="${obj.usebudget.cname}" class="form-control">
+		          <input id="cname" name="cname" required="" value="${obj.usebudgetdetail.cname}" class="form-control">
 		        </div>           
 	      	</div>
 	 
 		      <div class="form-group">
 		        <label for="cyear" class="col-sm-2 control-label">项目开始时间：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4"> 
-		          <input id="cyear" name="cyear" required="" value="${obj.usebudget.cyear}" class="form-control">
+		          <input id="starttime" name="starttime" required="" value="${obj.usebudgetdetail.starttime}" class="form-control">
 		        </div> 	      
 		        <label for="creatercname" class="col-sm-2 control-label">项目结束时间：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4"> 
-		          <input id="creatercname" name="creatercname" required="" value="${obj.usebudget.creatercname}" class="form-control">
+		          <input id="endtime" name="endtime" required="" value="${obj.usebudgetdetail.endtime}" class="form-control">
 		        </div>
 		      </div>
 		      <div class="form-group">
 		        <label for="cyear" class="col-sm-2 control-label">主办部门：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4"> 
-		          <input id="cyear" name="cyear" required="" value="${obj.usebudget.cyear}" class="form-control">
+		          <input id="masterdeptname" name="masterdeptname" required="" value="${obj.usebudgetdetail.masterdeptname}" class="form-control">
 		        </div> 	      
 		        <label for="creatercname" class="col-sm-2 control-label">项目计划费用：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4"> 
-		          <input id="creatercname" name="creatercname" required="" value="${obj.usebudget.creatercname}" class="form-control">
+		          <input id="cost" name="cost" required="" value="${obj.usebudgetdetail.cost}" class="form-control">
 		        </div>
 		      </div>
 		      <div class="form-group">
 		        <label for="cyear" class="col-sm-2 control-label">主管部门：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4"> 
-		          <input id="cyear" name="cyear" required="" value="${obj.usebudget.cyear}" class="form-control">
+		          <input id="chargedeptname" name="chargedeptname" required="" value="${obj.usebudgetdetail.chargedeptname}" class="form-control">
 		        </div> 	      
 		        <label for="creatercname" class="col-sm-2 control-label">协办部门：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4"> 
-		          <input id="creatercname" name="creatercname" required="" value="${obj.usebudget.creatercname}" class="form-control">
+		          <input id="slavedeptname" name="slavedeptname" required="" value="${obj.usebudgetdetail.slavedeptname}" class="form-control">
 		        </div>
 		      </div>
 		      <div class="form-group">
 		        <label for="cyear" class="col-sm-2 control-label">项目负责人：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4"> 
-		          <input id="cyear" name="cyear" required="" value="${obj.usebudget.cyear}" class="form-control">
+		          <input id="chargername" name="chargername" required="" value="${obj.usebudgetdetail.chargername}" class="form-control">
 		        </div> 	      
 		        <label for="creatercname" class="col-sm-2 control-label">主管领导：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4"> 
-		          <input id="creatercname" name="creatercname" required="" value="${obj.usebudget.creatercname}" class="form-control">
+		          <input id="chargername" name="chargername" required="" value="${obj.usebudgetdetail.leadername}" class="form-control">
 		        </div>
 		      </div>
 		      <div class="form-group">
 		        <label for="cyear" class="col-sm-2 control-label">项目内容：<sup class="fa fa-asterisk"></sup></label>
 		        <div class="col-sm-4"> 
-		          <input id="cyear" name="cyear" required="" value="${obj.usebudget.cyear}" class="form-control">
+		          <input id="context" name="context" required="" value="${obj.usebudgetdetail.context}" class="form-control">
 		        </div> 	      
 		        
 		      </div>
@@ -139,10 +140,12 @@ function page_flowtrace()
 	window.open(url);
 }
 
-function page_save_detail()
+	
+
+function save_detail()
 {
-	deptbasedetailform.action = "${base}/party/partydue/use/usebudget/savedeptbasedetails.action";
-	deptbasedetailform.submit();
+	mainform.action = "${base}/party/partydue/use/usebudget/savedetail.action";
+	mainform.submit();
 }
 </script>
 

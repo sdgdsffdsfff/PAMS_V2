@@ -26,9 +26,9 @@
             <h4><a href="#1"><i class="fa fa-calendar"></i> 我的计划</a></h4>
             <ul> 
               <li><a href="#1">
-                  <div class="t">2015年党费使用工作计划</div><span class="num">0</span></a></li>
+                  <div class="t">2015年党费使用工作计划</div><span class="num">1</span></a></li>
               <li><a href="#1">
-                  <div class="t">2015年党费收缴工作计划</div><span class="num">2</span></a></li>
+                  <div class="t">2015年党费收缴工作计划</div><span class="num">1</span></a></li>
               <li><a href="#1">
                   <div class="t"></div>&nbsp;<span class="num"></span></a></li>
               <li><a href="#1">
@@ -82,6 +82,12 @@
                   <div class="t">待我处理</div><span class="num">12</span></a></li>
               <li><a href="#1">
                   <div class="t">我发起的</div><span class="num">12</span></a></li>
+              <li><a href="#1">
+                  <div class="t"></div>&nbsp;<span class="num"></span></a></li>
+              <li><a href="#1">
+                  <div class="t"></div>&nbsp;<span class="num"></span></a></li>
+              <li><a href="#1">
+                  <div class="t"></div>&nbsp;<span class="num"></span></a></li>                 
             </ul>
           </div>
         </div>

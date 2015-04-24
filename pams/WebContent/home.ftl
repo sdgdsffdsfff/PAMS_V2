@@ -26,15 +26,15 @@
             <h4><a href="#1"><i class="fa fa-calendar"></i> 我的计划</a></h4>
             <ul> 
               <li><a href="#1">
-                  <div class="t">立项</div><span class="num">0</span></a></li>
+                  <div class="t">2015年党费使用工作计划</div><span class="num">0</span></a></li>
               <li><a href="#1">
-                  <div class="t">跟踪</div><span class="num">2</span></a></li>
+                  <div class="t">2015年党费收缴工作计划</div><span class="num">2</span></a></li>
               <li><a href="#1">
-                  <div class="t">变更</div><span class="num">3</span></a></li>
+                  <div class="t"></div>&nbsp;<span class="num"></span></a></li>
               <li><a href="#1">
-                  <div class="t">管理结项	</div><span class="num">1</span></a></li>
+                  <div class="t"></div>&nbsp;<span class="num"></span></a></li>
               <li><a href="#1">
-                  <div class="t">财务结项	</div><span class="num">4 </span></a></li>
+                  <div class="t"></div>&nbsp;<span class="num"></span></a></li>
             </ul>
           </div>
         </div>
@@ -43,15 +43,15 @@
             <h4><a href="#1"><i class="fa fa-share"></i> 我的工作</a></h4>
             <ul>
               <li><a href="#1">
-                  <div class="t">新需求</div><span class="num">45</span></a></li>
+                  <div class="t">计划编制</div><span class="num">2</span></a></li>
               <li><a href="#1">
-                  <div class="t">变更</div><span class="num">12</span></a></li>
+                  <div class="t">党费收缴</div><span class="num">2</span></a></li>
               <li><a href="#1">
-                  <div class="t">风险</div><span class="num">11</span></a></li>
+                  <div class="t">党费使用</div><span class="num">3</span></a></li>
               <li><a href="#1">
-                  <div class="t">问题</div><span class="num">9</span></a></li>
+                  <div class="t">&nbsp;</div><span class="num"></span></a></li>
               <li><a href="#1">
-                  <div class="t">事故</div><span class="num">2</span></a></li>
+                  <div class="t">&nbsp;</div><span class="num"></span></a></li>
             </ul>
           </div>
         </div>
@@ -79,7 +79,7 @@
             <h4><a href="#1"><i class="fa fa-paper-plane-o"></i> 我的流程</a></h4>
             <ul>
               <li><a href="#1">
-                  <div class="t">待我处理</div><span class="num">45</span></a></li>
+                  <div class="t">待我处理</div><span class="num">12</span></a></li>
               <li><a href="#1">
                   <div class="t">我发起的</div><span class="num">12</span></a></li>
             </ul>

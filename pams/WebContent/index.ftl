@@ -23,7 +23,7 @@
         <div class="logo" style="color:#cc1c1e;font-size:8px;margin-left:10px;"><img src="${base}/css/img/logo-v2.png">&nbsp;&nbsp;党群标准化管控</div>
         <div class="user"><a href="cog.html" class="gravatar"><img src="pics/guoshuang.png"></a>
           <div class="name">
-            <div class="t">guoshuang<a href="${base}/login.html" target="top" class="quit">退出</a></div><a href="_home/msg.html" class="msg">你有3个消息</a>
+            <div class="t">${Session.sys_login_token.sys_login_username}<a href="${base}/login.html" target="top" class="quit">退出</a></div><a href="_home/msg.html" class="msg">你有3个消息</a>
           </div>
         </div>
         <div id="leftNavi">

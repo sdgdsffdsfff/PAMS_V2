@@ -45,14 +45,16 @@ body {
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 40px;
-	background: #28303b
+	height: 39px;
+	background: #28303b;
+	background: #a8030a url(img/dang.png) 0 0 no-repeat;
+	color: #fff
 }
 
 #gsLayout #gsMainpage #gsBody {
 	position: absolute;
 	z-index: 1;
-	top: 40px;
+	top: 39px;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -97,7 +99,7 @@ body {
 		content: '';
 		position: absolute;
 		z-index: 99999;
-		top: 40px;
+		top: 39px;
 		right: 0;
 		bottom: 0;
 		left: 0;
@@ -107,25 +109,25 @@ body {
 
 #gsheader {
 	color: #a2afc0;
-	line-height: 40px;
+	line-height: 39px;
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.5)
 }
 
 #gsheader #gsToggleSidebar {
 	font-size: 18px;
 	float: left;
-	width: 40px;
+	width: 39px;
 	text-align: center;
 	cursor: pointer
 }
 
 #gsheader #gsToggleSidebar:hover {
-	background: #2aabd2;
-	color: #fff
+	background: rgba(255, 255, 255, 0.3)
 }
 
 #gsheader #gsTopMenu {
-	float: right
+	float: right;
+	background: url(img/gezi.png) right 0 no-repeat
 }
 
 #gsheader #gsTopMenu .user {
@@ -151,7 +153,7 @@ body {
 	background: #28303b;
 	width: 100%;
 	border: solid 1px #ccc;
-	top: 40px;
+	top: 39px;
 	border-top: 0
 }
 
@@ -188,14 +190,14 @@ body {
 #gsheader #gsTopMenu li a {
 	float: left;
 	color: #a2afc0;
-	width: 40px;
+	width: 39px;
 	text-align: center;
-	font-size: 18px
+	font-size: 18px;
+	color: #fff
 }
 
 #gsheader #gsTopMenu li a:hover {
-	background: #2aabd2;
-	color: #fff
+	background: rgba(255, 255, 255, 0.3)
 }
 
 #gsheader #gsTopMenu li.msg {
@@ -245,7 +247,7 @@ body {
 }
 
 #gsSidebar .logo {
-	line-height: 60px;
+	line-height: 58.5px;
 	padding: 0 10px;
 	font-size: 1.2em;
 	color: #c0c9d5
@@ -309,7 +311,7 @@ body {
 
 #leftNavi {
 	position: absolute;
-	top: 70px;
+	top: 68.5px;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -414,6 +416,6 @@ body {
 		display: block
 	}
 	#leftNavi {
-		top: 150px
+		top: 148.5px
 	}
 }

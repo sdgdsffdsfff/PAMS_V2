@@ -115,6 +115,61 @@
 		  </table>
 		  </div>
 		  
+		     <h5><a href="#1"><i class="fa fa-calendar"></i> 党费收缴工作计划</a></h5>
+		 	  <table id="basedetailTb" class="table personListTable hover">
+				<thead>
+				    <tr>
+				      <th width="10" class="check"></th>   
+				      <th width="150">计划名称</th> 
+				      <th width="100">开始时间</th> 
+				      <th width="100">结束时间</th>
+				      <th width="200">主管部门</th>		      
+				      <th width="100">主管岗位</th>
+				      <th>备注</th>	
+				    </tr>
+				  </thead>
+				  <tbody>
+
+				  <tr>
+				      <td class="check"></td>   
+				      <td><input name="deptid" value="" class="form-control" type="hidden">5月份党费收缴计划</td>
+				      <td>2015-5-10</td>
+				      <td>2015-5-22</td>
+				      <td>部室党总支/第一党小组</td>
+				      <td>党建专责</td>	
+				      <td></td>	      
+				  </tr>
+				  <tr>
+			      <td class="check"></td>   
+			      <td><input name="deptid" value="" class="form-control" type="hidden">5月份党费收缴计划</td>
+			      <td>2015-5-10</td>
+			      <td>2015-5-22</td>
+			      <td>部室党总支/第二党小组</td>
+			      <td>党建专责</td>	
+			      <td></td>	      
+			      </tr>
+				  <tr>
+			      <td class="check"></td>   
+			      <td><input name="deptid" value="" class="form-control" type="hidden">5月份党费收缴计划</td>
+			      <td>2015-5-10</td>
+			      <td>2015-5-22</td>
+			      <td>信息化党总支/第一党小组</td>
+			      <td>党建专责</td>	
+			      <td></td>	      
+			      </tr>		  
+				  <tr>
+			      <td class="check"></td>   
+			      <td><input name="deptid" value="" class="form-control" type="hidden">5月份党费收缴计划</td>
+			      <td>2015-5-10</td>
+			      <td>2015-5-22</td>
+			      <td>信息化党总支/第二党小组</td>
+			      <td>党建专责</td>	
+			      <td></td>	      
+			      </tr>		  
+				  </tbody>
+			  </table>
+			  </div>	
+		  
 
 	    </form>
 	  </div>

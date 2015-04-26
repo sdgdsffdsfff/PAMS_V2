@@ -139,7 +139,11 @@ public class LoginAction extends BaseAction{
 		organService.sdao().execute(Sqls.create("delete from t_app_pdcolldetail"));	
 		organService.sdao().execute(Sqls.create("delete from t_app_pdusesuggest"));	
 		organService.sdao().execute(Sqls.create("delete from t_app_pdusesuggestdetail"));	
-		
+		organService.sdao().execute(Sqls.create("delete from t_app_pdusebudget"));	
+		organService.sdao().execute(Sqls.create("delete from t_app_pdusebudgetdetail"));
+		organService.sdao().execute(Sqls.create("delete from t_app_pdusebudget"));	
+		organService.sdao().execute(Sqls.create("delete from t_app_pduse"));
+		organService.sdao().execute(Sqls.create("delete from t_app_pdusedetail"));
 		
 		return ro;
 	}
